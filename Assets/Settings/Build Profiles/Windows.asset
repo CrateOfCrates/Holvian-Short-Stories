@@ -20,8 +20,17 @@ MonoBehaviour:
     rid: 1173830041258688514
   m_ActivePlatformGuid: 
   m_AdditionalPlatformBuildSettings: []
-  m_OverrideGlobalSceneList: 0
-  m_Scenes: []
+  m_OverrideGlobalSceneList: 1
+  m_Scenes:
+  - m_enabled: 1
+    m_path: Assets/Scenes/CombatTestScene.unity
+    m_guid: 0eae808d2dd2fa141bddf327e6ba8d83
+  - m_enabled: 1
+    m_path: Assets/Scenes/SampleScene.unity
+    m_guid: 8c9cfa26abfee488c85f1582747f6a02
+  - m_enabled: 1
+    m_path: Assets/Scenes/WorldTestScene.unity
+    m_guid: 54e478752fdd0e7429a488d2c19e1024
   m_HasScriptingDefines: 0
   m_ScriptingDefines: []
   m_PlayerSettingsYaml:

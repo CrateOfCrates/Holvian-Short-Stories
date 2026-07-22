@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: c200c0a8cf7c7c5469ec3d47f867f928
+guid: 8e09937c047cb7b48a3c2f6d88dcfca3
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 2151505065861202448
-    second: combatbackgroundtemplate_0
+      213: 2130677524544181429
+    second: delaytoken_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -38,7 +38,7 @@ TextureImporter:
   textureSettings:
     serializedVersion: 2
     filterMode: 0
-    aniso: 1
+    aniso: 16
     mipBias: 0
     wrapU: 1
     wrapV: 1
@@ -100,13 +100,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: combatbackgroundtemplate_0
+      name: delaytoken_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 768
-        height: 576
+        width: 8
+        height: 8
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -115,8 +115,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 0124c1f457eabdd10800000000000000
-      internalID: 2151505065861202448
+      spriteID: 5b45d557befa19d10800000000000000
+      internalID: 2130677524544181429
       vertices: []
       indices: 
       edges: []
@@ -135,7 +135,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      combatbackgroundtemplate_0: 2151505065861202448
+      delaytoken_0: 2130677524544181429
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

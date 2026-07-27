@@ -6,30 +6,33 @@ using TMPro;
 public class BattleButtonUI : MonoBehaviour
 {
 
-    public TMP_Text nameText;
-    public List<Image> images;
+    [SerializeField] private TMP_Text nameText;
+    [SerializeField] private List<Image> images;
 
-    public MoveObject TEMPmove;
+    //TEMP
+    [SerializeField] private MoveObject TEMPmove;
 
-    private void updateTokenImages(List<TokenObject> tokenList)
+
+
+    private void UpdateTokenImages(List<TokenObject> tokenList)
     {
         for(int i = 0; i < tokenList.Count; i++)
         {
             TokenObject activeToken = tokenList[i];
             Image activeImage = images[i];
 
-            activeImage.sprite = activeToken.display;
+            activeImage.sprite = activeToken.Display;
         }
     }
 
-    public void setupDisplay(MoveObject move)
+    public void SetupDisplay(MoveObject move)
     {
-        nameText.text = move.moveName;
-        updateTokenImages(move.tokens);
+        nameText.text = move.MoveName;
+        UpdateTokenImages(move.Tokens);
     }
 
     void Start()
     {
-        setupDisplay(TEMPmove);
+        SetupDisplay(TEMPmove);
     }
 }

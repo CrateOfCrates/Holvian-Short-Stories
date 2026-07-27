@@ -10,9 +10,26 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 789ec2be49656a440b679c8bc2ec357c, type: 3}
-  m_Name: Single Hit
+  m_Name: move
   m_EditorClassIdentifier: Assembly-CSharp::MoveObject
-  moveName: Single Hit
+  moveName: 
   tokens:
-  - {fileID: 11400000, guid: f21dc8178f194fb409f2c6d98f7f3d80, type: 2}
-  - {fileID: 11400000, guid: f21dc8178f194fb409f2c6d98f7f3d80, type: 2}
+  - rid: 1173830448966795520
+  - rid: -2
+  - rid: -2
+  - rid: -2
+  - rid: -2
+  - rid: -2
+  - rid: -2
+  - rid: -2
+  references:
+    version: 2
+    RefIds:
+    - rid: -2
+      type: {class: , ns: , asm: }
+    - rid: 1173830448966795520
+      type: {class: SingleAttackObject, ns: , asm: Assembly-CSharp}
+      data:
+        display: {fileID: 0}
+        moveName: 
+        test: 0

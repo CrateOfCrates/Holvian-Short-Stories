@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1fe489a0c59fa3348ba149cde5d8e2a8, type: 3}
+  m_Name: Holi Character
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerObject
+  entityName: Holi
+  maxhp: 125
+  maxmp: 100
+  hp: 10
+  mp: 75
+  expressions:
+  - expressionKey: neutral
+    portraitSprite: {fileID: -1189447902323030418, guid: 077c6ca6b69ae9543a5ec6b4a77396e5, type: 3}
+  characterBackground: {fileID: -3619714293774219514, guid: 938395a75abcfdd4ab3f63a78c03ea56, type: 3}

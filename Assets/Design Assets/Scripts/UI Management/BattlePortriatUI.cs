@@ -4,28 +4,26 @@ using TMPro;
 
 public class BattlePortriatUI : MonoBehaviour
 {
-    public TMP_Text nameText;
-    public TMP_Text healthText;
-    public TMP_Text magicText;
+    [SerializeField] private TMP_Text healthText;
+    [SerializeField] private TMP_Text magicText;
+    [SerializeField] private Slider healthBar;
+    [SerializeField] private Slider magicBar;
+    [SerializeField] private Image characterBackground;
+    [SerializeField] private Image characterMain;
 
-    public Slider healthBar;
-    public Slider magicBar;
+    //temp
+    [SerializeField] private PlayerObject TEMPplayer;
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    public void SetupDisplay(PlayerObject playerObject)
     {
-        setupDisplay("jim", 35, 150, 25, 60);
+        //setupDisplay
+        characterMain.sprite = playerObject.GetSprite("neutral");
+        characterBackground.sprite = playerObject.CharacterBackground;
+        SetupSliders(playerObject.Hp, playerObject.MaxHp, playerObject.Mp, playerObject.MaxMp);
     }
 
-    // Update is called once per frame
-    void Update()
+    private void SetupSliders(int hp, int maxhp, int mp, int maxmp)
     {
-        
-    }
-
-    public void setupDisplay(string name, int hp, int maxhp, int mp, int maxmp)
-    {
-        nameText.text = name;
         healthText.text = hp.ToString() + "/" + maxhp.ToString();
         magicText.text = mp.ToString() + "/" + maxmp.ToString();
 
@@ -34,4 +32,11 @@ public class BattlePortriatUI : MonoBehaviour
         magicBar.maxValue = maxmp;
         magicBar.value = mp;
     }
+
+
+    void Start()
+    {
+        SetupDisplay(TEMPplayer);
+    }
+    
 }

@@ -8,11 +8,9 @@ public class BattleButtonUI : MonoBehaviour
 
     [SerializeField] private TMP_Text nameText;
     [SerializeField] private List<Image> images;
+    [SerializeField] private Image selectionIndicate;
 
-    //TEMP
-    [SerializeField] private MoveObject TEMPmove;
-
-
+    [field: SerializeField] private List<KeySprite> decisionSprites;
 
     private void UpdateTokenImages(List<TokenObject> tokenList)
     {
@@ -25,14 +23,35 @@ public class BattleButtonUI : MonoBehaviour
         }
     }
 
-    public void SetupDisplay(MoveObject move)
+    public void ChangeStatus(string state)
     {
-        nameText.text = move.MoveName;
-        UpdateTokenImages(move.Tokens);
+        selectionIndicate.sprite = GetSprite(state);
     }
 
-    void Start()
+    public void SetupDisplay(MoveData move)
     {
-        SetupDisplay(TEMPmove);
+        Display(true);
+        nameText.text = move.MoveName;
+        UpdateTokenImages(move.ActiveTokens);
     }
+
+    public void Display(bool status)
+    {
+        gameObject.SetActive(status);
+    }
+
+    private Sprite GetSprite(string name)
+    {
+        foreach(KeySprite dd in decisionSprites)
+        {
+            if(name == dd.key)
+            {
+                return dd.sprite;
+            }
+        }
+        return null;
+    }
+
+    
+
 }

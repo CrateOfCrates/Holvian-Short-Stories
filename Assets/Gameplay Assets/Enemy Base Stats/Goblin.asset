@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a228d130f48535247b6a6746ed6e22db, type: 3}
+  m_Name: Goblin
+  m_EditorClassIdentifier: Assembly-CSharp::EnemyObject
+  entityName: goblin
+  baseMaxhp: 100
+  baseMaxmp: 100
+  startingMoves:
+  - {fileID: 11400000, guid: b7b1ed72b27d6eb4b98567afc2b1b286, type: 2}
+  expressions:
+  - expressionKey: neutral
+    portraitSprite: {fileID: 7881166437498641139, guid: a3b2093b7a2ee3e45bbbc7e159520a38, type: 3}

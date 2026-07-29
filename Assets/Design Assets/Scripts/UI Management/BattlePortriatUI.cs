@@ -1,6 +1,9 @@
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using System;
+using System.Collections.Generic;
+
 
 public class BattlePortriatUI : MonoBehaviour
 {
@@ -10,16 +13,21 @@ public class BattlePortriatUI : MonoBehaviour
     [SerializeField] private Slider magicBar;
     [SerializeField] private Image characterBackground;
     [SerializeField] private Image characterMain;
+    [SerializeField] private Image selectionIndicate;
 
-    //temp
-    [SerializeField] private PlayerObject TEMPplayer;
+    [field: SerializeField] private List<KeySprite> decisionSprites;
 
-    public void SetupDisplay(PlayerObject playerObject)
+    public void SetupDisplay(PlayerData playerData)
     {
         //setupDisplay
-        characterMain.sprite = playerObject.GetSprite("neutral");
-        characterBackground.sprite = playerObject.CharacterBackground;
-        SetupSliders(playerObject.Hp, playerObject.MaxHp, playerObject.Mp, playerObject.MaxMp);
+        characterMain.sprite = playerData.BaseInfo.GetSprite("neutral");
+        characterBackground.sprite = playerData.BaseInfo.CharacterBackground;
+        SetupSliders(playerData.Hp, playerData.MaxHp, playerData.Mp, playerData.MaxMp);
+    }
+
+    public void ChangeStatus(string state)
+    {
+        selectionIndicate.sprite = GetSprite(state);
     }
 
     private void SetupSliders(int hp, int maxhp, int mp, int maxmp)
@@ -33,10 +41,16 @@ public class BattlePortriatUI : MonoBehaviour
         magicBar.value = mp;
     }
 
-
-    void Start()
+    private Sprite GetSprite(string name)
     {
-        SetupDisplay(TEMPplayer);
+        foreach(KeySprite dd in decisionSprites)
+        {
+            if(name == dd.key)
+            {
+                return dd.sprite;
+            }
+        }
+        return null;
     }
-    
+
 }

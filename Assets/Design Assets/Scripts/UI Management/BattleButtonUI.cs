@@ -6,30 +6,52 @@ using TMPro;
 public class BattleButtonUI : MonoBehaviour
 {
 
-    public TMP_Text nameText;
-    public List<Image> images;
+    [SerializeField] private TMP_Text nameText;
+    [SerializeField] private List<Image> images;
+    [SerializeField] private Image selectionIndicate;
 
-    public MoveObject TEMPmove;
+    [field: SerializeField] private List<KeySprite> decisionSprites;
 
-    private void updateTokenImages(List<TokenObject> tokenList)
+    private void UpdateTokenImages(List<TokenObject> tokenList)
     {
         for(int i = 0; i < tokenList.Count; i++)
         {
             TokenObject activeToken = tokenList[i];
             Image activeImage = images[i];
 
-            activeImage.sprite = activeToken.display;
+            activeImage.sprite = activeToken.Display;
         }
     }
 
-    public void setupDisplay(MoveObject move)
+    public void ChangeStatus(string state)
     {
-        nameText.text = move.moveName;
-        updateTokenImages(move.tokens);
+        selectionIndicate.sprite = GetSprite(state);
     }
 
-    void Start()
+    public void SetupDisplay(MoveData move)
     {
-        setupDisplay(TEMPmove);
+        Display(true);
+        nameText.text = move.MoveName;
+        UpdateTokenImages(move.ActiveTokens);
     }
+
+    public void Display(bool status)
+    {
+        gameObject.SetActive(status);
+    }
+
+    private Sprite GetSprite(string name)
+    {
+        foreach(KeySprite dd in decisionSprites)
+        {
+            if(name == dd.key)
+            {
+                return dd.sprite;
+            }
+        }
+        return null;
+    }
+
+    
+
 }

@@ -510,6 +510,64 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1064547089
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1064547091}
+  - component: {fileID: 1064547090}
+  m_Layer: 0
+  m_Name: Player Data Manager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1064547090
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1064547089}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d16484b68013a80488765ec02407f7b9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerDataManager
+  allPlayerData:
+  - hp: 0
+    mp: 0
+    maxHp: 0
+    maxMp: 0
+    activeMoves: []
+    baseInfo: {fileID: 11400000, guid: e352444f2010c414381e3659fac92829, type: 2}
+  - hp: 0
+    mp: 0
+    maxHp: 0
+    maxMp: 0
+    activeMoves: []
+    baseInfo: {fileID: 11400000, guid: 534151a16f7acaf4780a22cf9cbaa820, type: 2}
+  encounter: {fileID: 0}
+--- !u!4 &1064547091
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1064547089}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1496300124
 GameObject:
   m_ObjectHideFlags: 0
@@ -539,6 +597,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f03f8c875d8a42340b10d63cf091fef1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::loadTest
+  encounterObject: {fileID: 11400000, guid: 8744c7ee5d45f354b9b9e4d3f92059b1, type: 2}
 --- !u!4 &1496300126
 Transform:
   m_ObjectHideFlags: 0
@@ -562,3 +621,4 @@ SceneRoots:
   - {fileID: 619394802}
   - {fileID: 444724126}
   - {fileID: 1496300126}
+  - {fileID: 1064547091}

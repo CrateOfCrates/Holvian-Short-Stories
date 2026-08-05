@@ -13,9 +13,11 @@ MonoBehaviour:
   m_Name: Holi Character
   m_EditorClassIdentifier: Assembly-CSharp::PlayerObject
   entityName: Holi
-  baseMaxhp: 100
+  baseMaxhp: 125
   baseMaxmp: 150
-  startingMoves: []
+  baseSpeed: 15
+  startingMoves:
+  - {fileID: 11400000, guid: 1766e6776dc5db34aa735c864da60c23, type: 2}
   expressions:
   - key: neutral
     sprite: {fileID: -1189447902323030418, guid: 077c6ca6b69ae9543a5ec6b4a77396e5, type: 3}

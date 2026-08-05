@@ -1,0 +1,32 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 789ec2be49656a440b679c8bc2ec357c, type: 3}
+  m_Name: Cleave
+  m_EditorClassIdentifier: Assembly-CSharp::MoveObject
+  moveName: Cleave
+  needAim: 1
+  baseTokens:
+  - rid: 1173830499457302601
+  - rid: 1173830499457302603
+  mpCost: 5
+  references:
+    version: 2
+    RefIds:
+    - rid: 1173830499457302601
+      type: {class: SingleAttackToken, ns: , asm: Assembly-CSharp}
+      data:
+        display: {fileID: 658460085, guid: 438e48f8e4c7ece40bbe7b8bdff291e5, type: 3}
+        attackPower: 10
+    - rid: 1173830499457302603
+      type: {class: DelayToken, ns: , asm: Assembly-CSharp}
+      data:
+        display: {fileID: -7548477512082302273, guid: 438e48f8e4c7ece40bbe7b8bdff291e5, type: 3}

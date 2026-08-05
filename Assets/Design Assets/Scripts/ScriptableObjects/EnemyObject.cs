@@ -6,5 +6,7 @@ using UnityEngine.UI;
 [CreateAssetMenu(menuName = "Enemy")]
 public class EnemyObject : EntityObject
 {
-    
+    [SerializeField] private int actionCount;
+
+    public int ActionCount => actionCount;
 }

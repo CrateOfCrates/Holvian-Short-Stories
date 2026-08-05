@@ -13,11 +13,13 @@ MonoBehaviour:
   m_Name: Deus Character
   m_EditorClassIdentifier: Assembly-CSharp::PlayerObject
   entityName: Deus
-  baseMaxhp: 250
-  baseMaxmp: 100
+  baseMaxhp: 150
+  baseMaxmp: 150
+  baseSpeed: 10
   startingMoves:
-  - {fileID: 11400000, guid: 0c5e0a4f06d91424186b6eb651c9d6d3, type: 2}
-  - {fileID: 11400000, guid: 0c5e0a4f06d91424186b6eb651c9d6d3, type: 2}
+  - {fileID: 11400000, guid: 8243f57fd65660f4c8bd835b9216d6d4, type: 2}
+  - {fileID: 11400000, guid: 77fc116d7f463e849885147f7e341288, type: 2}
+  - {fileID: 11400000, guid: c7e064c1ac4fc0648a2c687ea1512d5d, type: 2}
   expressions:
   - key: neutral
     sprite: {fileID: 3942266709313113077, guid: f06c4ca56a5df064f8ee5f94a12afd16, type: 3}

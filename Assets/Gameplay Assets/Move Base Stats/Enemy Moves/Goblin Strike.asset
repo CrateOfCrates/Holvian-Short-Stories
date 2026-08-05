@@ -13,8 +13,10 @@ MonoBehaviour:
   m_Name: Goblin Strike
   m_EditorClassIdentifier: Assembly-CSharp::MoveObject
   moveName: Goblin Strike
+  needAim: 1
   baseTokens:
   - rid: 1173830466325971017
+  mpCost: 0
   references:
     version: 2
     RefIds:

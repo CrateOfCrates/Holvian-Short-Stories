@@ -10,22 +10,24 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 789ec2be49656a440b679c8bc2ec357c, type: 3}
-  m_Name: Deflect
+  m_Name: Cutlass Sweep
   m_EditorClassIdentifier: Assembly-CSharp::MoveObject
-  moveName: Deflect
+  moveName: Cutlass Sweep
+  needAim: 1
   baseTokens:
-  - rid: 1173830466325971018
-  - rid: 1173830466325971019
+  - rid: 1671034588617244748
+  - rid: 1671034588617244749
+  mpCost: 5
   references:
     version: 2
     RefIds:
-    - rid: 1173830466325971018
+    - rid: 1671034588617244748
       type: {class: EvadeToken, ns: , asm: Assembly-CSharp}
       data:
         display: {fileID: 300048998, guid: 438e48f8e4c7ece40bbe7b8bdff291e5, type: 3}
         evadePower: 10
-    - rid: 1173830466325971019
-      type: {class: EvadeToken, ns: , asm: Assembly-CSharp}
+    - rid: 1671034588617244749
+      type: {class: SingleAttackToken, ns: , asm: Assembly-CSharp}
       data:
-        display: {fileID: 300048998, guid: 438e48f8e4c7ece40bbe7b8bdff291e5, type: 3}
-        evadePower: 8
+        display: {fileID: 658460085, guid: 438e48f8e4c7ece40bbe7b8bdff291e5, type: 3}
+        attackPower: 7

@@ -1,0 +1,43 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 789ec2be49656a440b679c8bc2ec357c, type: 3}
+  m_Name: Horiziontal Line
+  m_EditorClassIdentifier: Assembly-CSharp::MoveObject
+  moveName: Horizontal Line
+  needAim: 0
+  baseTokens:
+  - rid: 1671034588617244745
+  - rid: 1671034545140924490
+  - rid: 1671034545140924491
+  - rid: 1671034588617244747
+  mpCost: 15
+  references:
+    version: 2
+    RefIds:
+    - rid: 1671034545140924490
+      type: {class: SingleAttackToken, ns: , asm: Assembly-CSharp}
+      data:
+        display: {fileID: 658460085, guid: 438e48f8e4c7ece40bbe7b8bdff291e5, type: 3}
+        attackPower: 5
+    - rid: 1671034545140924491
+      type: {class: DelayToken, ns: , asm: Assembly-CSharp}
+      data:
+        display: {fileID: -7548477512082302273, guid: 438e48f8e4c7ece40bbe7b8bdff291e5, type: 3}
+    - rid: 1671034588617244745
+      type: {class: DelayToken, ns: , asm: Assembly-CSharp}
+      data:
+        display: {fileID: -7548477512082302273, guid: 438e48f8e4c7ece40bbe7b8bdff291e5, type: 3}
+    - rid: 1671034588617244747
+      type: {class: SingleAttackToken, ns: , asm: Assembly-CSharp}
+      data:
+        display: {fileID: 658460085, guid: 438e48f8e4c7ece40bbe7b8bdff291e5, type: 3}
+        attackPower: 25

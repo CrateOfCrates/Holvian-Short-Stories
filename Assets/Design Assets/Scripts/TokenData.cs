@@ -13,6 +13,7 @@ public abstract class TokenObject
 [Serializable]
 public class SingleAttackToken : TokenObject
 {
+    //Attack for damage.
     [SerializeField] private int attackPower;
     public int AttackPower => attackPower;
 }
@@ -20,6 +21,7 @@ public class SingleAttackToken : TokenObject
 [Serializable]
 public class SingleBlockToken : TokenObject
 {
+    //Apply block to self.
     [SerializeField] private int blockPower;
     public int BlockPower => blockPower;
 }
@@ -33,6 +35,7 @@ public class DelayToken : TokenObject
 [Serializable]
 public class EvadeToken : TokenObject
 {
+    //Apply dodge to self. 
     [SerializeField] private int evadePower;
     public int EvadePower => evadePower;
     

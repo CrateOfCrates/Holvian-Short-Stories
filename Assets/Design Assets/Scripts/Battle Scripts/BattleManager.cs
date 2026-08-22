@@ -16,9 +16,6 @@ public class BattleManager : MonoBehaviour
     [SerializeField] private List<PlayerData> allPlayerData;
     [SerializeField] private List<EnemyData> allEnemyData;
 
-    //Select moves based on move index in the list
-    [SerializeField] private List<Targeting> selectedMovesByPlayers;
-    [SerializeField] private List<Targeting> selectedMovesByEmemies;
     //Currently selected player
     [SerializeField] private int selectedPlayer;
     //Determines how much down moves is scrolled
@@ -30,25 +27,10 @@ public class BattleManager : MonoBehaviour
 
         //Clear Lists
         allEnemyData.Clear();
-        selectedMovesByPlayers.Clear();
-        selectedMovesByEmemies.Clear();
 
         //Get Player Data
         allPlayerData = DataManager.Instance.AllPlayerData;
 
-        //Load up list
-        for(int i = 0; i < allPlayerData.Count; i++)
-        {
-            //if exists
-            if (allPlayerData[i].Exists)
-            {
-                Targeting t = new Targeting(-1, i, WhichTeam.player, -1, WhichTeam.undec);
-                selectedMovesByPlayers.Add(t);
-            } else
-            {
-                selectedMovesByPlayers.Add(new());
-            }
-        }
         selectedPlayer = -1;
         scrollMoves = 0;
 
@@ -67,14 +49,6 @@ public class BattleManager : MonoBehaviour
 
             //Load Enemy General Sprite
             allEnemyData[i].SingleEnemyManager.SetupLoad(allEnemyData[i].BaseInfo.GetSprite("neutral"), this, i);
-
-            //Set up enemy move loading
-            for(int j = 0; j < allEnemyData[i].BaseInfo.ActionCount; j++)
-            {
-                Targeting t = new Targeting(-1, i, WhichTeam.enemy, -1, WhichTeam.undec);
-                selectedMovesByEmemies.Add(t);
-                
-            }
         }
         //UI
         battleUniversalUI.InitializeCombatUI(allPlayerData, allEnemyData);
@@ -122,21 +96,19 @@ public class BattleManager : MonoBehaviour
             return;
         }
 
-        //Determine if changing to aim mode is necessary
+        //A move can't be selected if the move is currently in execution.
 
         int selectedMove = scrollMoves*4 + index;
         Debug.Log("SelectMove in BattleManager: " + selectedMove);
-        
-        selectedMovesByPlayers[selectedPlayer].SetUser(selectedMove, selectedPlayer, WhichTeam.player);
-         //Means if targeting is not necessary, make targeting -2.
-        selectedMovesByPlayers[selectedPlayer].SetTarget(-2);
 
-        if(allPlayerData[selectedPlayer].ActiveMoves[selectedMove].BaseInfo.NeedAim)
+        //Set the target and determines if aim is needed.
+        if (allPlayerData[selectedPlayer].ActiveMoves[selectedMove].BaseInfo.NeedAim)
         {
-            //Means is necessary. So make -1
-            selectedMovesByPlayers[selectedPlayer].SetTarget(-1);
+            allPlayerData[selectedPlayer].CurrentTarget.SetTarget(selectedMove, true);
             battleState = BattleState.selectMove;
-            
+        } else
+        {
+            allPlayerData[selectedPlayer].CurrentTarget.SetTarget(selectedMove, true);
         }
 
         UpdateUI();
@@ -152,7 +124,7 @@ public class BattleManager : MonoBehaviour
         Debug.Log("Target is the enemy!");
 
         //mark enemy as target
-        selectedMovesByPlayers[selectedPlayer].SetTarget(index, WhichTeam.enemy);
+        allPlayerData[selectedPlayer].CurrentTarget.SetTarget(index, WhichTeam.enemy);
         //move selected
         battleState = BattleState.playerSelect;
         UpdateUI();
@@ -180,7 +152,7 @@ public class BattleManager : MonoBehaviour
         } else
         {
             //Target Player
-            selectedMovesByPlayers[selectedPlayer].SetTarget(index, WhichTeam.player);
+            allPlayerData[selectedPlayer].CurrentTarget.SetTarget(index, WhichTeam.player);
             battleState = BattleState.playerSelect;
         }
 
@@ -232,9 +204,9 @@ public class BattleManager : MonoBehaviour
     private void CustomizePlayerPortriatBorders()
     {
         //loop through
-        for(int i = 0; i < selectedMovesByPlayers.Count; i++)
+        for(int i = 0; i < allPlayerData.Count; i++)
         {
-            if(selectedMovesByPlayers[i].MoveUsed != -1)
+            if(allPlayerData[i].CurrentTarget.MoveUsed != -1)
             {
                 //move has been selected by this player
                 if(selectedPlayer == i)
@@ -262,7 +234,7 @@ public class BattleManager : MonoBehaviour
     {
         CustomizePlayerPortriatBorders();
         battleUniversalUI.StatusButton(scrollMoves, allPlayerData[selectedPlayer].ActiveMoves.Count);
-        battleUniversalUI.LoadMoveBorders(scrollMoves, selectedMovesByPlayers[selectedPlayer]);
+        battleUniversalUI.LoadMoveBorders(scrollMoves, allPlayerData[selectedPlayer].CurrentTarget);
         battleUniversalUI.loadMoves(scrollMoves, allPlayerData[selectedPlayer]);
     }
 
@@ -270,7 +242,7 @@ public class BattleManager : MonoBehaviour
 
     private void EnemyTurn()
     {
-        Debug.Log("enemy turn");
+        Debug.Log("THE ENEMY TURN");
         //Fill with random targeting
         BattleStateTurns(BattleState.execute);
 
@@ -281,32 +253,32 @@ public class BattleManager : MonoBehaviour
     private void ExecuteTurn()
     {
         //Determine Turn Order
-        List<Targeting> turnOrder = GetTurnOrder();
+        List<EntityData> turnOrder = GetTurnOrder();
+
+        
+
     }
 
-    private List<Targeting> GetTurnOrder()
+    private List<EntityData> GetTurnOrder()
     {
-        List<Targeting> trimmedPlayers = new List<Targeting>(selectedMovesByPlayers);
+        List<PlayerData> trimmedPlayers = new List<PlayerData>(allPlayerData);
 
         for(int i = 0; i < trimmedPlayers.Count; i++)
         {
-            if(trimmedPlayers[i].WhichUser == -1)
+            if(!trimmedPlayers[i].Exists)
             {
                 trimmedPlayers.RemoveAt(i);
                 i--;
             }
         }
+        List<EntityData> combinedTargeting = trimmedPlayers.Concat<EntityData>(allEnemyData).ToList();
 
-        var combinedTargeting = trimmedPlayers
-            .Concat(selectedMovesByEmemies)
-            .ToList();
+        combinedTargeting = combinedTargeting.OrderByDescending(x => x.Speed).ToList();
 
-        combinedTargeting = combinedTargeting.OrderByDescending(x => (x.UserTeam == WhichTeam.player) ? allPlayerData[x.WhichUser].Speed : allEnemyData[x.WhichUser].Speed).ToList();
-
-        foreach(Targeting t in combinedTargeting)
-        {
-            Debug.Log(t.WhichUser + " " + t.UserTeam);
-        }
+        // foreach(EntityData t in combinedTargeting)
+        // {
+        //     Debug.Log(t.GetName());
+        // }
 
         return combinedTargeting;
     }

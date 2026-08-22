@@ -17,14 +17,11 @@ public struct KeySprite
 [Serializable]
 public class Targeting 
 {
-    [SerializeField] private int whichUser;
-    [SerializeField] private WhichTeam userTeam;
     [SerializeField] private int whichTarget;
     [SerializeField] private WhichTeam targetTeam;
     [SerializeField] private int moveUsed;
+    [SerializeField] private bool needsTargeting;
 
-    public int WhichUser => whichUser;
-    public WhichTeam UserTeam => userTeam;
     public int WhichTarget => whichTarget;
     public WhichTeam TargetTeam => targetTeam;
 
@@ -32,18 +29,17 @@ public class Targeting
 
     public Targeting(){
         moveUsed = -1;
-        whichUser = -1;
         whichTarget = -1;
         targetTeam = WhichTeam.undec;
-        userTeam = WhichTeam.undec;
+        needsTargeting = false;
     }
 
-    public Targeting(int moveUsed, int whichUser, WhichTeam userTeam, int whichTarget, WhichTeam targetTeam){
+    public void SetTarget(int moveUsed, int whichTarget, WhichTeam targetTeam, bool needsTargeting)
+    {
         this.moveUsed = moveUsed;
-        this.whichUser = whichUser;
-        this.userTeam = userTeam;
         this.whichTarget = whichTarget;
         this.targetTeam = targetTeam;
+        this.needsTargeting = needsTargeting;
     }
 
     public void SetTarget(int whichTarget, WhichTeam targetTeam)
@@ -52,17 +48,12 @@ public class Targeting
         this.targetTeam = targetTeam;
     }
 
-    public void SetTarget(int whichTarget)
-    {
-        this.whichTarget = whichTarget;
-    }
-
-    public void SetUser(int moveUsed, int whichUser, WhichTeam userTeam)
+    public void SetTarget(int moveUsed, bool needsTargeting)
     {
         this.moveUsed = moveUsed;
-        this.whichUser = whichUser;
-        this.userTeam = userTeam;
+        this.needsTargeting = needsTargeting;
     }
+
 }
 
 [System.Serializable]
@@ -77,6 +68,8 @@ public class EntityData
 
     [SerializeField] protected List<MoveData> activeMoves;
     
+    [SerializeField] protected Targeting currentTarget;
+    
     public int Hp => hp;
     public int Mp => mp;
     public int MaxHp => maxHp;
@@ -85,6 +78,7 @@ public class EntityData
     public int Speed => speed;
 
     public List<MoveData> ActiveMoves => activeMoves;
+    public Targeting CurrentTarget => currentTarget;
 
     protected void LoadStats(int maxHp, int maxMp, int speed)
     {
@@ -105,6 +99,14 @@ public class EntityData
             activeMoves[i].LoadData(moves[i]);
         }
     }
+
+    protected WhichTeam GetTeam()
+    {
+        return WhichTeam.undec;
+    }
+
+    public virtual string GetName(){return "N/A";}
+
 }
 
 [System.Serializable]
@@ -124,6 +126,8 @@ public class PlayerData : EntityData
         LoadMoves(playerObject.StartingMoves);
         baseInfo = playerObject;
     }
+
+    public override string GetName(){return baseInfo.EntityName;}
 }
 
 [System.Serializable]
@@ -142,6 +146,8 @@ public class EnemyData : EntityData
         baseInfo = enemyObject;
         this.singleEnemyManager = singleEnemyManager;
     }
+
+    public override string GetName(){return baseInfo.EntityName;}
 }
 
 [System.Serializable]
@@ -162,5 +168,6 @@ public class MoveData
         mpCost = moveObject.MpCost;
         baseInfo = moveObject;
     }
+
 }
 

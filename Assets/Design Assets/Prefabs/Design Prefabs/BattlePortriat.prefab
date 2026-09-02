@@ -678,7 +678,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 6.5, y: -14.5}
+  m_AnchoredPosition: {x: 6.5, y: -14}
   m_SizeDelta: {x: 69, y: 9}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &3378921177320581432
@@ -926,12 +926,16 @@ MonoBehaviour:
   decisionSprites:
   - key: neutral
     sprite: {fileID: -8033226544503385105, guid: bb580ff80f866be469f038379f0dffe5, type: 3}
-  - key: selected
-    sprite: {fileID: -1547918024, guid: bb580ff80f866be469f038379f0dffe5, type: 3}
-  - key: confirmed
+  - key: attention
     sprite: {fileID: -1631379819, guid: bb580ff80f866be469f038379f0dffe5, type: 3}
-  - key: selected_confirmed
+  - key: attention_selected
+    sprite: {fileID: -1547918024, guid: bb580ff80f866be469f038379f0dffe5, type: 3}
+  - key: active_selected
     sprite: {fileID: 1801857011, guid: bb580ff80f866be469f038379f0dffe5, type: 3}
+  - key: confirmed
+    sprite: {fileID: -1640233836, guid: bb580ff80f866be469f038379f0dffe5, type: 3}
+  - key: confirmed_selected
+    sprite: {fileID: 2036433264, guid: bb580ff80f866be469f038379f0dffe5, type: 3}
 --- !u!114 &6712788882447759918
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1010,7 +1014,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 6.5, y: -27.5}
+  m_AnchoredPosition: {x: 6.5, y: -27}
   m_SizeDelta: {x: 69, y: 9}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &3484147060529682168

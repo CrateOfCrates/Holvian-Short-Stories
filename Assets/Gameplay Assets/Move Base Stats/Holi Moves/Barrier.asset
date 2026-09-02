@@ -15,13 +15,12 @@ MonoBehaviour:
   moveName: Barrier
   needAim: 1
   baseTokens:
-  - rid: 1173830499457302604
-  mpCost: 0
-  references:
-    version: 2
-    RefIds:
-    - rid: 1173830499457302604
-      type: {class: SingleBlockToken, ns: , asm: Assembly-CSharp}
-      data:
-        display: {fileID: -1581030212, guid: 438e48f8e4c7ece40bbe7b8bdff291e5, type: 3}
-        blockPower: 10
+  - display: {fileID: -1581030212, guid: 438e48f8e4c7ece40bbe7b8bdff291e5, type: 3}
+    potency: 15
+    tokenType: 3
+    tokenTarget: 1
+  - display: {fileID: -1581030212, guid: 438e48f8e4c7ece40bbe7b8bdff291e5, type: 3}
+    potency: 15
+    tokenType: 3
+    tokenTarget: 1
+  mpCost: 15

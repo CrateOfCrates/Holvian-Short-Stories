@@ -15,18 +15,12 @@ MonoBehaviour:
   moveName: Cleave
   needAim: 1
   baseTokens:
-  - rid: 1173830499457302601
-  - rid: 1173830499457302603
+  - display: {fileID: 658460085, guid: 438e48f8e4c7ece40bbe7b8bdff291e5, type: 3}
+    potency: 10
+    tokenType: 1
+    tokenTarget: 1
+  - display: {fileID: -7548477512082302273, guid: 438e48f8e4c7ece40bbe7b8bdff291e5, type: 3}
+    potency: 0
+    tokenType: 0
+    tokenTarget: 4
   mpCost: 5
-  references:
-    version: 2
-    RefIds:
-    - rid: 1173830499457302601
-      type: {class: SingleAttackToken, ns: , asm: Assembly-CSharp}
-      data:
-        display: {fileID: 658460085, guid: 438e48f8e4c7ece40bbe7b8bdff291e5, type: 3}
-        attackPower: 10
-    - rid: 1173830499457302603
-      type: {class: DelayToken, ns: , asm: Assembly-CSharp}
-      data:
-        display: {fileID: -7548477512082302273, guid: 438e48f8e4c7ece40bbe7b8bdff291e5, type: 3}

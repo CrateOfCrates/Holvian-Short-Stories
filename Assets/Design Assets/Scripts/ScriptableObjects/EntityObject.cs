@@ -12,6 +12,8 @@ public abstract class EntityObject : ScriptableObject
     [SerializeField] private int baseMaxmp;
 
     [SerializeField] private int baseSpeed;
+    [SerializeField] private int baseAttack;
+    [SerializeField] private int baseDefense;
 
     [SerializeField] private List<MoveObject> startingMoves;
     [field: SerializeField] private List<KeySprite> expressions;
@@ -20,6 +22,8 @@ public abstract class EntityObject : ScriptableObject
     public int BaseMaxHp => baseMaxhp;
     public int BaseMaxMp => baseMaxmp;
     public int BaseSpeed => baseSpeed;
+    public int BaseAttack => baseAttack;
+    public int BaseDefense => baseDefense;
     public List<MoveObject> StartingMoves => startingMoves;
     
     public Sprite GetSprite(string name)

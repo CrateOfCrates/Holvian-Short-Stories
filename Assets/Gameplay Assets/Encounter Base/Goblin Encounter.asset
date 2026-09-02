@@ -15,10 +15,16 @@ MonoBehaviour:
   enemies:
   - xLocation: -5
     yLocation: 0
+    xLocationUI: -5
+    yLocationUI: 1.5
     enemyObject: {fileID: 11400000, guid: ad4867c55691adb449c3a2123256b699, type: 2}
   - xLocation: 0
     yLocation: 0
+    xLocationUI: 0
+    yLocationUI: 1.5
     enemyObject: {fileID: 11400000, guid: ad4867c55691adb449c3a2123256b699, type: 2}
   - xLocation: 5
     yLocation: 0
+    xLocationUI: 5
+    yLocationUI: 1.5
     enemyObject: {fileID: 11400000, guid: ad4867c55691adb449c3a2123256b699, type: 2}

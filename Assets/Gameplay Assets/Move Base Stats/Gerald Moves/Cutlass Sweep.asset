@@ -15,19 +15,12 @@ MonoBehaviour:
   moveName: Cutlass Sweep
   needAim: 1
   baseTokens:
-  - rid: 1671034588617244748
-  - rid: 1671034588617244749
+  - display: {fileID: 658460085, guid: 438e48f8e4c7ece40bbe7b8bdff291e5, type: 3}
+    potency: 5
+    tokenType: 1
+    tokenTarget: 1
+  - display: {fileID: 300048998, guid: 438e48f8e4c7ece40bbe7b8bdff291e5, type: 3}
+    potency: 10
+    tokenType: 4
+    tokenTarget: 0
   mpCost: 5
-  references:
-    version: 2
-    RefIds:
-    - rid: 1671034588617244748
-      type: {class: EvadeToken, ns: , asm: Assembly-CSharp}
-      data:
-        display: {fileID: 300048998, guid: 438e48f8e4c7ece40bbe7b8bdff291e5, type: 3}
-        evadePower: 10
-    - rid: 1671034588617244749
-      type: {class: SingleAttackToken, ns: , asm: Assembly-CSharp}
-      data:
-        display: {fileID: 658460085, guid: 438e48f8e4c7ece40bbe7b8bdff291e5, type: 3}
-        attackPower: 7

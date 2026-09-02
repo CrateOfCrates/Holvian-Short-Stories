@@ -16,6 +16,8 @@ MonoBehaviour:
   baseMaxhp: 125
   baseMaxmp: 150
   baseSpeed: 15
+  baseAttack: 5
+  baseDefense: 15
   startingMoves:
   - {fileID: 11400000, guid: 1766e6776dc5db34aa735c864da60c23, type: 2}
   expressions:

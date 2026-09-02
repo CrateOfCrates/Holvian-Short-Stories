@@ -15,29 +15,20 @@ MonoBehaviour:
   moveName: Horizontal Line
   needAim: 0
   baseTokens:
-  - rid: 1671034588617244745
-  - rid: 1671034545140924490
-  - rid: 1671034545140924491
-  - rid: 1671034588617244747
+  - display: {fileID: 658460085, guid: 438e48f8e4c7ece40bbe7b8bdff291e5, type: 3}
+    potency: 20
+    tokenType: 2
+    tokenTarget: 2
+  - display: {fileID: 658460085, guid: 438e48f8e4c7ece40bbe7b8bdff291e5, type: 3}
+    potency: 5
+    tokenType: 2
+    tokenTarget: 2
+  - display: {fileID: -7548477512082302273, guid: 438e48f8e4c7ece40bbe7b8bdff291e5, type: 3}
+    potency: 0
+    tokenType: 0
+    tokenTarget: 4
+  - display: {fileID: -7548477512082302273, guid: 438e48f8e4c7ece40bbe7b8bdff291e5, type: 3}
+    potency: 0
+    tokenType: 0
+    tokenTarget: 4
   mpCost: 15
-  references:
-    version: 2
-    RefIds:
-    - rid: 1671034545140924490
-      type: {class: SingleAttackToken, ns: , asm: Assembly-CSharp}
-      data:
-        display: {fileID: 658460085, guid: 438e48f8e4c7ece40bbe7b8bdff291e5, type: 3}
-        attackPower: 5
-    - rid: 1671034545140924491
-      type: {class: DelayToken, ns: , asm: Assembly-CSharp}
-      data:
-        display: {fileID: -7548477512082302273, guid: 438e48f8e4c7ece40bbe7b8bdff291e5, type: 3}
-    - rid: 1671034588617244745
-      type: {class: DelayToken, ns: , asm: Assembly-CSharp}
-      data:
-        display: {fileID: -7548477512082302273, guid: 438e48f8e4c7ece40bbe7b8bdff291e5, type: 3}
-    - rid: 1671034588617244747
-      type: {class: SingleAttackToken, ns: , asm: Assembly-CSharp}
-      data:
-        display: {fileID: 658460085, guid: 438e48f8e4c7ece40bbe7b8bdff291e5, type: 3}
-        attackPower: 25

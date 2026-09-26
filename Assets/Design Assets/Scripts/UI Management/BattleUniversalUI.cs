@@ -10,9 +10,15 @@ public class BattleUniversalUI : MonoBehaviour
 
     [SerializeField] private Image moveUpButton;
     [SerializeField] private Image moveDownButton;
+
+    [SerializeField] private Image battleBackground;
+    [SerializeField] private Sprite select;
+    [SerializeField] private Sprite execute;
+
     [field: SerializeField] private List<KeySprite> moveControlButtons;
 
 
+    //Fully Set up the Combat UI
     public void InitializeCombatUI(List<PlayerData> players, List<EnemyData> enemies)
     {
         for(int i = 0; i < players.Count; i++)
@@ -36,10 +42,7 @@ public class BattleUniversalUI : MonoBehaviour
     
     public void loadMoves(int moveScroll, PlayerData whichPlayer)
     {
-        foreach(BattleButtonUI battleButtonUI in moveUI)
-        {
-            battleButtonUI.Display(false);
-        }
+        loadMoves(false);
         //Debug.Log(moveScroll*4+1);
         for(int i = 0; i < 4; i++)
         {
@@ -52,33 +55,100 @@ public class BattleUniversalUI : MonoBehaviour
         }
     }
 
-    public void LoadMoveBorders(int moveScroll, Targeting targeting)
+    //Load the borders for moves and everything around them
+    public void LoadMoveBorders(int moveScroll, PlayerData pd, BattleState battleState)
     {
-        foreach(BattleButtonUI battleButtonUI in moveUI)
-        {
-            battleButtonUI.ChangeStatus("neutral");
-        }
+        loadMoves(moveScroll, pd);
 
-        if(targeting.MoveUsed == -1 && targeting.WhichTarget == -1)
-        {
-            //none selected
-            return;
-        }
+        Targeting targeting = pd.GetCurrentTarget();
+        //Set all borders to neutral
+        foreach(BattleButtonUI battleButtonUI in moveUI){battleButtonUI.ChangeStatusToBase();}
 
-        if(targeting.MoveUsed - (moveScroll*4) < 0 || targeting.MoveUsed - (moveScroll*4) > 3)
-        {
-            //Will not be shown
-            return;
-        }
-        //ok fine now
-        if(targeting.WhichTarget == -1)
+        //Conditions where the Specialized Border won't be shown
+        if(targeting.MoveUsed == -1 && targeting.WhichTarget == -1){return;}
+        if(targeting.MoveUsed - (moveScroll*4) < 0 || targeting.MoveUsed - (moveScroll*4) > 3){return;}
+
+        if(battleState == BattleState.selectMove)
         {
             //means currently selecting a target
             moveUI[targeting.MoveUsed-(moveScroll*4)].ChangeStatus("choosetarget");
+            return;
+        }
+
+        //below conditions indicate a selector is needed
+        moveUI[targeting.MoveUsed-(moveScroll*4)].ChangeSelectedToken(targeting.TokenProgress);
+
+        if(targeting.WhichTarget == -1 && pd.GetNeedTargeting())
+        {
+            //Means needs a target for the current token but has none
+            moveUI[targeting.MoveUsed-(moveScroll*4)].ChangeStatus("attention");
+        } else {
+            //Means everything should be fine
+            moveUI[targeting.MoveUsed-(moveScroll*4)].ChangeStatus("executing");
+        }
+
+    }
+
+    public void CustomizePlayerPortriatBorders(ref List<PlayerData> allPlayerData, int selectedPlayer, BattleState battleState)
+    {
+        //loop through
+        for(int i = 0; i < allPlayerData.Count; i++)
+        {
+            //Skip if the border for the current player doesn't exist
+            if (!allPlayerData[i].Exists){continue;}
+            //Debug.Log(allPlayerData[i].GetName() + ": " + allPlayerData[i].GetCurrentTarget().MoveUsed + " OR " + allPlayerData[i].GetNeedTargeting());
+            if(allPlayerData[i].GetCurrentTarget().MoveUsed != -1 && selectedPlayer == i && battleState == BattleState.selectMove)
+            {
+                //Means there IS A MOVE and it is the CURRENT PLAYER and MOVES ARE BEING AIMED
+                LoadPlayerPortriatBorder(i, "active_selected");
+                continue;
+            }
+            
+            if(allPlayerData[i].GetCurrentTarget().MoveUsed == -1 || (allPlayerData[i].GetNeedTargeting() && allPlayerData[i].GetCurrentTarget().WhichTarget == -1))
+            {
+                //Means a move has NOT already been selected OR a move NEEDS targeting and DOESNT HAVE IT
+                if(selectedPlayer == i)
+                {
+                    LoadPlayerPortriatBorder(i, "attention_selected");
+                } else
+                {
+                    LoadPlayerPortriatBorder(i, "attention");
+                }
+            } else
+            {
+                //This means that a move has been selected AND targeting concerns have been resolved.
+                if(selectedPlayer == i)
+                {
+                    //both, is selected and move is ready to choose
+                    LoadPlayerPortriatBorder(i, "confirmed_selected");
+                } else
+                {
+                    LoadPlayerPortriatBorder(i, "confirmed");
+                }
+            }
+        }
+    }
+
+    public void loadMoves(bool b)
+    {
+        //hide the move buttons themselves
+        foreach(BattleButtonUI battleButtonUI in moveUI)
+        {
+            battleButtonUI.Display(b);
+        }
+    }
+
+    public void ToggleUI(bool b)
+    {
+        loadMoves(b);
+        moveUpButton.enabled = b;
+        moveDownButton.enabled = b;
+        if(b)
+        {
+            battleBackground.sprite = select;
         } else
         {
-            //means target alerady found
-            moveUI[targeting.MoveUsed-(moveScroll*4)].ChangeStatus("selected");
+            battleBackground.sprite = execute;
         }
     }
 
@@ -106,6 +176,17 @@ public class BattleUniversalUI : MonoBehaviour
         }
     }
 
+    public void UpdatePlayerStats(List<PlayerData> players)
+    {
+        for(int i = 0; i < players.Count; i++)
+        {
+            if(players[i].Exists)
+            {
+                portriatUI[i].UpdateStatsDisplay(players[i]);
+            }
+        }
+    }
+
     private Sprite GetSprite(string name)
     {
         foreach(KeySprite ep in moveControlButtons)
@@ -117,5 +198,4 @@ public class BattleUniversalUI : MonoBehaviour
         }
         return null;
     }
-
 }

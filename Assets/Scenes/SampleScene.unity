@@ -544,45 +544,47 @@ MonoBehaviour:
     mp: 0
     maxHp: 0
     maxMp: 0
+    speed: 0
+    attack: 0
+    defense: 0
     activeMoves: []
-    baseInfo: {fileID: 0}
-    exists: 0
-  - hp: 0
-    mp: 0
-    maxHp: 0
-    maxMp: 0
-    activeMoves: []
-    baseInfo: {fileID: 11400000, guid: 75a3a3f0aa9b8fa4587247ba6a7ed07f, type: 2}
-    exists: 0
-  - hp: 0
-    mp: 0
-    maxHp: 0
-    maxMp: 0
-    activeMoves: []
-    baseInfo: {fileID: 11400000, guid: dbbc0d2a27ee3b64d8918393a762014e, type: 2}
-    exists: 0
-  - hp: 0
-    mp: 0
-    maxHp: 0
-    maxMp: 0
-    activeMoves: []
-    baseInfo: {fileID: 11400000, guid: 534151a16f7acaf4780a22cf9cbaa820, type: 2}
-    exists: 0
-  - hp: 0
-    mp: 0
-    maxHp: 0
-    maxMp: 0
-    activeMoves: []
-    baseInfo: {fileID: 0}
-    exists: 0
-  - hp: 0
-    mp: 0
-    maxHp: 0
-    maxMp: 0
-    activeMoves: []
+    targets: []
     baseInfo: {fileID: 11400000, guid: e352444f2010c414381e3659fac92829, type: 2}
-    exists: 0
-  encounter: {fileID: 0}
+    exists: 1
+  - hp: 0
+    mp: 0
+    maxHp: 0
+    maxMp: 0
+    speed: 0
+    attack: 0
+    defense: 0
+    activeMoves: []
+    targets: []
+    baseInfo: {fileID: 11400000, guid: 75a3a3f0aa9b8fa4587247ba6a7ed07f, type: 2}
+    exists: 1
+  - hp: 0
+    mp: 0
+    maxHp: 0
+    maxMp: 0
+    speed: 0
+    attack: 0
+    defense: 0
+    activeMoves: []
+    targets: []
+    baseInfo: {fileID: 11400000, guid: dbbc0d2a27ee3b64d8918393a762014e, type: 2}
+    exists: 1
+  - hp: 0
+    mp: 0
+    maxHp: 0
+    maxMp: 0
+    speed: 0
+    attack: 0
+    defense: 0
+    activeMoves: []
+    targets: []
+    baseInfo: {fileID: 11400000, guid: 534151a16f7acaf4780a22cf9cbaa820, type: 2}
+    exists: 1
+  encounter: {fileID: 11400000, guid: 8744c7ee5d45f354b9b9e4d3f92059b1, type: 2}
 --- !u!4 &1064547091
 Transform:
   m_ObjectHideFlags: 0
@@ -628,7 +630,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::loadTest
   encounterObject: {fileID: 11400000, guid: 8744c7ee5d45f354b9b9e4d3f92059b1, type: 2}
-  b: 000101010001
+  b: 010101010001
 --- !u!4 &1496300126
 Transform:
   m_ObjectHideFlags: 0

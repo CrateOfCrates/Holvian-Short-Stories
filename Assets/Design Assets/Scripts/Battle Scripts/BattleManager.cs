@@ -3,15 +3,18 @@ using UnityEngine.UI;
 using System;
 using System.Linq;
 using System.Collections.Generic;
+using System.Collections;
 
 public class BattleManager : MonoBehaviour
 {
-    public enum BattleState {startBattle, playerSelect, selectMove, enemySelect, execute, victory, defeat};
     [SerializeField] private BattleState battleState = BattleState.startBattle;
     [SerializeField] private BattleUniversalUI battleUniversalUI;
 
-    [SerializeField] private Transform parentTransform;
+    [SerializeField] private Transform parentTransformWorld;
+    [SerializeField] private Transform parentTransformUI;
+
     [SerializeField] private GameObject enemyPrefab;
+    [SerializeField] private GameObject enemyPrefabUI;
 
     [SerializeField] private List<PlayerData> allPlayerData;
     [SerializeField] private List<EnemyData> allEnemyData;
@@ -29,7 +32,12 @@ public class BattleManager : MonoBehaviour
         allEnemyData.Clear();
 
         //Get Player Data
-        allPlayerData = DataManager.Instance.AllPlayerData;
+        allPlayerData = new List<PlayerData>(DataManager.Instance.AllPlayerData);
+        //Set up the copies for combat
+        foreach(PlayerData pd in allPlayerData)
+        {
+            pd.SetupForCombat();
+        }
 
         selectedPlayer = -1;
         scrollMoves = 0;
@@ -41,14 +49,14 @@ public class BattleManager : MonoBehaviour
         for(int i = 0; i < enemyEncounter.Enemies.Count; i++)
         {
             //Spawn Enemy Display
-            SingleEnemyManager temp = SpawnEnemy(enemyEncounter.GetXLocation(i), enemyEncounter.GetYLocation(i));
+            SingleEnemyManager temp = SpawnEnemy(enemyEncounter.GetXLocation(i), enemyEncounter.GetYLocation(i), enemyEncounter.GetXLocationUI(i), enemyEncounter.GetYLocationUI(i));
 
             //load data into EnemyObject
             allEnemyData.Add(new());
             allEnemyData[i].LoadData(enemyEncounter.GetEnemyObject(i), temp);
 
             //Load Enemy General Sprite
-            allEnemyData[i].SingleEnemyManager.SetupLoad(allEnemyData[i].BaseInfo.GetSprite("neutral"), this, i);
+            allEnemyData[i].SingleEnemyManager.SetupLoad(allEnemyData[i], this, i);
         }
         //UI
         battleUniversalUI.InitializeCombatUI(allPlayerData, allEnemyData);
@@ -57,6 +65,7 @@ public class BattleManager : MonoBehaviour
         
     }
 
+    //Changes between BattleStates (like playerturn, enemyturn, etc)
     private void BattleStateTurns(BattleState newState)
     {
         battleState = newState;
@@ -70,50 +79,59 @@ public class BattleManager : MonoBehaviour
             case BattleState.enemySelect:
                 EnemyTurn();
                 break;
+
             case BattleState.execute:
-                ExecuteTurn();
+                //setup turn UI
+                battleUniversalUI.ToggleUI(false);
+                List<EntityData> turnOrder = GetTurnOrder();
+                StartCoroutine(TurnPart(turnOrder));
                 break;
         }
     }
 
     //Player Turn and Interaction
-
     private void PlayerTurn()
     {
-        return;
+        battleUniversalUI.ToggleUI(true);
+        selectedPlayer = -1;
+        scrollMoves = 0;
+        UpdateUI();
+
+        // foreach(PlayerData pd in allPlayerData)
+        // {
+        //     if(pd.GetNeedTargeting()){
+        //         Debug.LogWarning(pd.GetName());
+        //     }
+        // }
     }
 
+    //Code for selecting a move
     public void SelectMove(int index)
     {
-        //if selected during another selectmove, cancel.
-        if(!(battleState == BattleState.playerSelect || battleState == BattleState.selectMove))
-        {
-            return;
-        }
-        if(selectedPlayer == -1)
-        {
-            //no player is selected
-            return;
-        }
-
-        //A move can't be selected if the move is currently in execution.
-
+        //Set pre-variables
+        Targeting temp = allPlayerData[selectedPlayer].GetCurrentTarget();
         int selectedMove = scrollMoves*4 + index;
-        Debug.Log("SelectMove in BattleManager: " + selectedMove);
 
-        //Set the target and determines if aim is needed.
-        if (allPlayerData[selectedPlayer].ActiveMoves[selectedMove].BaseInfo.NeedAim)
+        //Means the button can only be clicked if its in the right battleState
+        if(!(battleState == BattleState.playerSelect || battleState == BattleState.selectMove)){return;}
+        //Prevents move selection when no player is selected
+        if(selectedPlayer == -1){return;}
+        //Prevents move selection when a move is currently in execution
+        if(temp.MoveUsed != -1 && temp.TokenProgress != 0 && temp.MoveUsed != selectedMove){return;}
+
+        //Set the move in
+        temp.SetTarget(selectedMove);
+
+        if (allPlayerData[selectedPlayer].GetNeedTargeting() && temp.WhichTarget == -1)
         {
-            allPlayerData[selectedPlayer].CurrentTarget.SetTarget(selectedMove, true);
+            //yes aim is needed and aim is not present
             battleState = BattleState.selectMove;
-        } else
-        {
-            allPlayerData[selectedPlayer].CurrentTarget.SetTarget(selectedMove, true);
-        }
+        } 
 
         UpdateUI();
     }
 
+    //Code for choosing an enemy as a target
     public void SelectEnemyTarget(int index)
     {
         if(battleState != BattleState.selectMove)
@@ -124,35 +142,31 @@ public class BattleManager : MonoBehaviour
         Debug.Log("Target is the enemy!");
 
         //mark enemy as target
-        allPlayerData[selectedPlayer].CurrentTarget.SetTarget(index, WhichTeam.enemy);
+        allPlayerData[selectedPlayer].GetCurrentTarget().SetTarget(index, WhichTeam.enemy);
         //move selected
         battleState = BattleState.playerSelect;
         UpdateUI();
 
     }
 
+    //For changing players and selecting them for positive moves
     public void SelectPlayer(int index)
     {
-        if(!(battleState == BattleState.playerSelect || battleState == BattleState.selectMove))
-        {
-            return;
-        }
+        //Ensure valid BattleState
+        if(!(battleState == BattleState.playerSelect || battleState == BattleState.selectMove)){return;}
+        //Ensure the current player exists
+        if(!allPlayerData[index].Exists){return;}
 
-        //ensure no out of bounds occur
-        if(!allPlayerData[index].Exists)
-        {
-            return;
-        }
 
         if(battleState == BattleState.playerSelect)
         {
-            //Player Select
+            //Player Select: The current player is selected.
             selectedPlayer = index;
             scrollMoves = 0;
         } else
         {
-            //Target Player
-            allPlayerData[selectedPlayer].CurrentTarget.SetTarget(index, WhichTeam.player);
+            //Set the current target as the clicked-on-player
+            allPlayerData[selectedPlayer].GetCurrentTarget().SetTarget(index, WhichTeam.player);
             battleState = BattleState.playerSelect;
         }
 
@@ -196,46 +210,23 @@ public class BattleManager : MonoBehaviour
         //player turn is done
         selectedPlayer = -1;
         scrollMoves = 0;
-        CustomizePlayerPortriatBorders();
+        battleUniversalUI.CustomizePlayerPortriatBorders(ref allPlayerData, selectedPlayer, battleState);
         //Pass to enemy
         BattleStateTurns(BattleState.enemySelect);
     }
 
-    private void CustomizePlayerPortriatBorders()
-    {
-        //loop through
-        for(int i = 0; i < allPlayerData.Count; i++)
-        {
-            if(allPlayerData[i].CurrentTarget.MoveUsed != -1)
-            {
-                //move has been selected by this player
-                if(selectedPlayer == i)
-                {
-                    battleUniversalUI.LoadPlayerPortriatBorder(i, "selected_confirmed");
-                } else
-                {
-                    battleUniversalUI.LoadPlayerPortriatBorder(i, "confirmed");
-                }
-            } else
-            {
-                if(selectedPlayer == i)
-                {
-                    //both
-                    battleUniversalUI.LoadPlayerPortriatBorder(i, "selected");
-                } else
-                {
-                    battleUniversalUI.LoadPlayerPortriatBorder(i, "neutral");
-                }
-            }
-        }
-    }
-
     private void UpdateUI()
     {
-        CustomizePlayerPortriatBorders();
-        battleUniversalUI.StatusButton(scrollMoves, allPlayerData[selectedPlayer].ActiveMoves.Count);
-        battleUniversalUI.LoadMoveBorders(scrollMoves, allPlayerData[selectedPlayer].CurrentTarget);
-        battleUniversalUI.loadMoves(scrollMoves, allPlayerData[selectedPlayer]);
+        battleUniversalUI.CustomizePlayerPortriatBorders(ref allPlayerData, selectedPlayer, battleState);
+        if(selectedPlayer < 0)
+        {
+            battleUniversalUI.loadMoves(false);
+        } else
+        {
+            battleUniversalUI.StatusButton(scrollMoves, allPlayerData[selectedPlayer].ActiveMoves.Count);
+            battleUniversalUI.LoadMoveBorders(scrollMoves, allPlayerData[selectedPlayer], battleState);
+        }
+
     }
 
     //ENEMY TURN
@@ -244,19 +235,67 @@ public class BattleManager : MonoBehaviour
     {
         Debug.Log("THE ENEMY TURN");
         //Fill with random targeting
+        foreach(EnemyData ed in allEnemyData)
+        {
+            ed.GetCurrentTarget().SetTarget(0, 1, WhichTeam.player);
+        }
         BattleStateTurns(BattleState.execute);
-
     }
 
     //EXECUTE
 
-    private void ExecuteTurn()
+    IEnumerator TurnPart(List<EntityData> turnOrder)
     {
-        //Determine Turn Order
-        List<EntityData> turnOrder = GetTurnOrder();
+        foreach(EntityData e in turnOrder)
+        {
+            //get the move being used and advance to next token
+            if(e.GetCurrentTarget().MoveUsed == -1)
+            {
+                Debug.Log("Current Target Doesnt Exist");
+                continue;
+            }
 
-        
+            Debug.Log(e.GetName() + " is acting! Move Used: " + e.GetCurrentMove().BaseInfo.MoveName + " with token progress: " + e.GetTokenProgress());
+            TokenData token = e.GetSelectedToken();
 
+            EntityData target;
+            if(token.BaseInfo.TokenTarget == TokenTarget.target)
+            {
+                //exists a target
+
+                if(e.GetCurrentTarget().TargetTeam == WhichTeam.player && token.BaseInfo.TokenTarget == TokenTarget.target)
+                {
+                    //target is on the player team
+                    target = allPlayerData[e.GetCurrentTarget().WhichTarget];
+                } else
+                {
+                    target = allEnemyData[e.GetCurrentTarget().WhichTarget];
+                }
+                token.ExecuteToken(e, target);
+            }
+            //update UI
+            battleUniversalUI.UpdatePlayerStats(allPlayerData);
+            foreach(EnemyData ed in allEnemyData){ed.UpdateDisplay();}
+
+            //update the token and check for exits
+            e.AdvanceNextToken();
+
+            //Debug.Log("Activate Delay");
+            yield return new WaitForSeconds(1.0f);
+            
+        }
+
+        //turn is finished
+        FinalizeTurn();
+    }
+
+    private void FinalizeTurn()
+    {
+        battleUniversalUI.UpdatePlayerStats(allPlayerData);
+        foreach(EnemyData ed in allEnemyData){ed.UpdateDisplay();}
+        Debug.Log("TURN FINISHED");
+
+        BattleStateTurns(BattleState.playerSelect);
     }
 
     private List<EntityData> GetTurnOrder()
@@ -283,19 +322,29 @@ public class BattleManager : MonoBehaviour
         return combinedTargeting;
     }
 
-    private SingleEnemyManager SpawnEnemy(int xLocation, int yLocation)
+    private SingleEnemyManager SpawnEnemy(double xLocation, double yLocation, double xUi, double yUi)
     {
-        Vector3 spawnPosition = new Vector3(xLocation, yLocation, 0);
+        Vector3 spawnPosition = new Vector3((float)xLocation, (float)yLocation, 0);
         Quaternion spawnRotation = Quaternion.identity;
 
-        GameObject clone = Instantiate(enemyPrefab, spawnPosition, spawnRotation, parentTransform);
+        GameObject clone = Instantiate(enemyPrefab, spawnPosition, spawnRotation, parentTransformWorld);
         SingleEnemyManager singleEnemyManager = clone.GetComponent<SingleEnemyManager>();
 
         //singleEnemyManager.ChangeSprite();
+        spawnPosition = new Vector3((float)xUi, (float)yUi, 0);
+        GameObject cloneUI = Instantiate(enemyPrefabUI, spawnPosition, spawnRotation, parentTransformUI);
+        BattleEnemyUI beUI = cloneUI.GetComponent<BattleEnemyUI>();
+
+        singleEnemyManager.ConnectUI(beUI);
 
         return singleEnemyManager;
 
     }
+
+    // public void ToggleEnemyDisplay(int i, bool b)
+    // {
+    //     //battleUniversalUI.ToggleEnemyDisplay(i, b);
+    // }
 
     void Start()
     {

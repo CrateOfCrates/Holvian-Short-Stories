@@ -10,8 +10,10 @@ public class EncounterObject : ScriptableObject
     [Serializable]
     public struct EnemyEncounter
     {
-        [SerializeField] public int xLocation;
-        [SerializeField] public int yLocation;
+        [SerializeField] public double xLocation;
+        [SerializeField] public double yLocation;
+        [SerializeField] public double xLocationUI;
+        [SerializeField] public double yLocationUI;
 
         public EnemyObject enemyObject;
 
@@ -25,14 +27,24 @@ public class EncounterObject : ScriptableObject
         return enemies[index].enemyObject;
     }
 
-    public int GetXLocation(int index)
+    public double GetXLocation(int index)
     {
         return enemies[index].xLocation;
     }
 
-    public int GetYLocation(int index)
+    public double GetYLocation(int index)
     {
         return enemies[index].yLocation;
+    }
+
+    public double GetXLocationUI(int index)
+    {
+        return enemies[index].xLocationUI;
+    }
+
+    public double GetYLocationUI(int index)
+    {
+        return enemies[index].yLocationUI;
     }
 
 

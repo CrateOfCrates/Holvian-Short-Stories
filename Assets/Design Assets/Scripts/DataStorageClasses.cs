@@ -106,7 +106,6 @@ public class EntityData
         return activeMoves[targets[0].MoveUsed];
     }
     public int GetTokenProgress(){return targets[0].TokenProgress;}
-
     public TokenData GetSelectedToken(){return activeMoves[targets[0].MoveUsed].ActiveTokens[targets[0].TokenProgress];}
     public TokenData GetSelectedToken(int i){return activeMoves[targets[i].MoveUsed].ActiveTokens[targets[i].TokenProgress];}
 
@@ -168,6 +167,12 @@ public class PlayerData : EntityData
 
     public void SetExists(bool b){exists = b;}
 
+    public void LoadData(PlayerObject playerObject)
+    {
+        LoadStats(playerObject);
+        baseInfo = playerObject;
+    }
+
     public bool GetNeedTargeting(){
         if(exists && (targets[0].MoveUsed >= 0)){
             return GetCurrentMove().NeedAim(GetTokenProgress());
@@ -176,16 +181,11 @@ public class PlayerData : EntityData
         }
     }
 
-    public void LoadData(PlayerObject playerObject)
-    {
-        LoadStats(playerObject);
-        baseInfo = playerObject;
-    }
-
     public void SetupForCombat()
     {
         targets.Clear();
         targets.Add(new Targeting());
+        //Debug.Log("WEEE   " + hp);
         //Debug.Log($"[SETUPFORCOMBAT] Player Object ID: {System.Runtime.CompilerServices.RuntimeHelpers.GetHashCode(this)} | Targets Count: {targets.Count}");
         //Debug.Log($"[SETUPFORCOMBAT] Player Object ID: {System.Runtime.CompilerServices.RuntimeHelpers.GetHashCode(this)} | AM Count: {activeMoves.Count}");
     }
@@ -275,12 +275,17 @@ public class TokenData
         {
             case TokenType.singleAttack:
                 //activate damagecalc and apply to target
-                target.TakeDamage(DamageCalc.CalculateDamage(user, target, this));
+                SingleAttackToken(user, target);
                 break;
             
             case TokenType.delay:
                 break;
         }
+    }
+
+    public void SingleAttackToken(EntityData user, EntityData target)
+    {
+        target.TakeDamage(DamageCalc.CalculateDamage(user, target, this));
     }
 
 //     public void ExecuteToken(EntityData user, WhichTeam wt)

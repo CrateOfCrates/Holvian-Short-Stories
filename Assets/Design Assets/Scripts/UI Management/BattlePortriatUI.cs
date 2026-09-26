@@ -23,6 +23,7 @@ public class BattlePortriatUI : BattleBarsUI
 
     public void UpdateStatsDisplay(PlayerData playerData)
     {
+
         SetupSliders(playerData.Hp, playerData.MaxHp, playerData.Mp, playerData.MaxMp);
     }
 

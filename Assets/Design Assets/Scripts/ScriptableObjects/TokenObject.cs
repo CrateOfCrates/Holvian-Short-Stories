@@ -22,6 +22,9 @@ public class TokenObject
         if(tokenTarget == TokenTarget.target)
         {
             return true;
+        } else if (tokenTarget == TokenTarget.entireSide)
+        {
+            return true;
         } else
         {
             return false;

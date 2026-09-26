@@ -10,9 +10,15 @@ public class BattleUniversalUI : MonoBehaviour
 
     [SerializeField] private Image moveUpButton;
     [SerializeField] private Image moveDownButton;
+
+    [SerializeField] private Image battleBackground;
+    [SerializeField] private Sprite select;
+    [SerializeField] private Sprite execute;
+
     [field: SerializeField] private List<KeySprite> moveControlButtons;
 
 
+    //Fully Set up the Combat UI
     public void InitializeCombatUI(List<PlayerData> players, List<EnemyData> enemies)
     {
         for(int i = 0; i < players.Count; i++)
@@ -49,11 +55,14 @@ public class BattleUniversalUI : MonoBehaviour
         }
     }
 
+    //Load the borders for moves and everything around them
     public void LoadMoveBorders(int moveScroll, PlayerData pd, BattleState battleState)
     {
+        loadMoves(moveScroll, pd);
+
         Targeting targeting = pd.GetCurrentTarget();
         //Set all borders to neutral
-        foreach(BattleButtonUI battleButtonUI in moveUI){battleButtonUI.ChangeStatus("neutral");}
+        foreach(BattleButtonUI battleButtonUI in moveUI){battleButtonUI.ChangeStatusToBase();}
 
         //Conditions where the Specialized Border won't be shown
         if(targeting.MoveUsed == -1 && targeting.WhichTarget == -1){return;}
@@ -67,7 +76,7 @@ public class BattleUniversalUI : MonoBehaviour
         }
 
         //below conditions indicate a selector is needed
-        moveUI[targeting.MoveUsed-(moveScroll*4)].ChangeSelectedToken(targeting.TokenProgress, "executing");
+        moveUI[targeting.MoveUsed-(moveScroll*4)].ChangeSelectedToken(targeting.TokenProgress);
 
         if(targeting.WhichTarget == -1 && pd.GetNeedTargeting())
         {
@@ -126,6 +135,20 @@ public class BattleUniversalUI : MonoBehaviour
         foreach(BattleButtonUI battleButtonUI in moveUI)
         {
             battleButtonUI.Display(b);
+        }
+    }
+
+    public void ToggleUI(bool b)
+    {
+        loadMoves(b);
+        moveUpButton.enabled = b;
+        moveDownButton.enabled = b;
+        if(b)
+        {
+            battleBackground.sprite = select;
+        } else
+        {
+            battleBackground.sprite = execute;
         }
     }
 

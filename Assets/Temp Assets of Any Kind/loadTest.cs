@@ -9,10 +9,10 @@ public class loadTest : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        DataManager.Instance.LoadPlayerFromBase(0);
         DataManager.Instance.LoadPlayerFromBase(1);
         DataManager.Instance.LoadPlayerFromBase(2);
         DataManager.Instance.LoadPlayerFromBase(3);
-        DataManager.Instance.LoadPlayerFromBase(5);
         DataManager.Instance.BattleEncounter(encounterObject, b);
     }
 

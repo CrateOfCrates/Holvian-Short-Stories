@@ -10,17 +10,16 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1fe489a0c59fa3348ba149cde5d8e2a8, type: 3}
-  m_Name: Mexiel Character
+  m_Name: Fain Character
   m_EditorClassIdentifier: Assembly-CSharp::PlayerObject
-  entityName: Mexiel
-  baseMaxhp: 225
+  entityName: Fain
+  baseMaxhp: 500
   baseMaxmp: 50
-  baseSpeed: 10
+  baseSpeed: 0
   baseAttack: 20
-  baseDefense: 20
-  startingMoves:
-  - {fileID: 11400000, guid: a6215d114d1f7584abb57e08de04dbbb, type: 2}
+  baseDefense: 50
+  startingMoves: []
   expressions:
   - key: neutral
-    sprite: {fileID: -827676898586781194, guid: 7ddc659875aa7134585a36e70dbb653c, type: 3}
+    sprite: {fileID: 7684940987576087075, guid: a5fc67ba9ba8d094aaca3b7b2448bb2e, type: 3}
   characterBackground: {fileID: -3619714293774219514, guid: 938395a75abcfdd4ab3f63a78c03ea56, type: 3}

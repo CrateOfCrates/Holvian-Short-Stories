@@ -65,6 +65,7 @@ public class BattleManager : MonoBehaviour
         
     }
 
+    //Changes between BattleStates (like playerturn, enemyturn, etc)
     private void BattleStateTurns(BattleState newState)
     {
         battleState = newState;
@@ -72,7 +73,6 @@ public class BattleManager : MonoBehaviour
         switch (battleState)
         {
             case BattleState.playerSelect:
-                //no starter function is needed
                 PlayerTurn();
                 break;
 
@@ -81,6 +81,8 @@ public class BattleManager : MonoBehaviour
                 break;
 
             case BattleState.execute:
+                //setup turn UI
+                battleUniversalUI.ToggleUI(false);
                 List<EntityData> turnOrder = GetTurnOrder();
                 StartCoroutine(TurnPart(turnOrder));
                 break;
@@ -88,9 +90,9 @@ public class BattleManager : MonoBehaviour
     }
 
     //Player Turn and Interaction
-
     private void PlayerTurn()
     {
+        battleUniversalUI.ToggleUI(true);
         selectedPlayer = -1;
         scrollMoves = 0;
         UpdateUI();
@@ -103,6 +105,7 @@ public class BattleManager : MonoBehaviour
         // }
     }
 
+    //Code for selecting a move
     public void SelectMove(int index)
     {
         //Set pre-variables
@@ -128,6 +131,7 @@ public class BattleManager : MonoBehaviour
         UpdateUI();
     }
 
+    //Code for choosing an enemy as a target
     public void SelectEnemyTarget(int index)
     {
         if(battleState != BattleState.selectMove)
@@ -145,6 +149,7 @@ public class BattleManager : MonoBehaviour
 
     }
 
+    //For changing players and selecting them for positive moves
     public void SelectPlayer(int index)
     {
         //Ensure valid BattleState
@@ -219,7 +224,6 @@ public class BattleManager : MonoBehaviour
         } else
         {
             battleUniversalUI.StatusButton(scrollMoves, allPlayerData[selectedPlayer].ActiveMoves.Count);
-            battleUniversalUI.loadMoves(scrollMoves, allPlayerData[selectedPlayer]);
             battleUniversalUI.LoadMoveBorders(scrollMoves, allPlayerData[selectedPlayer], battleState);
         }
 
@@ -235,7 +239,6 @@ public class BattleManager : MonoBehaviour
         {
             ed.GetCurrentTarget().SetTarget(0, 1, WhichTeam.player);
         }
-        //Fill with random targeting
         BattleStateTurns(BattleState.execute);
     }
 
@@ -246,6 +249,12 @@ public class BattleManager : MonoBehaviour
         foreach(EntityData e in turnOrder)
         {
             //get the move being used and advance to next token
+            if(e.GetCurrentTarget().MoveUsed == -1)
+            {
+                Debug.Log("Current Target Doesnt Exist");
+                continue;
+            }
+
             Debug.Log(e.GetName() + " is acting! Move Used: " + e.GetCurrentMove().BaseInfo.MoveName + " with token progress: " + e.GetTokenProgress());
             TokenData token = e.GetSelectedToken();
 

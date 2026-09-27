@@ -13,18 +13,26 @@ MonoBehaviour:
   m_Name: Great Cleave
   m_EditorClassIdentifier: Assembly-CSharp::MoveObject
   moveName: Great Cleave
-  needAim: 1
   baseTokens:
   - display: {fileID: 658460085, guid: 438e48f8e4c7ece40bbe7b8bdff291e5, type: 3}
     potency: 5
     tokenType: 0
     tokenTarget: 1
+    animationPlayedTarget: {fileID: 0}
+    tokenParts: []
   - display: {fileID: 658460085, guid: 438e48f8e4c7ece40bbe7b8bdff291e5, type: 3}
     potency: 15
     tokenType: 0
     tokenTarget: 1
+    animationPlayedTarget: {fileID: 11400000, guid: a130ed20fe8412346bacc4aa80e6dd13, type: 2}
+    tokenParts: []
   - display: {fileID: -7548477512082302273, guid: 438e48f8e4c7ece40bbe7b8bdff291e5, type: 3}
     potency: 0
     tokenType: 0
     tokenTarget: 4
+    animationPlayedTarget: {fileID: 11400000, guid: a130ed20fe8412346bacc4aa80e6dd13, type: 2}
+    tokenParts: []
   mpCost: 15
+  references:
+    version: 2
+    RefIds: []

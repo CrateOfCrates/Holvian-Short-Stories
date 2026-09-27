@@ -9,7 +9,7 @@ public static class DamageCalc
         double moveDamage = token.Potency * Math.Sqrt(user.Attack);
         double finalDamage = moveDamage - target.Defense;
 
-        return (int)finalDamage;
+        return (int)Math.Floor(finalDamage);
         
     }
 

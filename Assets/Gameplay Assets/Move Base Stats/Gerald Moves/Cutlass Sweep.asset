@@ -13,14 +13,20 @@ MonoBehaviour:
   m_Name: Cutlass Sweep
   m_EditorClassIdentifier: Assembly-CSharp::MoveObject
   moveName: Cutlass Sweep
-  needAim: 1
   baseTokens:
   - display: {fileID: 658460085, guid: 438e48f8e4c7ece40bbe7b8bdff291e5, type: 3}
     potency: 5
     tokenType: 1
     tokenTarget: 1
+    animationPlayedTarget: {fileID: 11400000, guid: a130ed20fe8412346bacc4aa80e6dd13, type: 2}
+    tokenParts: []
   - display: {fileID: 300048998, guid: 438e48f8e4c7ece40bbe7b8bdff291e5, type: 3}
     potency: 10
     tokenType: 4
     tokenTarget: 0
+    animationPlayedTarget: {fileID: 0}
+    tokenParts: []
   mpCost: 5
+  references:
+    version: 2
+    RefIds: []

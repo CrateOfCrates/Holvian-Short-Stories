@@ -18,7 +18,7 @@ MonoBehaviour:
     potency: 10
     tokenType: 1
     tokenTarget: 1
-    animationPlayedTarget: {fileID: 11400000, guid: bd28252f539e89e41a36240cdb38cb09, type: 2}
+    animationPlayedTarget: {fileID: 11400000, guid: a130ed20fe8412346bacc4aa80e6dd13, type: 2}
   - display: {fileID: -7548477512082302273, guid: 438e48f8e4c7ece40bbe7b8bdff291e5, type: 3}
     potency: 0
     tokenType: 0

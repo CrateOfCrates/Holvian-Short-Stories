@@ -4,6 +4,8 @@ using System.Collections.Generic;
 using UnityEngine.SceneManagement; 
 using System;
 using TMPro;
+using System.Collections;
+
 
 [Serializable]
 public struct KeySprite
@@ -13,7 +15,7 @@ public struct KeySprite
     }
 
 [Serializable]
-public class Targeting 
+public class Targeting
 {
     [SerializeField] private int whichTarget;
     [SerializeField] private WhichTeam targetTeam;
@@ -267,21 +269,7 @@ public class TokenData
 
     public TokenObject BaseInfo => baseInfo;
     public int Potency => potency;
-
-    public void ExecuteToken(EntityData user, EntityData target)
-    {
-        //Means there is a target
-        switch (baseInfo.TokenType)
-        {
-            case TokenType.singleAttack:
-                //activate damagecalc and apply to target
-                SingleAttackToken(user, target);
-                break;
-            
-            case TokenType.delay:
-                break;
-        }
-    }
+    public AnimationObject AnimationPlayedTarget => baseInfo.AnimationPlayedTarget;
 
     public void SingleAttackToken(EntityData user, EntityData target)
     {

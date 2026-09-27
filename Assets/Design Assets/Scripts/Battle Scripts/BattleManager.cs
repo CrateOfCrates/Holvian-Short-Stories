@@ -259,19 +259,27 @@ public class BattleManager : MonoBehaviour
             TokenData token = e.GetSelectedToken();
 
             EntityData target;
+            //Means a Single Attack Token
             if(token.BaseInfo.TokenTarget == TokenTarget.target)
             {
-                //exists a target
-
                 if(e.GetCurrentTarget().TargetTeam == WhichTeam.player && token.BaseInfo.TokenTarget == TokenTarget.target)
                 {
                     //target is on the player team
                     target = allPlayerData[e.GetCurrentTarget().WhichTarget];
+                    //play animation
+                    int targetIndex = e.GetCurrentTarget().WhichTarget;
+                    Coroutine ct = battleUniversalUI.PlayAnimationPlayer(targetIndex, token.AnimationPlayedTarget);
+                    yield return ct;
                 } else
                 {
                     target = allEnemyData[e.GetCurrentTarget().WhichTarget];
+                    //play animation
+                    
                 }
-                token.ExecuteToken(e, target);
+
+                //play animation on target
+
+                token.SingleAttackToken(e, target);
             }
             //update UI
             battleUniversalUI.UpdatePlayerStats(allPlayerData);

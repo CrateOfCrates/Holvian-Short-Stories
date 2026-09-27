@@ -187,6 +187,11 @@ public class BattleUniversalUI : MonoBehaviour
         }
     }
 
+    public Coroutine PlayAnimationPlayer(int index, AnimationObject animation)
+    {
+        return StartCoroutine(portriatUI[index].PlayAnimation(animation));
+    }
+
     private Sprite GetSprite(string name)
     {
         foreach(KeySprite ep in moveControlButtons)

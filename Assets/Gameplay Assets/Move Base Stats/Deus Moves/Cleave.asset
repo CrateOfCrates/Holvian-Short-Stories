@@ -13,14 +13,15 @@ MonoBehaviour:
   m_Name: Cleave
   m_EditorClassIdentifier: Assembly-CSharp::MoveObject
   moveName: Cleave
-  needAim: 1
   baseTokens:
   - display: {fileID: 658460085, guid: 438e48f8e4c7ece40bbe7b8bdff291e5, type: 3}
     potency: 10
     tokenType: 1
     tokenTarget: 1
+    animationPlayedTarget: {fileID: 11400000, guid: bd28252f539e89e41a36240cdb38cb09, type: 2}
   - display: {fileID: -7548477512082302273, guid: 438e48f8e4c7ece40bbe7b8bdff291e5, type: 3}
     potency: 0
     tokenType: 0
     tokenTarget: 4
+    animationPlayedTarget: {fileID: 0}
   mpCost: 5

@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 279e42dc960f611458140e63b02f03d2, type: 3}
+  m_Name: Temp Slash
+  m_EditorClassIdentifier: Assembly-CSharp::AnimationObject
+  sprites:
+  - {fileID: -8109345628444936078, guid: f724139f9bc43a54f80a0a61fa2ac9b1, type: 3}
+  - {fileID: 1626530829312021342, guid: f724139f9bc43a54f80a0a61fa2ac9b1, type: 3}
+  - {fileID: -4739711183796453952, guid: f724139f9bc43a54f80a0a61fa2ac9b1, type: 3}
+  - {fileID: 2247289837042527800, guid: f724139f9bc43a54f80a0a61fa2ac9b1, type: 3}
+  - {fileID: 2290059122009949053, guid: f724139f9bc43a54f80a0a61fa2ac9b1, type: 3}
+  fps: 15
+  looping: 0

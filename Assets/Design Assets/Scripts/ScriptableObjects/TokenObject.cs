@@ -11,11 +11,13 @@ public class TokenObject
     [SerializeField] private int potency;
     [SerializeField] TokenType tokenType;
     [SerializeField] TokenTarget tokenTarget;
+    [SerializeField] AnimationObject animationPlayedTarget;
 
     public int Potency => potency;
     public Sprite Display => display;
     public TokenType TokenType => tokenType;
     public TokenTarget TokenTarget => tokenTarget;
+    public AnimationObject AnimationPlayedTarget => animationPlayedTarget;
 
     public bool NeedAim()
     {

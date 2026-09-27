@@ -295,14 +295,15 @@ public class BattleManager : MonoBehaviour
         }
 
         //turn is finished
-        FinalizeTurn(turnOrder);
+        StartCoroutine(FinalizeTurn(turnOrder));
     }
 
-    private void FinalizeTurn(List<EntityData> turnOrder)
+    private IEnumerator FinalizeTurn(List<EntityData> turnOrder)
     {
         foreach(EntityData e in turnOrder)
         {
             e.OnTurnEndTick();
+            yield return new WaitForSeconds(0f);
         }
         //UI UPDATES
         battleUniversalUI.UpdatePlayerStats(allPlayerData);

@@ -1,18 +1,18 @@
 fileFormatVersion: 2
-guid: e5d99210937e6b34cb506af4d6b64f0a
+guid: 9d95d101dc21ffc449a7fbf6bdad52b5
 TrueTypeFontImporter:
   externalObjects: {}
   serializedVersion: 4
-  fontSize: 16
+  fontSize: 7
   forceTextureCase: -2
   characterSpacing: 0
   characterPadding: 1
   includeFontData: 1
   fontNames:
-  - Minecraft
+  - ZX Spectrum-7
   fallbackFontReferences: []
   customCharacters: 
-  fontRenderingMode: 0
+  fontRenderingMode: 2
   ascentCalculationMode: 1
   useLegacyBoundsCalculation: 0
   shouldRoundAdvanceValue: 1

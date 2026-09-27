@@ -5,6 +5,8 @@ using UnityEngine.SceneManagement;
 using System;
 using TMPro;
 using System.Collections;
+using Unity.VisualScripting;
+using System.IO;
 
 
 [Serializable]
@@ -89,6 +91,8 @@ public class EntityData
 
     [SerializeField] protected List<MoveData> activeMoves;
     [SerializeField] protected List<Targeting> targets = new List<Targeting>();
+
+    protected Dictionary<StatusEffectObject, StatusEffectInstance> statusEffects = new Dictionary<StatusEffectObject, StatusEffectInstance>();
     
     public int Hp => hp;
     public int Mp => mp;
@@ -119,6 +123,51 @@ public class EntityData
         {
             //Debug.Log("targeting cleared");
             targets[0].ClearTarget();
+        }
+    }
+
+    public void ApplyStatus(StatusEffectObject type, int potency)
+    {
+        Debug.Log("Applying " + type + " with Potency " + potency);
+
+        if(statusEffects.Count == 0)
+        {
+            AddStatus(type, potency);
+            return;
+        }
+
+        if (statusEffects.ContainsKey(type))
+        {
+            //modify
+            statusEffects[type].ChangeCount(potency);
+
+        } else
+        {
+            AddStatus(type, potency);
+        }
+    }
+
+    private void AddStatus(StatusEffectObject type, int potency)
+    {
+        if(type is DamageSEO damageSEO)
+        {
+            DamageSEI temp = new DamageSEI();
+            temp.SetBaseInfo(damageSEO);
+            statusEffects[type] = temp;
+        }
+
+        statusEffects[type].SetAppliedTo(this);
+        statusEffects[type].ChangeCount(potency);
+
+
+    }
+
+    public void OnTurnEndTick()
+    {
+        foreach(var (key, value) in statusEffects)
+        {
+            Debug.Log("STATUS EFFECT: " + value);
+            value.OnTurnEnd();
         }
     }
 
@@ -274,6 +323,17 @@ public class TokenData
     public void SingleAttackToken(EntityData user, EntityData target)
     {
         target.TakeDamage(DamageCalc.CalculateDamage(user, target, this));
+        AdressAfterModifiers(user, target);
+    }
+
+    private void AdressAfterModifiers(EntityData user, EntityData target)
+    {
+        foreach(TokenParts tp in baseInfo.TokenParts){
+
+            if(tp.TriggerTime != TriggerTime.after){ continue;}
+
+            tp.Execute(user, target);
+        }
     }
 
 //     public void ExecuteToken(EntityData user, WhichTeam wt)
@@ -290,6 +350,79 @@ public class TokenData
 //                 break;
 //         }
 //     }
+}
+
+[System.Serializable]
+public class StatusEffectInstance
+{
+    protected int count;
+    protected EntityData appliedTo;
+
+    public virtual void OnApply() { }
+    public virtual void OnTurnEnd() { Debug.Log("NEEDS POLYMORPHISM");}
+    public virtual void OnTokenEnd() { }
+    public virtual void OnExpire() { }
+
+    public void SetAppliedTo(EntityData apt)
+    {
+        appliedTo = apt;
+    }
+
+    protected void Decay(StatusEffectObject baseInfo)
+    {
+        if(baseInfo.DecayRate == StatusEffectDecayRate.fractional)
+        {
+            double removeMult = (1.0 - baseInfo.DecayCount)/100;
+            ChangeCount(count * removeMult);
+
+        } else if (baseInfo.DecayRate == StatusEffectDecayRate.subtractional)
+        {
+            ChangeCount(baseInfo.DecayCount * -1);
+        }
+
+        Debug.LogWarning("ADD CHECK FOR NEGATIVES AND ZEROES");
+    }
+
+    public void ChangeCount(double change)
+    {
+        count = (int)Math.Floor(count + change);
+        Debug.Log("Count Changed to: " + count);
+    }
+
+}
+
+public class DamageSEI : StatusEffectInstance
+{
+    protected DamageSEO baseInfo;
+
+    public DamageSEO BaseInfo => baseInfo;
+
+    public void SetBaseInfo(DamageSEO damageSEO)
+    {
+        Debug.Log("ATTACHED BASE INFO");
+        baseInfo = damageSEO;
+    }
+
+    public override void OnTurnEnd()
+    {
+        Debug.Log("OVERRIDE VERSIOM");
+
+        Debug.Log(baseInfo);
+
+        if(baseInfo.TriggerType == StatusEffectPartType.endOfTurn)
+        {
+            Debug.Log("DEAL DAMAGE FROM EFFECT. TARGET BEING: " + appliedTo.GetName() + "FOR " + baseInfo.DamagePerStack * count);
+            appliedTo.TakeDamage(baseInfo.DamagePerStack * count);
+
+        }
+
+        if(baseInfo.DecayType == StatusEffectPartType.endOfTurn)
+        {
+            Decay(baseInfo);
+        }
+    }
+
+
 }
 
 

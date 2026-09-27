@@ -22,6 +22,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 8243f57fd65660f4c8bd835b9216d6d4, type: 2}
   - {fileID: 11400000, guid: 77fc116d7f463e849885147f7e341288, type: 2}
   - {fileID: 11400000, guid: c7e064c1ac4fc0648a2c687ea1512d5d, type: 2}
+  - {fileID: 11400000, guid: e39f7edd42147054baed9a89acade2b6, type: 2}
   expressions:
   - key: neutral
     sprite: {fileID: 3942266709313113077, guid: f06c4ca56a5df064f8ee5f94a12afd16, type: 3}

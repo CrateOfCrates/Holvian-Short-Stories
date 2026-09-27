@@ -4,7 +4,7 @@ using UnityEngine;
 
 
 
-[CreateAssetMenu(menuName = "Encounter")]
+[CreateAssetMenu(menuName = "Combat/Encounter")]
 public class EncounterObject : ScriptableObject
 {
     [Serializable]

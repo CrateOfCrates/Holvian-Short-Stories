@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(menuName = "Moves")]
+[CreateAssetMenu(menuName = "Combat/Moves")]
 public class MoveObject : ScriptableObject
 {
     [SerializeField] private string moveName;

@@ -570,10 +570,10 @@ Camera:
   m_LensShift: {x: 0, y: 0}
   m_NormalizedViewPortRect:
     serializedVersion: 2
-    x: 0.125192
+    x: 0
     y: 0
-    width: 0.7496159
-    height: 1
+    width: 0.49155143
+    height: 0.6557377
   near clip plane: 0.3
   far clip plane: 1000
   field of view: 34
@@ -984,6 +984,9 @@ MonoBehaviour:
   allEnemyData: []
   selectedPlayer: 0
   scrollMoves: 0
+  references:
+    version: 2
+    RefIds: []
 --- !u!4 &606748648
 Transform:
   m_ObjectHideFlags: 0
@@ -1040,7 +1043,7 @@ MonoBehaviour:
   m_Intensity: 1
   m_LightVolumeIntensity: 1
   m_LightVolumeEnabled: 0
-  m_ApplyToSortingLayers: 00000000c3124aac
+  m_ApplyToSortingLayers: 00000000c3124aac57c4b4be0d366c5e
   m_LightCookieSprite: {fileID: 0}
   m_DeprecatedPointLightCookieSprite: {fileID: 0}
   m_LightOrder: 0

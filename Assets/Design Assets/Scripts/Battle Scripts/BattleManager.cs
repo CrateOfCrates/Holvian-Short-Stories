@@ -274,7 +274,8 @@ public class BattleManager : MonoBehaviour
                 {
                     target = allEnemyData[e.GetCurrentTarget().WhichTarget];
                     //play animation
-                    
+                    Coroutine ct = PlayAnimationEnemy(e.GetCurrentTarget().WhichTarget, token.AnimationPlayedTarget);
+                    yield return ct;
                 }
 
                 //play animation on target
@@ -294,13 +295,19 @@ public class BattleManager : MonoBehaviour
         }
 
         //turn is finished
-        FinalizeTurn();
+        FinalizeTurn(turnOrder);
     }
 
-    private void FinalizeTurn()
+    private void FinalizeTurn(List<EntityData> turnOrder)
     {
+        foreach(EntityData e in turnOrder)
+        {
+            e.OnTurnEndTick();
+        }
+        //UI UPDATES
         battleUniversalUI.UpdatePlayerStats(allPlayerData);
         foreach(EnemyData ed in allEnemyData){ed.UpdateDisplay();}
+
         Debug.Log("TURN FINISHED");
 
         BattleStateTurns(BattleState.playerSelect);
@@ -349,10 +356,10 @@ public class BattleManager : MonoBehaviour
 
     }
 
-    // public void ToggleEnemyDisplay(int i, bool b)
-    // {
-    //     //battleUniversalUI.ToggleEnemyDisplay(i, b);
-    // }
+    private Coroutine PlayAnimationEnemy(int index, AnimationObject animationObject)
+    {
+        return StartCoroutine(allEnemyData[index].SingleEnemyManager.PlayAnimation(animationObject));
+    }
 
     void Start()
     {

@@ -6,6 +6,7 @@ public class DamageSEO : StatusEffectObject
     [SerializeField] protected int damagePerStack;
     [SerializeField] protected int bonusDamage;
     [SerializeField] protected StatusEffectPartType triggerType;
+    [SerializeField] protected AnimationObject tickAnimation;
 
     public int DamagePerStack => damagePerStack;
     public int BonusDamage => bonusDamage;

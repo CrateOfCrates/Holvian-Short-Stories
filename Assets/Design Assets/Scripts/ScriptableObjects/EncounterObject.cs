@@ -2,9 +2,7 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-
-
-[CreateAssetMenu(menuName = "Combat/Encounter")]
+[CreateAssetMenu(menuName = "Combat/EnemyEncounter")]
 public class EncounterObject : ScriptableObject
 {
     [Serializable]

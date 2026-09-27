@@ -166,7 +166,7 @@ public class EntityData
     {
         foreach(var (key, value) in statusEffects)
         {
-            Debug.Log("STATUS EFFECT: " + value);
+            //Debug.Log("STATUS EFFECT: " + value);
             value.OnTurnEnd();
         }
     }

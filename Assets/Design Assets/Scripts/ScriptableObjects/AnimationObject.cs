@@ -4,7 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-[CreateAssetMenu(menuName = "Animation")]
+[CreateAssetMenu(menuName = "AnyAnimation")]
 public class AnimationObject : ScriptableObject
 {
     [SerializeField] private List<Sprite> sprites;

@@ -12,6 +12,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 279e42dc960f611458140e63b02f03d2, type: 3}
   m_Name: Burn Effect
   m_EditorClassIdentifier: Assembly-CSharp::AnimationObject
-  sprites: []
-  fps: 0
+  sprites:
+  - {fileID: -3218131975763077250, guid: 439a56fd6b6dedc47a230466a6311112, type: 3}
+  - {fileID: -2694846043016938612, guid: 439a56fd6b6dedc47a230466a6311112, type: 3}
+  - {fileID: -4159072846958735714, guid: 439a56fd6b6dedc47a230466a6311112, type: 3}
+  - {fileID: 7593015094608227550, guid: 439a56fd6b6dedc47a230466a6311112, type: 3}
+  - {fileID: -2694846043016938612, guid: 439a56fd6b6dedc47a230466a6311112, type: 3}
+  - {fileID: -4159072846958735714, guid: 439a56fd6b6dedc47a230466a6311112, type: 3}
+  - {fileID: 7593015094608227550, guid: 439a56fd6b6dedc47a230466a6311112, type: 3}
+  - {fileID: -2694846043016938612, guid: 439a56fd6b6dedc47a230466a6311112, type: 3}
+  - {fileID: -4159072846958735714, guid: 439a56fd6b6dedc47a230466a6311112, type: 3}
+  - {fileID: 7593015094608227550, guid: 439a56fd6b6dedc47a230466a6311112, type: 3}
+  - {fileID: -3218131975763077250, guid: 439a56fd6b6dedc47a230466a6311112, type: 3}
+  fps: 20
   looping: 0

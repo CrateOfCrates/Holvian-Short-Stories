@@ -18,7 +18,9 @@ MonoBehaviour:
     potency: 10
     tokenType: 1
     tokenTarget: 1
-    animationPlayedTarget: {fileID: 11400000, guid: a130ed20fe8412346bacc4aa80e6dd13, type: 2}
+    animationPlayedTarget: {fileID: 11400000, guid: 9294828f9488f9147b91d48635d12c16, type: 2}
+    onUseText: sets the target on fire!
+    tokenDescription: Inflicts 10 Burn.
     tokenParts:
     - rid: 218506557160161371
   - display: {fileID: -7548477512082302273, guid: 438e48f8e4c7ece40bbe7b8bdff291e5, type: 3}
@@ -26,8 +28,11 @@ MonoBehaviour:
     tokenType: 0
     tokenTarget: 0
     animationPlayedTarget: {fileID: 0}
+    onUseText: N/A
+    tokenDescription: N/A
     tokenParts: []
   mpCost: 0
+  moveTarget: 1
   references:
     version: 2
     RefIds:

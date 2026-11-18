@@ -11,4 +11,5 @@ public class DamageSEO : StatusEffectObject
     public int DamagePerStack => damagePerStack;
     public int BonusDamage => bonusDamage;
     public StatusEffectPartType TriggerType => triggerType;
+    public AnimationObject TickAnimation => tickAnimation;
 }

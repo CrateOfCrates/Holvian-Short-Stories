@@ -1,10 +1,10 @@
 using UnityEngine;
 using UnityEngine.UI;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.SceneManagement; 
 using System;
 using TMPro;
-using System.Collections;
 using Unity.VisualScripting;
 using System.IO;
 
@@ -80,6 +80,8 @@ public class Targeting
 [System.Serializable]
 public class EntityData
 {
+    [SerializeField] protected string name;
+
     [SerializeField] protected int hp;
     [SerializeField] protected int mp;
     [SerializeField] protected int maxHp;
@@ -94,6 +96,8 @@ public class EntityData
 
     protected Dictionary<StatusEffectObject, StatusEffectInstance> statusEffects = new Dictionary<StatusEffectObject, StatusEffectInstance>();
     
+    public string Name => name;
+
     public int Hp => hp;
     public int Mp => mp;
     public int MaxHp => maxHp;
@@ -107,12 +111,11 @@ public class EntityData
     public List<Targeting> Targets => targets;
 
     public Targeting GetCurrentTarget(){return targets[0];}
-    public MoveData GetCurrentMove(){
-        //Debug.Log($"[GETCURRENTMOVE] Player Object ID: {System.Runtime.CompilerServices.RuntimeHelpers.GetHashCode(this)} | AM Count: {targets[0].MoveUsed}");
-        return activeMoves[targets[0].MoveUsed];
-    }
-    public int GetTokenProgress(){return targets[0].TokenProgress;}
+    public MoveData GetCurrentMove(){return activeMoves[targets[0].MoveUsed];}
     public TokenData GetSelectedToken(){return activeMoves[targets[0].MoveUsed].ActiveTokens[targets[0].TokenProgress];}
+    public int GetTokenProgress(){return targets[0].TokenProgress;}
+
+
     public TokenData GetSelectedToken(int i){return activeMoves[targets[i].MoveUsed].ActiveTokens[targets[i].TokenProgress];}
 
     public void AdvanceNextToken(){
@@ -159,20 +162,22 @@ public class EntityData
         statusEffects[type].SetAppliedTo(this);
         statusEffects[type].ChangeCount(potency);
 
-
     }
 
-    public void OnTurnEndTick()
+    public IEnumerator OnTurnEndTick()
     {
         foreach(var (key, value) in statusEffects)
         {
             //Debug.Log("STATUS EFFECT: " + value);
-            value.OnTurnEnd();
+            IEnumerator valueanim = value.OnTurnEnd();
+            yield return valueanim;
         }
+        yield return new WaitForSeconds(0f);
     }
 
     protected void LoadStats(EntityObject EO)
     {
+        name = EO.EntityName;
         hp = EO.BaseMaxHp;
         mp = EO.BaseMaxMp;
         maxHp = EO.BaseMaxHp;
@@ -197,7 +202,7 @@ public class EntityData
     }
 
     public virtual WhichTeam GetTeam(){return WhichTeam.undec;}
-    public virtual string GetName(){return "N/A";}
+    //public virtual string GetName(){return name;}
 
     public void TakeDamage(int damage)
     {
@@ -212,9 +217,11 @@ public class PlayerData : EntityData
 {
     [SerializeField] private PlayerObject baseInfo;
     [SerializeField] private bool exists;
+    [SerializeField] private BattlePortriatUI portriat;
 
     public PlayerObject BaseInfo => baseInfo;
     public bool Exists => exists;
+    public BattlePortriatUI Portriat => portriat;
 
     public void SetExists(bool b){exists = b;}
 
@@ -224,9 +231,14 @@ public class PlayerData : EntityData
         baseInfo = playerObject;
     }
 
+    public void SetPortriat(BattlePortriatUI bp)
+    {
+        portriat = bp;
+    }
+
     public bool GetNeedTargeting(){
         if(exists && (targets[0].MoveUsed >= 0)){
-            return GetCurrentMove().NeedAim(GetTokenProgress());
+            return GetCurrentMove().NeedAim;
         } else {
             return false;
         }
@@ -241,7 +253,7 @@ public class PlayerData : EntityData
         //Debug.Log($"[SETUPFORCOMBAT] Player Object ID: {System.Runtime.CompilerServices.RuntimeHelpers.GetHashCode(this)} | AM Count: {activeMoves.Count}");
     }
     public override WhichTeam GetTeam(){return WhichTeam.player;}
-    public override string GetName(){return baseInfo.EntityName;}
+    //public override string GetName(){return baseInfo.EntityName;}
 }
 
 [System.Serializable]
@@ -264,7 +276,7 @@ public class EnemyData : EntityData
         //Debug.Log($"[LOAD_STATS] Player Object ID: {System.Runtime.CompilerServices.RuntimeHelpers.GetHashCode(this)} | Targets Count: {targets.Count}");
     }
     public override WhichTeam GetTeam(){return WhichTeam.enemy;}
-    public override string GetName(){return baseInfo.EntityName;}
+    //public override string GetName(){return baseInfo.EntityName;}
 
     public void UpdateDisplay()
     {
@@ -283,6 +295,8 @@ public class MoveData
     public int MpCost => mpCost;
     public MoveObject BaseInfo => baseInfo;
     public string MoveName => baseInfo.MoveName;
+    //Returns if the current token needs aim or not
+    public bool NeedAim => CombatStuffHelper.NeedAim(baseInfo.MoveTarget);
 
     public void LoadData(MoveObject moveObject)
     {
@@ -295,10 +309,6 @@ public class MoveData
         mpCost = moveObject.MpCost;
         baseInfo = moveObject;
     }
-
-    //Returns if the current token needs aim or not
-    public bool NeedAim(){return activeTokens[0].BaseInfo.NeedAim();}
-    public bool NeedAim(int index){return activeTokens[index].BaseInfo.NeedAim();}
 
     public int GetTokenCount(){return activeTokens.Count;}
 
@@ -319,6 +329,9 @@ public class TokenData
     public TokenObject BaseInfo => baseInfo;
     public int Potency => potency;
     public AnimationObject AnimationPlayedTarget => baseInfo.AnimationPlayedTarget;
+    public string TokenDescription => baseInfo.TokenDescription;
+
+    public string GetTextDisplay(string name) => baseInfo.GetTextDisplay(name);
 
     public void SingleAttackToken(EntityData user, EntityData target)
     {
@@ -359,7 +372,7 @@ public class StatusEffectInstance
     protected EntityData appliedTo;
 
     public virtual void OnApply() { }
-    public virtual void OnTurnEnd() { Debug.Log("NEEDS POLYMORPHISM");}
+    public virtual IEnumerator OnTurnEnd() { Debug.Log("NEEDS POLYMORPHISM"); yield return new WaitForSeconds(0f);}
     public virtual void OnTokenEnd() { }
     public virtual void OnExpire() { }
 
@@ -389,6 +402,21 @@ public class StatusEffectInstance
         Debug.Log("Count Changed to: " + count);
     }
 
+    protected IEnumerator playAnim(EntityData guy, AnimationObject animationObject)
+    {
+        if(guy is PlayerData pd){
+            IEnumerator ct = pd.Portriat.PlayAnimation(animationObject);
+            yield return ct;
+
+        }
+
+        if(guy is EnemyData ed){
+            IEnumerator ct = ed.SingleEnemyManager.PlayAnimation(animationObject);
+            Debug.Log("ANIMATION SHOULD BE HERE: " + ct);
+            yield return ct;
+        }
+    }
+
 }
 
 public class DamageSEI : StatusEffectInstance
@@ -403,7 +431,7 @@ public class DamageSEI : StatusEffectInstance
         baseInfo = damageSEO;
     }
 
-    public override void OnTurnEnd()
+    public override IEnumerator OnTurnEnd()
     {
         Debug.Log("OVERRIDE VERSIOM");
 
@@ -411,7 +439,9 @@ public class DamageSEI : StatusEffectInstance
 
         if(baseInfo.TriggerType == StatusEffectPartType.endOfTurn)
         {
-            Debug.Log("DEAL DAMAGE FROM EFFECT. TARGET BEING: " + appliedTo.GetName() + "FOR " + baseInfo.DamagePerStack * count);
+            Debug.Log("DEAL DAMAGE FROM EFFECT. TARGET BEING: " + appliedTo.Name + "FOR " + baseInfo.DamagePerStack * count);
+            IEnumerator anim = playAnim(appliedTo, baseInfo.TickAnimation);
+            yield return anim;
             appliedTo.TakeDamage(baseInfo.DamagePerStack * count);
 
         }
@@ -420,6 +450,8 @@ public class DamageSEI : StatusEffectInstance
         {
             Decay(baseInfo);
         }
+
+        yield return new WaitForSeconds(0f);
     }
 
 

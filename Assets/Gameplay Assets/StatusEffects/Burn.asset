@@ -19,3 +19,4 @@ MonoBehaviour:
   damagePerStack: 1
   bonusDamage: 0
   triggerType: 1
+  tickAnimation: {fileID: 11400000, guid: 5ff87fe46069b614f9bcd04045b96a36, type: 2}

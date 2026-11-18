@@ -19,9 +19,19 @@ MonoBehaviour:
     tokenType: 1
     tokenTarget: 1
     animationPlayedTarget: {fileID: 11400000, guid: a130ed20fe8412346bacc4aa80e6dd13, type: 2}
+    onUseText: cleaves the target!
+    tokenDescription: Slashes for 10
+    tokenParts: []
   - display: {fileID: -7548477512082302273, guid: 438e48f8e4c7ece40bbe7b8bdff291e5, type: 3}
     potency: 0
     tokenType: 0
     tokenTarget: 4
     animationPlayedTarget: {fileID: 0}
+    onUseText: N/A
+    tokenDescription: N/A
+    tokenParts: []
   mpCost: 5
+  moveTarget: 1
+  references:
+    version: 2
+    RefIds: []

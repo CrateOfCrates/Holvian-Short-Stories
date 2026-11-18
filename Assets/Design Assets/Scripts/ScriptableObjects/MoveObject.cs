@@ -10,10 +10,12 @@ public class MoveObject : ScriptableObject
     //[SerializeReference, SubclassSelector]
     [SerializeField] private List<TokenObject> baseTokens = new List<TokenObject>();
     [SerializeField] int mpCost;
+    [SerializeField] Target moveTarget;
 
     public string MoveName => moveName;
     public int MpCost => mpCost;
     public List<TokenObject> BaseTokens => baseTokens;
+    public Target MoveTarget => moveTarget;
     
 
 }

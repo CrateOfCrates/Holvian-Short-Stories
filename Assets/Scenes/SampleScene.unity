@@ -446,7 +446,7 @@ MonoBehaviour:
   m_Intensity: 1
   m_LightVolumeIntensity: 1
   m_LightVolumeEnabled: 0
-  m_ApplyToSortingLayers: 00000000
+  m_ApplyToSortingLayers: 0000000057c4b4be0d366c5e
   m_LightCookieSprite: {fileID: 0}
   m_DeprecatedPointLightCookieSprite: {fileID: 0}
   m_LightOrder: 0
@@ -549,8 +549,9 @@ MonoBehaviour:
     defense: 0
     activeMoves: []
     targets: []
-    baseInfo: {fileID: 11400000, guid: e352444f2010c414381e3659fac92829, type: 2}
-    exists: 1
+    baseInfo: {fileID: 0}
+    exists: 0
+    portriat: {fileID: 0}
   - hp: 0
     mp: 0
     maxHp: 0
@@ -560,8 +561,9 @@ MonoBehaviour:
     defense: 0
     activeMoves: []
     targets: []
-    baseInfo: {fileID: 11400000, guid: 75a3a3f0aa9b8fa4587247ba6a7ed07f, type: 2}
-    exists: 1
+    baseInfo: {fileID: 0}
+    exists: 0
+    portriat: {fileID: 0}
   - hp: 0
     mp: 0
     maxHp: 0
@@ -571,8 +573,9 @@ MonoBehaviour:
     defense: 0
     activeMoves: []
     targets: []
-    baseInfo: {fileID: 11400000, guid: dbbc0d2a27ee3b64d8918393a762014e, type: 2}
-    exists: 1
+    baseInfo: {fileID: 0}
+    exists: 0
+    portriat: {fileID: 0}
   - hp: 0
     mp: 0
     maxHp: 0
@@ -582,9 +585,13 @@ MonoBehaviour:
     defense: 0
     activeMoves: []
     targets: []
-    baseInfo: {fileID: 11400000, guid: 534151a16f7acaf4780a22cf9cbaa820, type: 2}
-    exists: 1
+    baseInfo: {fileID: 0}
+    exists: 0
+    portriat: {fileID: 0}
   encounter: {fileID: 11400000, guid: 8744c7ee5d45f354b9b9e4d3f92059b1, type: 2}
+  references:
+    version: 2
+    RefIds: []
 --- !u!4 &1064547091
 Transform:
   m_ObjectHideFlags: 0
@@ -630,7 +637,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::loadTest
   encounterObject: {fileID: 11400000, guid: 8744c7ee5d45f354b9b9e4d3f92059b1, type: 2}
-  b: 010101010001
+  b: 01010101
+  pbs:
+  - {fileID: 11400000, guid: dbbc0d2a27ee3b64d8918393a762014e, type: 2}
+  - {fileID: 11400000, guid: e352444f2010c414381e3659fac92829, type: 2}
+  - {fileID: 11400000, guid: 2af28eac237c28040af149e37a5c59f8, type: 2}
+  - {fileID: 11400000, guid: 534151a16f7acaf4780a22cf9cbaa820, type: 2}
 --- !u!4 &1496300126
 Transform:
   m_ObjectHideFlags: 0

@@ -82,6 +82,7 @@ public class BattleManager : MonoBehaviour
 
             case BattleState.execute:
                 //setup turn UI
+                BattleText.Instance.Clear();
                 battleUniversalUI.ToggleUI(false);
                 List<EntityData> turnOrder = GetTurnOrder();
                 StartCoroutine(TurnPart(turnOrder));
@@ -92,6 +93,7 @@ public class BattleManager : MonoBehaviour
     //Player Turn and Interaction
     private void PlayerTurn()
     {
+        BattleText.Instance.Clear();
         battleUniversalUI.ToggleUI(true);
         selectedPlayer = -1;
         scrollMoves = 0;
@@ -122,6 +124,7 @@ public class BattleManager : MonoBehaviour
         //Set the move in
         temp.SetTarget(selectedMove);
 
+        //check if the move needs targeting 
         if (allPlayerData[selectedPlayer].GetNeedTargeting() && temp.WhichTarget == -1)
         {
             //yes aim is needed and aim is not present
@@ -255,27 +258,33 @@ public class BattleManager : MonoBehaviour
                 continue;
             }
 
-            Debug.Log(e.GetName() + " is acting! Move Used: " + e.GetCurrentMove().BaseInfo.MoveName + " with token progress: " + e.GetTokenProgress());
+            Debug.Log(e.Name + " is acting! Move Used: " + e.GetCurrentMove().BaseInfo.MoveName + " with token progress: " + e.GetTokenProgress());
             TokenData token = e.GetSelectedToken();
 
             EntityData target;
             //Means a Single Attack Token
-            if(token.BaseInfo.TokenTarget == TokenTarget.target)
+            if(token.BaseInfo.TokenTarget == Target.target)
             {
-                if(e.GetCurrentTarget().TargetTeam == WhichTeam.player && token.BaseInfo.TokenTarget == TokenTarget.target)
+
+                if(e.GetCurrentTarget().TargetTeam == WhichTeam.player)
                 {
                     //target is on the player team
                     target = allPlayerData[e.GetCurrentTarget().WhichTarget];
+                    BattleText.Instance.AddMessage(token.GetTextDisplay(e.Name));
                     //play animation
-                    int targetIndex = e.GetCurrentTarget().WhichTarget;
-                    Coroutine ct = battleUniversalUI.PlayAnimationPlayer(targetIndex, token.AnimationPlayedTarget);
-                    yield return ct;
+                    if(target is PlayerData pd){
+                        IEnumerator ct = pd.Portriat.PlayAnimation(token.AnimationPlayedTarget);
+                        yield return ct;
+                    }
                 } else
                 {
                     target = allEnemyData[e.GetCurrentTarget().WhichTarget];
+                    BattleText.Instance.AddMessage(token.GetTextDisplay(e.Name));
                     //play animation
-                    Coroutine ct = PlayAnimationEnemy(e.GetCurrentTarget().WhichTarget, token.AnimationPlayedTarget);
-                    yield return ct;
+                    if(target is EnemyData ed){
+                        IEnumerator ct = ed.SingleEnemyManager.PlayAnimation(token.AnimationPlayedTarget);
+                        yield return ct;
+                    }
                 }
 
                 //play animation on target
@@ -302,8 +311,8 @@ public class BattleManager : MonoBehaviour
     {
         foreach(EntityData e in turnOrder)
         {
-            e.OnTurnEndTick();
-            yield return new WaitForSeconds(0f);
+            IEnumerator ed = e.OnTurnEndTick();
+            yield return ed;
         }
         //UI UPDATES
         battleUniversalUI.UpdatePlayerStats(allPlayerData);
@@ -357,13 +366,41 @@ public class BattleManager : MonoBehaviour
 
     }
 
-    private Coroutine PlayAnimationEnemy(int index, AnimationObject animationObject)
+    private void HoverScanner()
     {
-        return StartCoroutine(allEnemyData[index].SingleEnemyManager.PlayAnimation(animationObject));
+        GameObject topScan = CombatStuffHelper.HoverScan();
+        if(topScan == null){return;}
+
+        if(topScan.name.Substring(0, 5) == "Token")
+        {
+            GameObject moveGameObject = topScan.transform.parent.gameObject.transform.parent.gameObject;
+
+            //These rely on the NAMES of the MOVES AND TOKENS! DO NOT CHANGE THEM OR BAD THINGS WILL HAPPEN!
+            int scanTargetMove = int.Parse(""+moveGameObject.name[14]);
+            int scanTargetToken = int.Parse(""+topScan.name[7]);
+            
+            PlayerData scanPlayer = allPlayerData[selectedPlayer];
+            MoveData scanMove = scanPlayer.ActiveMoves[scanTargetMove];
+
+            //if doesnt exist, stop
+            if(scanMove.ActiveTokens.Count <= scanTargetToken){return;}
+
+            TokenData targetToken = scanMove.ActiveTokens[scanTargetToken];
+            //Debug.Log(targetToken.TokenDescription);
+            BattleText.Instance.SetMessage(targetToken.TokenDescription);
+        }
+    }
+
+    //modify text for hovering over
+    void Update()
+    {
+        HoverScanner();
     }
 
     void Start()
     {
         InitializeBattle();
     }
+
+    
 }

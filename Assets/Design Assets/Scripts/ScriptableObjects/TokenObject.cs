@@ -10,30 +10,26 @@ public class TokenObject
     [SerializeField] private Sprite display;
     [SerializeField] private int potency;
     [SerializeField] TokenType tokenType;
-    [SerializeField] TokenTarget tokenTarget;
+    [SerializeField] Target tokenTarget;
     [SerializeField] AnimationObject animationPlayedTarget;
+
+    [SerializeField] private string onUseText;
+    [SerializeField] private string tokenDescription;
 
     [SerializeReference] [SubclassSelector] List<TokenParts> tokenParts;
 
     public int Potency => potency;
     public Sprite Display => display;
     public TokenType TokenType => tokenType;
-    public TokenTarget TokenTarget => tokenTarget;
+    public Target TokenTarget => tokenTarget;
     public AnimationObject AnimationPlayedTarget => animationPlayedTarget;
     public List<TokenParts> TokenParts => tokenParts;
+    public string TokenDescription => tokenDescription;
 
-    public bool NeedAim()
+    public string GetTextDisplay(string userName)
     {
-        if(tokenTarget == TokenTarget.target)
-        {
-            return true;
-        } else if (tokenTarget == TokenTarget.entireSide)
-        {
-            return true;
-        } else
-        {
-            return false;
-        }
+        string s = userName + " " + onUseText;
+        return s;
     }
     
 }

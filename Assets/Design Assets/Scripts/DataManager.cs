@@ -27,25 +27,25 @@ public class DataManager : MonoBehaviour
 
     }
 
-    //Getters
     public List<PlayerData> AllPlayerData => allPlayerData;
     public EncounterObject Encounter => encounter;
 
-    //Setters
     public void BattleEncounter(EncounterObject encounter, List<bool> activePlayers)
     {
         this.encounter = encounter;
         //load player activity
         for(int i = 0; i < allPlayerData.Count; i++)
         {
+            //Debug.Log(i);
             allPlayerData[i].SetExists(activePlayers[i]);
         }
         SceneManager.LoadScene("CombatTestScene");
     }
 
     //index dictates which player to load from base
-    public void LoadPlayerFromBase(int index)
+    public void LoadPlayerFromBase(int index, PlayerObject pb)
     {
-        allPlayerData[index].LoadData(allPlayerData[index].BaseInfo);
+        allPlayerData[index] ??= new PlayerData(); 
+        allPlayerData[index].LoadData(pb);
     }
 }

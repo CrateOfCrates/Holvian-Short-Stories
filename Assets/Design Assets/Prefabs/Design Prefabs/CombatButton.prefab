@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 6742959435450300094}
   - component: {fileID: 408808272436018769}
   m_Layer: 5
-  m_Name: Token (6)
+  m_Name: Token (5)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -87,7 +87,7 @@ GameObject:
   - component: {fileID: 7290244924391033125}
   - component: {fileID: 4114014739808590159}
   m_Layer: 5
-  m_Name: Token (4)
+  m_Name: Token (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -237,7 +237,7 @@ GameObject:
   - component: {fileID: 2616706116779040529}
   - component: {fileID: 8199677014248630757}
   m_Layer: 5
-  m_Name: Token (3)
+  m_Name: Token (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -312,7 +312,7 @@ GameObject:
   - component: {fileID: 1782433138155944506}
   - component: {fileID: 1820918737005309123}
   m_Layer: 5
-  m_Name: Token (1)
+  m_Name: Token (0)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -387,7 +387,7 @@ GameObject:
   - component: {fileID: 4952400091412407034}
   - component: {fileID: 5733675740187705924}
   m_Layer: 5
-  m_Name: Token (5)
+  m_Name: Token (4)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -462,7 +462,7 @@ GameObject:
   - component: {fileID: 3646945901687253043}
   - component: {fileID: 276229582409733782}
   m_Layer: 5
-  m_Name: Token (2)
+  m_Name: Token (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -669,8 +669,8 @@ MonoBehaviour:
 
 '
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 95169c703ee445e4b8d5e6dc385d5773, type: 2}
-  m_sharedMaterial: {fileID: 7972210121251408434, guid: 95169c703ee445e4b8d5e6dc385d5773, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 253f66082dfba1549a4f4e3ae888e3be, type: 2}
+  m_sharedMaterial: {fileID: -5946059693963944637, guid: 253f66082dfba1549a4f4e3ae888e3be, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -694,15 +694,15 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 7
-  m_fontSizeBase: 7
+  m_fontSize: 8
+  m_fontSizeBase: 8
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
   m_fontSizeMax: 72
   m_fontStyle: 0
   m_HorizontalAlignment: 1
-  m_VerticalAlignment: 4096
+  m_VerticalAlignment: 8192
   m_textAlignment: 65535
   m_characterSpacing: 0
   m_characterHorizontalScale: 1
@@ -717,7 +717,7 @@ MonoBehaviour:
   m_linkedTextComponent: {fileID: 0}
   parentLinkedComponent: {fileID: 0}
   m_enableKerning: 0
-  m_ActiveFontFeatures: 6e72656b
+  m_ActiveFontFeatures: 
   m_enableExtraPadding: 0
   checkPaddingRequired: 0
   m_isRichText: 1
@@ -751,7 +751,7 @@ GameObject:
   - component: {fileID: 445656269257017529}
   - component: {fileID: 150566015219669000}
   m_Layer: 5
-  m_Name: Token (8)
+  m_Name: Token (7)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1037,7 +1037,7 @@ GameObject:
   - component: {fileID: 4755062537091848740}
   - component: {fileID: 5492673286116538505}
   m_Layer: 5
-  m_Name: Token (7)
+  m_Name: Token (6)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

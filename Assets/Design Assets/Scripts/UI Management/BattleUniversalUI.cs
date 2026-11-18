@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using System.Collections.Generic;
 using TMPro;
+using Unity.VisualScripting;
 
 public class BattleUniversalUI : MonoBehaviour
 {
@@ -17,7 +18,6 @@ public class BattleUniversalUI : MonoBehaviour
 
     [field: SerializeField] private List<KeySprite> moveControlButtons;
 
-
     //Fully Set up the Combat UI
     public void InitializeCombatUI(List<PlayerData> players, List<EnemyData> enemies)
     {
@@ -26,6 +26,7 @@ public class BattleUniversalUI : MonoBehaviour
             if(players[i].Exists)
             {
                 portriatUI[i].SetupDisplay(players[i]);
+                players[i].SetPortriat(portriatUI[i]);
             }
         }
 
@@ -81,6 +82,7 @@ public class BattleUniversalUI : MonoBehaviour
         if(targeting.WhichTarget == -1 && pd.GetNeedTargeting())
         {
             //Means needs a target for the current token but has none
+            Debug.Log("Means needs a target for the current token but has none");
             moveUI[targeting.MoveUsed-(moveScroll*4)].ChangeStatus("attention");
         } else {
             //Means everything should be fine
@@ -137,7 +139,8 @@ public class BattleUniversalUI : MonoBehaviour
             battleButtonUI.Display(b);
         }
     }
-
+    
+    //turn ui on and off
     public void ToggleUI(bool b)
     {
         loadMoves(b);
@@ -187,11 +190,6 @@ public class BattleUniversalUI : MonoBehaviour
         }
     }
 
-    public Coroutine PlayAnimationPlayer(int index, AnimationObject animation)
-    {
-        return StartCoroutine(portriatUI[index].PlayAnimation(animation));
-    }
-
     private Sprite GetSprite(string name)
     {
         foreach(KeySprite ep in moveControlButtons)
@@ -202,5 +200,5 @@ public class BattleUniversalUI : MonoBehaviour
             }
         }
         return null;
-    }
+    }    
 }

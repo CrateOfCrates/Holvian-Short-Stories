@@ -1,22 +1,31 @@
 fileFormatVersion: 2
-guid: f724139f9bc43a54f80a0a61fa2ac9b1
+guid: 038703150ea20d2439b135be8a14508b
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -8109345628444936078
-    second: animtest_0
+      213: -6057978238003062976
+    second: burnSlash_0
   - first:
-      213: 1626530829312021342
-    second: animtest_1
+      213: 9009204233400058271
+    second: burnSlash_1
   - first:
-      213: -4739711183796453952
-    second: animtest_2
+      213: -4633066996725027123
+    second: burnSlash_2
   - first:
-      213: 2247289837042527800
-    second: animtest_3
+      213: 3604774189778360993
+    second: burnSlash_3
   - first:
-      213: 2290059122009949053
-    second: animtest_4
+      213: 7583443074156218821
+    second: burnSlash_4
+  - first:
+      213: -6195545902517080433
+    second: burnSlash_5
+  - first:
+      213: 162872383718096406
+    second: burnSlash_6
+  - first:
+      213: -8650887548303036262
+    second: burnSlash_7
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -63,7 +72,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 100
+  spritePixelsToUnits: 32
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -112,7 +121,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: animtest_0
+      name: burnSlash_0
       rect:
         serializedVersion: 2
         x: 0
@@ -127,14 +136,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 2783ca7bd11d57f80800000000000000
-      internalID: -8109345628444936078
+      spriteID: 047d7ca93ecbdeba0800000000000000
+      internalID: -6057978238003062976
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: animtest_1
+      name: burnSlash_1
       rect:
         serializedVersion: 2
         x: 96
@@ -149,14 +158,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: e535d59eb29929610800000000000000
-      internalID: 1626530829312021342
+      spriteID: f9181c8748f170d70800000000000000
+      internalID: 9009204233400058271
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: animtest_2
+      name: burnSlash_2
       rect:
         serializedVersion: 2
         x: 192
@@ -171,14 +180,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 0cdbdd75ac9293eb0800000000000000
-      internalID: -4739711183796453952
+      spriteID: dce6e9f0d1a04bfb0800000000000000
+      internalID: -4633066996725027123
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: animtest_3
+      name: burnSlash_3
       rect:
         serializedVersion: 2
         x: 288
@@ -193,14 +202,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 83ee34c333aff2f10800000000000000
-      internalID: 2247289837042527800
+      spriteID: 1aa5c35d60bb60230800000000000000
+      internalID: 3604774189778360993
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: animtest_4
+      name: burnSlash_4
       rect:
         serializedVersion: 2
         x: 0
@@ -215,8 +224,74 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: d73cb0263ace7cf10800000000000000
-      internalID: 2290059122009949053
+      spriteID: 5c94a711c4dcd3960800000000000000
+      internalID: 7583443074156218821
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: burnSlash_5
+      rect:
+        serializedVersion: 2
+        x: 96
+        y: 192
+        width: 96
+        height: 96
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f8ea7dab3dff40aa0800000000000000
+      internalID: -6195545902517080433
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: burnSlash_6
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 192
+        width: 96
+        height: 96
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 61efc3fe193a24200800000000000000
+      internalID: 162872383718096406
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: burnSlash_7
+      rect:
+        serializedVersion: 2
+        x: 288
+        y: 192
+        width: 96
+        height: 96
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a903c83fb9fd1f780800000000000000
+      internalID: -8650887548303036262
       vertices: []
       indices: 
       edges: []
@@ -225,7 +300,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 062d919aea9a91040b31190adbe6ffe8
+    spriteID: 0476ba2192c0f1a42bb9f645ada52470
     internalID: 0
     vertices: []
     indices: 
@@ -237,11 +312,14 @@ TextureImporter:
       - key: SpriteEditor.SliceSettings
         value: '{"sliceOnImport":false,"gridCellCount":{"x":1.0,"y":1.0},"gridSpriteSize":{"x":96.0,"y":96.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.5,"y":0.5},"pivotPixels":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":0,"pivotUnitMode":0,"slicingType":1,"keepEmptyRects":false,"isAlternate":false}'
     nameFileIdTable:
-      animtest_0: -8109345628444936078
-      animtest_1: 1626530829312021342
-      animtest_2: -4739711183796453952
-      animtest_3: 2247289837042527800
-      animtest_4: 2290059122009949053
+      burnSlash_0: -6057978238003062976
+      burnSlash_1: 9009204233400058271
+      burnSlash_2: -4633066996725027123
+      burnSlash_3: 3604774189778360993
+      burnSlash_4: 7583443074156218821
+      burnSlash_5: -6195545902517080433
+      burnSlash_6: 162872383718096406
+      burnSlash_7: -8650887548303036262
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

@@ -13,14 +13,25 @@ MonoBehaviour:
   m_Name: Barrier
   m_EditorClassIdentifier: Assembly-CSharp::MoveObject
   moveName: Barrier
-  needAim: 1
   baseTokens:
   - display: {fileID: -1581030212, guid: 438e48f8e4c7ece40bbe7b8bdff291e5, type: 3}
     potency: 15
     tokenType: 3
     tokenTarget: 1
+    animationPlayedTarget: {fileID: 0}
+    onUseText: blocks.
+    tokenDescription: Block for 15
+    tokenParts: []
   - display: {fileID: -1581030212, guid: 438e48f8e4c7ece40bbe7b8bdff291e5, type: 3}
     potency: 15
     tokenType: 3
     tokenTarget: 1
+    animationPlayedTarget: {fileID: 0}
+    onUseText: blocks.
+    tokenDescription: Block for 15
+    tokenParts: []
   mpCost: 15
+  moveTarget: 1
+  references:
+    version: 2
+    RefIds: []

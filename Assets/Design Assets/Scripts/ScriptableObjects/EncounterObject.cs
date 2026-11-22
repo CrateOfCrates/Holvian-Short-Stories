@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using UnityEngine.UI;
 using UnityEngine;
 
 [CreateAssetMenu(menuName = "Combat/EnemyEncounter")]
@@ -14,11 +15,12 @@ public class EncounterObject : ScriptableObject
         [SerializeField] public double yLocationUI;
 
         public EnemyObject enemyObject;
-
     }
     
     [field: SerializeField] private List<EnemyEncounter> enemies;
+    [SerializeField] private Sprite backgroundForEncounter;
     public List<EnemyEncounter> Enemies => enemies;
+    public Sprite BackgroundForEncounter => backgroundForEncounter;
 
     public EnemyObject GetEnemyObject(int index)
     {

@@ -20,6 +20,7 @@ MonoBehaviour:
   baseDefense: 20
   startingMoves:
   - {fileID: 11400000, guid: a6215d114d1f7584abb57e08de04dbbb, type: 2}
+  - {fileID: 11400000, guid: 53bb594acb326ee4bbc01e9c8ff3bf34, type: 2}
   expressions:
   - key: neutral
     sprite: {fileID: -8252183609663769164, guid: ef0715826a0fefa4392617c3c4645ea2, type: 3}

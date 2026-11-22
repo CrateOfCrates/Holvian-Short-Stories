@@ -59,7 +59,7 @@ public class BattleManager : MonoBehaviour
             allEnemyData[i].SingleEnemyManager.SetupLoad(allEnemyData[i], this, i);
         }
         //UI
-        battleUniversalUI.InitializeCombatUI(allPlayerData, allEnemyData);
+        battleUniversalUI.InitializeCombatUI(allPlayerData, allEnemyData, enemyEncounter.BackgroundForEncounter);
 
         BattleStateTurns(BattleState.playerSelect);
         
@@ -125,7 +125,7 @@ public class BattleManager : MonoBehaviour
         temp.SetTarget(selectedMove);
 
         //check if the move needs targeting 
-        if (allPlayerData[selectedPlayer].GetNeedTargeting() && temp.WhichTarget == -1)
+        if (allPlayerData[selectedPlayer].GetNeedTargeting())
         {
             //yes aim is needed and aim is not present
             battleState = BattleState.selectMove;
@@ -371,23 +371,28 @@ public class BattleManager : MonoBehaviour
         GameObject topScan = CombatStuffHelper.HoverScan();
         if(topScan == null){return;}
 
-        if(topScan.name.Substring(0, 5) == "Token")
-        {
-            GameObject moveGameObject = topScan.transform.parent.gameObject.transform.parent.gameObject;
+        if(battleState == BattleState.playerSelect || battleState == BattleState.selectMove){
+            if(topScan.name.Substring(0, 5) == "Token")
+            {
+                GameObject moveGameObject = topScan.transform.parent.gameObject.transform.parent.gameObject;
 
-            //These rely on the NAMES of the MOVES AND TOKENS! DO NOT CHANGE THEM OR BAD THINGS WILL HAPPEN!
-            int scanTargetMove = int.Parse(""+moveGameObject.name[14]);
-            int scanTargetToken = int.Parse(""+topScan.name[7]);
-            
-            PlayerData scanPlayer = allPlayerData[selectedPlayer];
-            MoveData scanMove = scanPlayer.ActiveMoves[scanTargetMove];
+                //These rely on the NAMES of the MOVES AND TOKENS! DO NOT CHANGE THEM OR BAD THINGS WILL HAPPEN!
+                int scanTargetMove = int.Parse(""+moveGameObject.name[14]);
+                int scanTargetToken = int.Parse(""+topScan.name[7]);
+                
+                PlayerData scanPlayer = allPlayerData[selectedPlayer];
+                MoveData scanMove = scanPlayer.ActiveMoves[scanTargetMove];
 
-            //if doesnt exist, stop
-            if(scanMove.ActiveTokens.Count <= scanTargetToken){return;}
+                //if doesnt exist, stop
+                if(scanMove.ActiveTokens.Count <= scanTargetToken){return;}
 
-            TokenData targetToken = scanMove.ActiveTokens[scanTargetToken];
-            //Debug.Log(targetToken.TokenDescription);
-            BattleText.Instance.SetMessage(targetToken.TokenDescription);
+                TokenData targetToken = scanMove.ActiveTokens[scanTargetToken];
+                //Debug.Log(targetToken.TokenDescription);
+                BattleText.Instance.SetMessage(targetToken.TokenDescription);
+            } else
+            {
+                BattleText.Instance.SetMessage("");
+            }
         }
     }
 

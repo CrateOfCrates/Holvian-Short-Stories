@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: ab3bc5bf2d5f71c4b9e858706ec36370
+guid: 67ade7431331a3d4782bb6eee2d54bf9
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -22067166056999635
-    second: 800x600grid_0
+      213: 5049425737844187928
+    second: experimentalbackground_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -75,7 +75,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 1
+    textureCompression: 0
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -100,13 +100,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: 800x600grid_0
+      name: experimentalbackground_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 800
-        height: 600
+        width: 640
+        height: 480
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -115,8 +115,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: d2519f5870a91bff0800000000000000
-      internalID: -22067166056999635
+      spriteID: 813eaef94f9231640800000000000000
+      internalID: 5049425737844187928
       vertices: []
       indices: 
       edges: []
@@ -135,7 +135,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      800x600grid_0: -22067166056999635
+      experimentalbackground_0: 5049425737844187928
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

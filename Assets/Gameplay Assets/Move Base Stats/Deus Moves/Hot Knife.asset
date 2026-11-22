@@ -1,0 +1,44 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 789ec2be49656a440b679c8bc2ec357c, type: 3}
+  m_Name: Hot Knife
+  m_EditorClassIdentifier: Assembly-CSharp::MoveObject
+  moveName: Hot Knife
+  baseTokens:
+  - display: {fileID: 658460085, guid: 438e48f8e4c7ece40bbe7b8bdff291e5, type: 3}
+    potency: 10
+    tokenType: 1
+    tokenTarget: 1
+    animationPlayedTarget: {fileID: 11400000, guid: 9294828f9488f9147b91d48635d12c16, type: 2}
+    onUseText: sets the target on fire!
+    tokenDescription: Applies 10 burn on hit.
+    tokenParts:
+    - rid: 218506557160161371
+  - display: {fileID: -7548477512082302273, guid: 438e48f8e4c7ece40bbe7b8bdff291e5, type: 3}
+    potency: 0
+    tokenType: 0
+    tokenTarget: 0
+    animationPlayedTarget: {fileID: 0}
+    onUseText: 
+    tokenDescription: 
+    tokenParts: []
+  mpCost: 0
+  moveTarget: 1
+  references:
+    version: 2
+    RefIds:
+    - rid: 218506557160161371
+      type: {class: ApplyDamageStatus, ns: , asm: Assembly-CSharp}
+      data:
+        triggerTime: 1
+        type: {fileID: 11400000, guid: d29ade8fed1ddbd49bfd3680442a43d2, type: 2}
+        statusPotency: 10

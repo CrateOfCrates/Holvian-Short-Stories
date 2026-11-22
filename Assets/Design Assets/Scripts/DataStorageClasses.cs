@@ -208,6 +208,11 @@ public class EntityData
     {
         hp = hp - damage;
         //Debug.Log("Take Dagage. Hp:" + hp);
+        if(hp < 0)
+        {
+            hp = 0;
+            Debug.LogWarning("NEED TO IMPLEMENT DEATH HERE");
+        }
     }
 
 }

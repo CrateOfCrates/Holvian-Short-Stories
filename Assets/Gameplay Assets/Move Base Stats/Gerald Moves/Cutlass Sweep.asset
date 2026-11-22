@@ -27,8 +27,8 @@ MonoBehaviour:
     tokenType: 4
     tokenTarget: 0
     animationPlayedTarget: {fileID: 0}
-    onUseText: N/A
-    tokenDescription: N/A
+    onUseText: 
+    tokenDescription: 
     tokenParts: []
   mpCost: 5
   moveTarget: 1

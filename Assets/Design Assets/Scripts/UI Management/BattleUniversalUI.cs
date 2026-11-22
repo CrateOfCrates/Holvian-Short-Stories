@@ -12,14 +12,16 @@ public class BattleUniversalUI : MonoBehaviour
     [SerializeField] private Image moveUpButton;
     [SerializeField] private Image moveDownButton;
 
-    [SerializeField] private Image battleBackground;
+    [SerializeField] private Image displayBackground;
     [SerializeField] private Sprite select;
     [SerializeField] private Sprite execute;
+
+    [SerializeField] private SpriteRenderer battleBackground;
 
     [field: SerializeField] private List<KeySprite> moveControlButtons;
 
     //Fully Set up the Combat UI
-    public void InitializeCombatUI(List<PlayerData> players, List<EnemyData> enemies)
+    public void InitializeCombatUI(List<PlayerData> players, List<EnemyData> enemies, Sprite bg)
     {
         for(int i = 0; i < players.Count; i++)
         {
@@ -29,6 +31,8 @@ public class BattleUniversalUI : MonoBehaviour
                 players[i].SetPortriat(portriatUI[i]);
             }
         }
+
+        battleBackground.sprite = bg;
 
         // loadMoves(0, players[0]);
         // portriatUI[0].ChangeStatus("selected");
@@ -148,10 +152,10 @@ public class BattleUniversalUI : MonoBehaviour
         moveDownButton.enabled = b;
         if(b)
         {
-            battleBackground.sprite = select;
+            displayBackground.sprite = select;
         } else
         {
-            battleBackground.sprite = execute;
+            displayBackground.sprite = execute;
         }
     }
 

@@ -20,7 +20,7 @@ MonoBehaviour:
     tokenTarget: 1
     animationPlayedTarget: {fileID: 11400000, guid: a130ed20fe8412346bacc4aa80e6dd13, type: 2}
     onUseText: attacks!
-    tokenDescription: N/A
+    tokenDescription: 
     tokenParts: []
   - display: {fileID: 658460085, guid: 438e48f8e4c7ece40bbe7b8bdff291e5, type: 3}
     potency: 10
@@ -28,7 +28,7 @@ MonoBehaviour:
     tokenTarget: 1
     animationPlayedTarget: {fileID: 11400000, guid: a130ed20fe8412346bacc4aa80e6dd13, type: 2}
     onUseText: attacks!
-    tokenDescription: N/A
+    tokenDescription: 
     tokenParts: []
   mpCost: 0
   moveTarget: 1

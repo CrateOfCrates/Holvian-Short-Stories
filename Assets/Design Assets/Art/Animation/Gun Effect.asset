@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 279e42dc960f611458140e63b02f03d2, type: 3}
+  m_Name: Gun Effect
+  m_EditorClassIdentifier: Assembly-CSharp::AnimationObject
+  sprites:
+  - {fileID: 6996002370813274677, guid: 70d4ce26939466e4291d1c560ce24597, type: 3}
+  - {fileID: 6670236860635494323, guid: 70d4ce26939466e4291d1c560ce24597, type: 3}
+  - {fileID: -4110031857417369569, guid: 70d4ce26939466e4291d1c560ce24597, type: 3}
+  - {fileID: -2099780333649549588, guid: 70d4ce26939466e4291d1c560ce24597, type: 3}
+  - {fileID: 2707102807416630955, guid: 70d4ce26939466e4291d1c560ce24597, type: 3}
+  - {fileID: -1813530099937551378, guid: 70d4ce26939466e4291d1c560ce24597, type: 3}
+  fps: 15
+  looping: 0

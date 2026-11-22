@@ -10,35 +10,28 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 789ec2be49656a440b679c8bc2ec357c, type: 3}
-  m_Name: Burning Slash
+  m_Name: Open Fire
   m_EditorClassIdentifier: Assembly-CSharp::MoveObject
-  moveName: Burning Slash
+  moveName: Open Fire
   baseTokens:
   - display: {fileID: 658460085, guid: 438e48f8e4c7ece40bbe7b8bdff291e5, type: 3}
-    potency: 10
+    potency: 20
     tokenType: 1
     tokenTarget: 1
-    animationPlayedTarget: {fileID: 11400000, guid: 9294828f9488f9147b91d48635d12c16, type: 2}
-    onUseText: sets the target on fire!
-    tokenDescription: Inflicts 10 Burn.
-    tokenParts:
-    - rid: 218506557160161371
+    animationPlayedTarget: {fileID: 11400000, guid: 1715896a9a2033d4799ec3185230f3c9, type: 2}
+    onUseText: fires away!
+    tokenDescription: Fire a shot at a target for potency 20.
+    tokenParts: []
   - display: {fileID: -7548477512082302273, guid: 438e48f8e4c7ece40bbe7b8bdff291e5, type: 3}
     potency: 0
     tokenType: 0
-    tokenTarget: 0
+    tokenTarget: 4
     animationPlayedTarget: {fileID: 0}
-    onUseText: N/A
-    tokenDescription: N/A
+    onUseText: 
+    tokenDescription: 
     tokenParts: []
-  mpCost: 0
+  mpCost: 20
   moveTarget: 1
   references:
     version: 2
-    RefIds:
-    - rid: 218506557160161371
-      type: {class: ApplyDamageStatus, ns: , asm: Assembly-CSharp}
-      data:
-        triggerTime: 1
-        type: {fileID: 11400000, guid: d29ade8fed1ddbd49bfd3680442a43d2, type: 2}
-        statusPotency: 10
+    RefIds: []

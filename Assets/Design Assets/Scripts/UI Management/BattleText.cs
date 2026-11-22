@@ -4,13 +4,17 @@ using TMPro;
 using System.Collections.Generic;
 using System;
 using System.Text;
+using System.Linq;
+using JetBrains.Annotations;
 
 public class BattleText : MonoBehaviour
 {
-    [SerializeField] private TMP_Text textbox;
-    [SerializeField] private int showlinesConfig;
+    [SerializeField] private TMP_Text textPart;
+    [SerializeField] private RectTransform logBoxRect;
 
-    private Queue<string> messages = new Queue<string>();
+    [SerializeField] private int gap = 0;
+
+    private readonly Queue<string> logQueue = new Queue<string>();
     private readonly StringBuilder stringBuilder = new StringBuilder();
 
     public static BattleText Instance { get; private set; }
@@ -20,31 +24,37 @@ public class BattleText : MonoBehaviour
         Instance = this;
     }
 
+    private void UpdateDisplay()
+    {
+        string separator = $"\n<size={gap}%>\n</size>";
+        float maxHeight = logBoxRect.rect.height;
+
+        textPart.text = string.Join(separator, logQueue);
+        textPart.ForceMeshUpdate();
+
+        while (textPart.preferredHeight > maxHeight && logQueue.Count > 1)
+        {
+            logQueue.Dequeue();
+            textPart.text = string.Join(separator, logQueue);
+            textPart.ForceMeshUpdate();
+        }
+    }
+
     public void AddMessage(string message)
     {
-        messages.Enqueue(message);
-
-        while (messages.Count > showlinesConfig)
-        {
-            messages.Dequeue();
-        }
-
-        stringBuilder.Clear();
-        foreach (string entry in messages)
-        {
-            stringBuilder.AppendLine(entry);
-        }
-
-        textbox.text = stringBuilder.ToString();
+        logQueue.Enqueue(message);
+        UpdateDisplay();
     }
 
     public void Clear()
     {
-        textbox.text = "";
+        logQueue.Clear();
+        UpdateDisplay();
     }
 
     public void SetMessage(string message)
     {
-        textbox.text = message;
+        Clear();
+        AddMessage(message);
     }
 }

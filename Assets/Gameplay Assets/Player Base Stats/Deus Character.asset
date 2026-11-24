@@ -16,12 +16,14 @@ MonoBehaviour:
   baseMaxhp: 150
   baseMaxmp: 150
   baseSpeed: 10
-  baseAttack: 10
+  baseAttack: 30
   baseDefense: 20
+  baseArmor: 10
+  startingLevel: 1
   startingMoves:
   - {fileID: 11400000, guid: 8243f57fd65660f4c8bd835b9216d6d4, type: 2}
   - {fileID: 11400000, guid: e39f7edd42147054baed9a89acade2b6, type: 2}
   expressions:
   - key: neutral
-    sprite: {fileID: 3942266709313113077, guid: f06c4ca56a5df064f8ee5f94a12afd16, type: 3}
-  characterBackground: {fileID: -3619714293774219514, guid: 938395a75abcfdd4ab3f63a78c03ea56, type: 3}
+    value: {fileID: 1070222451, guid: f06c4ca56a5df064f8ee5f94a12afd16, type: 3}
+  characterBackground: {fileID: -634931279, guid: 4bf90c653b0d27446b21f4a8b32fa3bc, type: 3}

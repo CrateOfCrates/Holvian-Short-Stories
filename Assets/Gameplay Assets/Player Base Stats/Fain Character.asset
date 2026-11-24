@@ -18,8 +18,10 @@ MonoBehaviour:
   baseSpeed: 0
   baseAttack: 20
   baseDefense: 50
+  baseArmor: 50
+  startingLevel: 1
   startingMoves: []
   expressions:
   - key: neutral
-    sprite: {fileID: 7684940987576087075, guid: a5fc67ba9ba8d094aaca3b7b2448bb2e, type: 3}
-  characterBackground: {fileID: -3619714293774219514, guid: 938395a75abcfdd4ab3f63a78c03ea56, type: 3}
+    value: {fileID: 7684940987576087075, guid: a5fc67ba9ba8d094aaca3b7b2448bb2e, type: 3}
+  characterBackground: {fileID: -1791885932, guid: 4bf90c653b0d27446b21f4a8b32fa3bc, type: 3}

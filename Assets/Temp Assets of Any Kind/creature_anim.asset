@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 279e42dc960f611458140e63b02f03d2, type: 3}
+  m_Name: creature_anim
+  m_EditorClassIdentifier: Assembly-CSharp::AnimationObject
+  sprites:
+  - {fileID: 7881166437498641139, guid: a3b2093b7a2ee3e45bbbc7e159520a38, type: 3}
+  - {fileID: 7881166437498641139, guid: a3b2093b7a2ee3e45bbbc7e159520a38, type: 3}
+  fps: 10
+  looping: 0

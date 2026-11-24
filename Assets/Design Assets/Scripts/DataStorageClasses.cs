@@ -7,6 +7,7 @@ using System;
 using TMPro;
 using Unity.VisualScripting;
 using System.IO;
+using NUnit.Framework;
 
 
 [Serializable]
@@ -89,7 +90,10 @@ public class EntityData
 
     [SerializeField] protected int speed;
     [SerializeField] protected int attack;
+    [SerializeField] protected int armor;
     [SerializeField] protected int defense;
+
+    [SerializeField] private int level;
 
     [SerializeField] protected List<MoveData> activeMoves;
     [SerializeField] protected List<Targeting> targets = new List<Targeting>();
@@ -106,6 +110,8 @@ public class EntityData
     public int Speed => speed;
     public int Attack => attack;
     public int Defense => defense;
+    public int Armor => armor;
+    public int Level => level;
 
     public List<MoveData> ActiveMoves => activeMoves;
     public List<Targeting> Targets => targets;
@@ -185,6 +191,8 @@ public class EntityData
         speed = EO.BaseSpeed;
         attack = EO.BaseAttack;
         defense = EO.BaseDefense;
+        armor = EO.BaseArmor;
+        level = EO.StartingLevel;
         LoadMoves(EO.StartingMoves);
         // Debug.Log(currentTargets.Count);
         //Debug.LogWarning(activeMoves.Count);
@@ -300,6 +308,7 @@ public class MoveData
     public int MpCost => mpCost;
     public MoveObject BaseInfo => baseInfo;
     public string MoveName => baseInfo.MoveName;
+    public string MoveDescription => baseInfo.MoveDescription;
     //Returns if the current token needs aim or not
     public bool NeedAim => CombatStuffHelper.NeedAim(baseInfo.MoveTarget);
 
@@ -335,6 +344,7 @@ public class TokenData
     public int Potency => potency;
     public AnimationObject AnimationPlayedTarget => baseInfo.AnimationPlayedTarget;
     public string TokenDescription => baseInfo.TokenDescription;
+    public TokenType TokenType => baseInfo.TokenType;
 
     public string GetTextDisplay(string name) => baseInfo.GetTextDisplay(name);
 

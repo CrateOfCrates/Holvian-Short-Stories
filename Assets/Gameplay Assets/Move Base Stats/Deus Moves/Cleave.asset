@@ -15,12 +15,12 @@ MonoBehaviour:
   moveName: Cleave
   baseTokens:
   - display: {fileID: 658460085, guid: 438e48f8e4c7ece40bbe7b8bdff291e5, type: 3}
-    potency: 10
+    potency: 40
     tokenType: 1
     tokenTarget: 1
     animationPlayedTarget: {fileID: 11400000, guid: a130ed20fe8412346bacc4aa80e6dd13, type: 2}
     onUseText: cleaves the target!
-    tokenDescription: Slashes for 10
+    tokenDescription: Slash at the target for 40 BP.
     tokenParts: []
   - display: {fileID: -7548477512082302273, guid: 438e48f8e4c7ece40bbe7b8bdff291e5, type: 3}
     potency: 0
@@ -28,10 +28,11 @@ MonoBehaviour:
     tokenTarget: 4
     animationPlayedTarget: {fileID: 0}
     onUseText: 
-    tokenDescription: 
+    tokenDescription: 'Skip this turn. '
     tokenParts: []
   mpCost: 5
   moveTarget: 1
+  moveDescription: 
   references:
     version: 2
     RefIds: []

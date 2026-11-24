@@ -5,6 +5,15 @@ using UnityEngine.UI;
 
 public abstract class EntityObject : ScriptableObject
 {
+    [Serializable]
+    private struct SpriteEntry
+    {
+        [SerializeField] private string key;
+        [SerializeField] private Sprite value;
+
+        public string Key => key;
+        public Sprite Value => value;
+    }
 
     [field: SerializeField] private string entityName;
 
@@ -14,9 +23,11 @@ public abstract class EntityObject : ScriptableObject
     [SerializeField] private int baseSpeed;
     [SerializeField] private int baseAttack;
     [SerializeField] private int baseDefense;
+    [SerializeField] private int baseArmor;
+    [SerializeField] private int startingLevel;
 
     [SerializeField] private List<MoveObject> startingMoves;
-    [field: SerializeField] private List<KeySprite> expressions;
+    [field: SerializeField] private List<SpriteEntry> expressions;
 
     public string EntityName => entityName;
     public int BaseMaxHp => baseMaxhp;
@@ -24,15 +35,19 @@ public abstract class EntityObject : ScriptableObject
     public int BaseSpeed => baseSpeed;
     public int BaseAttack => baseAttack;
     public int BaseDefense => baseDefense;
+    public int BaseArmor => baseArmor;
+
+    public int StartingLevel => startingLevel;
+
     public List<MoveObject> StartingMoves => startingMoves;
     
     public Sprite GetSprite(string name)
     {
-        foreach(KeySprite ep in expressions)
+        foreach(SpriteEntry ep in expressions)
         {
-            if(name == ep.key)
+            if(name == ep.Key)
             {
-                return ep.sprite;
+                return ep.Value;
             }
         }
         return null;

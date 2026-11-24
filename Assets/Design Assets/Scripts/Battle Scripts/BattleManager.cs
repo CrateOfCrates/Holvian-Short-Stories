@@ -4,6 +4,7 @@ using System;
 using System.Linq;
 using System.Collections.Generic;
 using System.Collections;
+using Unity.VisualScripting;
 
 public class BattleManager : MonoBehaviour
 {
@@ -263,7 +264,7 @@ public class BattleManager : MonoBehaviour
 
             EntityData target;
             //Means a Single Attack Token
-            if(token.BaseInfo.TokenTarget == Target.target)
+            if(token.TokenType == TokenType.singleAttack)
             {
 
                 if(e.GetCurrentTarget().TargetTeam == WhichTeam.player)
@@ -290,6 +291,15 @@ public class BattleManager : MonoBehaviour
                 //play animation on target
 
                 token.SingleAttackToken(e, target);
+            }
+
+            //means is a skip token
+            if(token.TokenType == TokenType.delay)
+            {
+                if(token.GetTextDisplay(e.Name) != ""){
+                    BattleText.Instance.AddMessage(token.GetTextDisplay(e.Name));
+                    yield return new WaitForSeconds(0.2f);
+                }
             }
             //update UI
             battleUniversalUI.UpdatePlayerStats(allPlayerData);
@@ -371,6 +381,8 @@ public class BattleManager : MonoBehaviour
         GameObject topScan = CombatStuffHelper.HoverScan();
         if(topScan == null){return;}
 
+        
+
         if(battleState == BattleState.playerSelect || battleState == BattleState.selectMove){
             if(topScan.name.Substring(0, 5) == "Token")
             {
@@ -389,6 +401,18 @@ public class BattleManager : MonoBehaviour
                 TokenData targetToken = scanMove.ActiveTokens[scanTargetToken];
                 //Debug.Log(targetToken.TokenDescription);
                 BattleText.Instance.SetMessage(targetToken.TokenDescription);
+            } else if(topScan.name.Substring(0, 4) == "Move")
+            {
+                GameObject moveGameObject = topScan.transform.parent.gameObject;
+                int scanTargetMove = int.Parse(""+moveGameObject.name[14]);
+
+                PlayerData scanPlayer = allPlayerData[selectedPlayer];
+                MoveData scanMove = scanPlayer.ActiveMoves[scanTargetMove];
+
+                if(scanMove == null){return;}
+
+                BattleText.Instance.SetMessage(scanMove.MoveDescription);
+
             } else
             {
                 BattleText.Instance.SetMessage("");

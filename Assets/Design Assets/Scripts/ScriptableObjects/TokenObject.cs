@@ -28,8 +28,14 @@ public class TokenObject
 
     public string GetTextDisplay(string userName)
     {
-        string s = userName + " " + onUseText;
-        return s;
+        if(onUseText == "")
+        {
+            return "";
+        }
+        else {
+            string s = userName + " " + onUseText;
+            return s;
+        }
     }
     
 }

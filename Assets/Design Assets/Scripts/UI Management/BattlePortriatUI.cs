@@ -4,6 +4,7 @@ using TMPro;
 using System;
 using System.Collections.Generic;
 using System.Collections;
+using Unity.VisualScripting;
 
 
 public class BattlePortriatUI : BattleBarsUI
@@ -23,7 +24,7 @@ public class BattlePortriatUI : BattleBarsUI
         SetupSliders(playerData.Hp, playerData.MaxHp, playerData.Mp, playerData.MaxMp);
         animationDisplay.enabled = false;
     }
-
+    
     public void UpdateStatsDisplay(PlayerData playerData)
     {
 

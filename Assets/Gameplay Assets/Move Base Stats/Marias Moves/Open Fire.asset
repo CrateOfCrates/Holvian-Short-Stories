@@ -10,28 +10,29 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 789ec2be49656a440b679c8bc2ec357c, type: 3}
-  m_Name: Stock Bash
+  m_Name: Open Fire
   m_EditorClassIdentifier: Assembly-CSharp::MoveObject
-  moveName: Stock Bash
+  moveName: Open Fire
   baseTokens:
+  - display: {fileID: 658460085, guid: 438e48f8e4c7ece40bbe7b8bdff291e5, type: 3}
+    potency: 60
+    tokenType: 1
+    tokenTarget: 1
+    animationPlayedTarget: {fileID: 11400000, guid: 1715896a9a2033d4799ec3185230f3c9, type: 2}
+    onUseText: fires away!
+    tokenDescription: 'Shoot a single target with 60 BP. '
+    tokenParts: []
   - display: {fileID: -7548477512082302273, guid: 438e48f8e4c7ece40bbe7b8bdff291e5, type: 3}
     potency: 0
     tokenType: 0
     tokenTarget: 4
     animationPlayedTarget: {fileID: 0}
-    onUseText: 
-    tokenDescription: 
+    onUseText: is reloading!
+    tokenDescription: 'Skip this turn to reload. '
     tokenParts: []
-  - display: {fileID: 658460085, guid: 438e48f8e4c7ece40bbe7b8bdff291e5, type: 3}
-    potency: 15
-    tokenType: 1
-    tokenTarget: 1
-    animationPlayedTarget: {fileID: 0}
-    onUseText: bashes the target!
-    tokenDescription: Stock bash for potency 15
-    tokenParts: []
-  mpCost: 5
+  mpCost: 20
   moveTarget: 1
+  moveDescription: 'Fire away with a single, high damage shot. '
   references:
     version: 2
     RefIds: []

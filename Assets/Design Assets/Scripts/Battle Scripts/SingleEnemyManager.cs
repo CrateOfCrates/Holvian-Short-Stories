@@ -15,6 +15,7 @@ public class SingleEnemyManager : MonoBehaviour
 
     private BattleManager battleManager;
     private int index;
+    private AnimationObject activeAnim;
 
     public BattleEnemyUI BattleEnemyUI => battleEnemyUI;
 
@@ -25,6 +26,7 @@ public class SingleEnemyManager : MonoBehaviour
         this.index = index;
 
         //regenerate box collider
+        Debug.Log(boxCollider);
         boxCollider.size = enemySprite.sprite.bounds.size;
         boxCollider.offset = enemySprite.sprite.bounds.center;
 

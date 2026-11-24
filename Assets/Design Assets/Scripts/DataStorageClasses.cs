@@ -116,11 +116,12 @@ public class EntityData
     public List<MoveData> ActiveMoves => activeMoves;
     public List<Targeting> Targets => targets;
 
+    public Dictionary<StatusEffectObject, StatusEffectInstance> StatusEffects => statusEffects;
+
     public Targeting GetCurrentTarget(){return targets[0];}
     public MoveData GetCurrentMove(){return activeMoves[targets[0].MoveUsed];}
     public TokenData GetSelectedToken(){return activeMoves[targets[0].MoveUsed].ActiveTokens[targets[0].TokenProgress];}
     public int GetTokenProgress(){return targets[0].TokenProgress;}
-
 
     public TokenData GetSelectedToken(int i){return activeMoves[targets[i].MoveUsed].ActiveTokens[targets[i].TokenProgress];}
 
@@ -210,6 +211,7 @@ public class EntityData
     }
 
     public virtual WhichTeam GetTeam(){return WhichTeam.undec;}
+    public virtual void UpdateDisplay(){return;}
     //public virtual string GetName(){return name;}
 
     public void TakeDamage(int damage)
@@ -267,6 +269,11 @@ public class PlayerData : EntityData
     }
     public override WhichTeam GetTeam(){return WhichTeam.player;}
     //public override string GetName(){return baseInfo.EntityName;}
+
+    public override void UpdateDisplay()
+    {
+        portriat.UpdateStatsDisplay(this);
+    }
 }
 
 [System.Serializable]
@@ -291,7 +298,7 @@ public class EnemyData : EntityData
     public override WhichTeam GetTeam(){return WhichTeam.enemy;}
     //public override string GetName(){return baseInfo.EntityName;}
 
-    public void UpdateDisplay()
+    public override void UpdateDisplay()
     {
         singleEnemyManager.BattleEnemyUI.SetupDisplay(this);
     }
@@ -385,6 +392,10 @@ public class StatusEffectInstance
 {
     protected int count;
     protected EntityData appliedTo;
+    protected Sprite displaySprite;
+
+    public int Count => count;
+    public Sprite DisplaySprite => displaySprite;
 
     public virtual void OnApply() { }
     public virtual IEnumerator OnTurnEnd() { Debug.Log("NEEDS POLYMORPHISM"); yield return new WaitForSeconds(0f);}
@@ -394,6 +405,7 @@ public class StatusEffectInstance
     public void SetAppliedTo(EntityData apt)
     {
         appliedTo = apt;
+        appliedTo.UpdateDisplay();
     }
 
     protected void Decay(StatusEffectObject baseInfo)
@@ -409,12 +421,18 @@ public class StatusEffectInstance
         }
 
         Debug.LogWarning("ADD CHECK FOR NEGATIVES AND ZEROES");
+        if(count <= 0)
+        {
+            count = 0;
+        }
+
+        appliedTo.UpdateDisplay();
     }
 
     public void ChangeCount(double change)
     {
         count = (int)Math.Floor(count + change);
-        Debug.Log("Count Changed to: " + count);
+        //Debug.Log("Count Changed to: " + count);
     }
 
     protected IEnumerator playAnim(EntityData guy, AnimationObject animationObject)
@@ -427,7 +445,7 @@ public class StatusEffectInstance
 
         if(guy is EnemyData ed){
             IEnumerator ct = ed.SingleEnemyManager.PlayAnimation(animationObject);
-            Debug.Log("ANIMATION SHOULD BE HERE: " + ct);
+            //Debug.Log("ANIMATION SHOULD BE HERE: " + ct);
             yield return ct;
         }
     }
@@ -442,22 +460,25 @@ public class DamageSEI : StatusEffectInstance
 
     public void SetBaseInfo(DamageSEO damageSEO)
     {
-        Debug.Log("ATTACHED BASE INFO");
+        //Debug.Log("ATTACHED BASE INFO");
         baseInfo = damageSEO;
+        displaySprite = baseInfo.DisplaySprite;
     }
 
     public override IEnumerator OnTurnEnd()
     {
         Debug.Log("OVERRIDE VERSIOM");
 
-        Debug.Log(baseInfo);
+        //Debug.Log(baseInfo);
 
         if(baseInfo.TriggerType == StatusEffectPartType.endOfTurn)
         {
-            Debug.Log("DEAL DAMAGE FROM EFFECT. TARGET BEING: " + appliedTo.Name + "FOR " + baseInfo.DamagePerStack * count);
+            Debug.Log("DEAL DAMAGE FROM EFFECT. TARGET BEING: " + appliedTo.Name + "FOR " + (int)Math.Floor(baseInfo.DamagePerStack * count));
             IEnumerator anim = playAnim(appliedTo, baseInfo.TickAnimation);
             yield return anim;
-            appliedTo.TakeDamage(baseInfo.DamagePerStack * count);
+            int damage = (int)Math.Floor(baseInfo.DamagePerStack * count);
+            
+            appliedTo.TakeDamage(damage);
 
         }
 

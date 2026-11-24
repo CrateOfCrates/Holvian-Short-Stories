@@ -16,6 +16,7 @@ MonoBehaviour:
   decayRate: 0
   decayType: 1
   decayCount: 50
+  displaySprite: {fileID: 4770986977414676471, guid: 85fc57167c7b01343923a09f1a5167ac, type: 3}
   damagePerStack: 1
   bonusDamage: 0
   triggerType: 1

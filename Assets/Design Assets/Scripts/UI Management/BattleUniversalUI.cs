@@ -18,6 +18,8 @@ public class BattleUniversalUI : MonoBehaviour
 
     [SerializeField] private SpriteRenderer battleBackground;
 
+    private const int numberOfMovesPerRow = 4;
+
     [field: SerializeField] private List<KeySprite> moveControlButtons;
 
     //Fully Set up the Combat UI
@@ -49,14 +51,14 @@ public class BattleUniversalUI : MonoBehaviour
     {
         loadMoves(false);
         //Debug.Log(moveScroll*4+1);
-        for(int i = 0; i < 4; i++)
+        for(int i = 0; i < numberOfMovesPerRow; i++)
         {
             //Debug.Log(i);
-            if(whichPlayer.ActiveMoves.Count <= i + moveScroll * 4)
+            if(whichPlayer.ActiveMoves.Count <= i + moveScroll * numberOfMovesPerRow)
             {
                 break;
             }
-            moveUI[i].SetupDisplay(whichPlayer.ActiveMoves[i+(moveScroll*4)]);
+            moveUI[i].SetupDisplay(whichPlayer.ActiveMoves[i+(moveScroll*numberOfMovesPerRow)]);
         }
     }
 
@@ -71,26 +73,26 @@ public class BattleUniversalUI : MonoBehaviour
 
         //Conditions where the Specialized Border won't be shown
         if(targeting.MoveUsed == -1 && targeting.WhichTarget == -1){return;}
-        if(targeting.MoveUsed - (moveScroll*4) < 0 || targeting.MoveUsed - (moveScroll*4) > 3){return;}
+        if(targeting.MoveUsed - (moveScroll*numberOfMovesPerRow) < 0 || targeting.MoveUsed - (moveScroll*numberOfMovesPerRow) > 3){return;}
 
         if(battleState == BattleState.selectMove)
         {
             //means currently selecting a target
-            moveUI[targeting.MoveUsed-(moveScroll*4)].ChangeStatus("choosetarget");
+            moveUI[targeting.MoveUsed-(moveScroll*numberOfMovesPerRow)].ChangeStatus("choosetarget");
             return;
         }
 
         //below conditions indicate a selector is needed
-        moveUI[targeting.MoveUsed-(moveScroll*4)].ChangeSelectedToken(targeting.TokenProgress);
+        moveUI[targeting.MoveUsed-(moveScroll*numberOfMovesPerRow)].ChangeSelectedToken(targeting.TokenProgress);
 
         if(targeting.WhichTarget == -1 && pd.GetNeedTargeting())
         {
             //Means needs a target for the current token but has none
             Debug.Log("Means needs a target for the current token but has none");
-            moveUI[targeting.MoveUsed-(moveScroll*4)].ChangeStatus("attention");
+            moveUI[targeting.MoveUsed-(moveScroll*numberOfMovesPerRow)].ChangeStatus("attention");
         } else {
             //Means everything should be fine
-            moveUI[targeting.MoveUsed-(moveScroll*4)].ChangeStatus("executing");
+            moveUI[targeting.MoveUsed-(moveScroll*numberOfMovesPerRow)].ChangeStatus("executing");
         }
 
     }
@@ -176,7 +178,7 @@ public class BattleUniversalUI : MonoBehaviour
             moveUpButton.sprite = GetSprite("up_off");
             
         }
-        if ((moveScroll+1) * 4 > count)
+        if ((moveScroll+1) * numberOfMovesPerRow > count)
         {
             //disable
             moveDownButton.sprite = GetSprite("down_off");
@@ -189,7 +191,7 @@ public class BattleUniversalUI : MonoBehaviour
         {
             if(players[i].Exists)
             {
-                portriatUI[i].UpdateStatsDisplay(players[i]);
+                players[i].UpdateDisplay();
             }
         }
     }

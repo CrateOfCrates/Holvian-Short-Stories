@@ -25,6 +25,8 @@ public class BattleManager : MonoBehaviour
     //Determines how much down moves is scrolled
     [SerializeField] private int scrollMoves;
 
+    private const int numberOfMovesPerRow = 4;
+
     public void InitializeBattle()
     {
         battleState = BattleState.startBattle;
@@ -113,7 +115,7 @@ public class BattleManager : MonoBehaviour
     {
         //Set pre-variables
         Targeting temp = allPlayerData[selectedPlayer].GetCurrentTarget();
-        int selectedMove = scrollMoves*4 + index;
+        int selectedMove = scrollMoves*numberOfMovesPerRow + index;
 
         //Means the button can only be clicked if its in the right battleState
         if(!(battleState == BattleState.playerSelect || battleState == BattleState.selectMove)){return;}
@@ -196,7 +198,7 @@ public class BattleManager : MonoBehaviour
         {
             scrollMoves--;
 
-        } else if (direction == "down" && (scrollMoves+1) * 4 <= allPlayerData[selectedPlayer].ActiveMoves.Count)
+        } else if (direction == "down" && (scrollMoves+1) * numberOfMovesPerRow <= allPlayerData[selectedPlayer].ActiveMoves.Count)
         {
             scrollMoves++;
         } 

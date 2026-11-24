@@ -156,7 +156,9 @@ MonoBehaviour:
     maxMp: 0
     speed: 0
     attack: 0
+    armor: 0
     defense: 0
+    level: 0
     activeMoves: []
     targets: []
     baseInfo: {fileID: 0}
@@ -169,7 +171,9 @@ MonoBehaviour:
     maxMp: 0
     speed: 0
     attack: 0
+    armor: 0
     defense: 0
+    level: 0
     activeMoves: []
     targets: []
     baseInfo: {fileID: 0}
@@ -182,7 +186,9 @@ MonoBehaviour:
     maxMp: 0
     speed: 0
     attack: 0
+    armor: 0
     defense: 0
+    level: 0
     activeMoves: []
     targets: []
     baseInfo: {fileID: 0}
@@ -195,7 +201,9 @@ MonoBehaviour:
     maxMp: 0
     speed: 0
     attack: 0
+    armor: 0
     defense: 0
+    level: 0
     activeMoves: []
     targets: []
     baseInfo: {fileID: 0}

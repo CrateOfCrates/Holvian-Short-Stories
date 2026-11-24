@@ -7,7 +7,7 @@ using System.Collections;
 using Unity.VisualScripting;
 
 
-public class BattlePortriatUI : BattleBarsUI
+public class BattlePortriatUI : BattlePortGenericUI
 {
     [SerializeField] private Image characterBackground;
     [SerializeField] private Image characterMain;
@@ -27,8 +27,8 @@ public class BattlePortriatUI : BattleBarsUI
     
     public void UpdateStatsDisplay(PlayerData playerData)
     {
-
         SetupSliders(playerData.Hp, playerData.MaxHp, playerData.Mp, playerData.MaxMp);
+        LoadStatusEffects(playerData.StatusEffects);
     }
 
     public void ChangeStatus(string state)

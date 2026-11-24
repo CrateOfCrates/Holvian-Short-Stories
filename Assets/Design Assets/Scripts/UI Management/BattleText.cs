@@ -42,6 +42,7 @@ public class BattleText : MonoBehaviour
 
     public void AddMessage(string message)
     {
+        if(message == ""){return;}
         logQueue.Enqueue(message);
         UpdateDisplay();
     }

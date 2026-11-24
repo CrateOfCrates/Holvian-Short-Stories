@@ -272,74 +272,35 @@ public class BattleManager : MonoBehaviour
             TokenData token = e.GetSelectedToken();
 
             EntityData target;
+            if(e.GetCurrentTarget().TargetTeam == WhichTeam.player)
+            {
+                //target is on the player team
+                target = allPlayerData[e.GetCurrentTarget().WhichTarget];
+                BattleText.Instance.AddMessage(token.GetTextDisplay(e.Name));
+                //play animation
+                if(target is PlayerData pd && token.AnimationPlayedTarget != null){
+                    IEnumerator ct = pd.Portriat.PlayAnimation(token.AnimationPlayedTarget);
+                    yield return ct;
+                }
+            } else
+            {
+                target = allEnemyData[e.GetCurrentTarget().WhichTarget];
+                BattleText.Instance.AddMessage(token.GetTextDisplay(e.Name));
+                //play animation
+                if(target is EnemyData ed && token.AnimationPlayedTarget != null){
+                    IEnumerator ct = ed.SingleEnemyManager.PlayAnimation(token.AnimationPlayedTarget);
+                    yield return ct;
+                }
+            }
+
             //Means a Single Attack Token
-            if(token.TokenType == TokenType.singleAttack)
-            {
-
-                if(e.GetCurrentTarget().TargetTeam == WhichTeam.player)
-                {
-                    //target is on the player team
-                    target = allPlayerData[e.GetCurrentTarget().WhichTarget];
-                    BattleText.Instance.AddMessage(token.GetTextDisplay(e.Name));
-                    //play animation
-                    if(target is PlayerData pd){
-                        IEnumerator ct = pd.Portriat.PlayAnimation(token.AnimationPlayedTarget);
-                        yield return ct;
-                    }
-                } else
-                {
-                    target = allEnemyData[e.GetCurrentTarget().WhichTarget];
-                    BattleText.Instance.AddMessage(token.GetTextDisplay(e.Name));
-                    //play animation
-                    if(target is EnemyData ed){
-                        IEnumerator ct = ed.SingleEnemyManager.PlayAnimation(token.AnimationPlayedTarget);
-                        yield return ct;
-                    }
-                }
-
-                //play animation on target
-
-                token.SingleAttackToken(e, target);
-            }
-
+            if(token.TokenType == TokenType.singleAttack){token.SingleAttackToken(e, target);}
             //means it is a Buff Token
-            if(token.TokenType == TokenType.applyBuff)
-            {
+            if(token.TokenType == TokenType.applyBuff){token.ApplyStatusToken(e, target);}
+            //means is a skip token            
+            //if(token.TokenType == TokenType.delay){}
 
-                if(e.GetCurrentTarget().TargetTeam == WhichTeam.player)
-                {
-                    //target is on the player team
-                    target = allPlayerData[e.GetCurrentTarget().WhichTarget];
-                    BattleText.Instance.AddMessage(token.GetTextDisplay(e.Name));
-                    //play animation
-                    if(target is PlayerData pd){
-                        IEnumerator ct = pd.Portriat.PlayAnimation(token.AnimationPlayedTarget);
-                        yield return ct;
-                    }
-                } else
-                {
-                    target = allEnemyData[e.GetCurrentTarget().WhichTarget];
-                    BattleText.Instance.AddMessage(token.GetTextDisplay(e.Name));
-                    //play animation
-                    if(target is EnemyData ed){
-                        IEnumerator ct = ed.SingleEnemyManager.PlayAnimation(token.AnimationPlayedTarget);
-                        yield return ct;
-                    }
-                }
 
-                //play animation on target
-
-                token.ApplyStatusToken(e, target);
-            }
-
-            //means is a skip token
-            if(token.TokenType == TokenType.delay)
-            {
-                if(token.GetTextDisplay(e.Name) != ""){
-                    BattleText.Instance.AddMessage(token.GetTextDisplay(e.Name));
-                    yield return new WaitForSeconds(0.2f);
-                }
-            }
             //update UI
             battleUniversalUI.UpdatePlayerStats(allPlayerData);
             foreach(EnemyData ed in allEnemyData){ed.UpdateDisplay();}

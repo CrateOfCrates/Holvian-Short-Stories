@@ -18,11 +18,19 @@ public static class DamageCalc
 
             if(temp.AffectedStat != StatChangeType.damageChangeMultAdd){continue;}
 
-            //makes sure it's a damage change ADD
-            double multiplier = (value.Count * temp.MultPerStack) + 1;
+            //makes sure it's a damage change that scales with stats
+            double multiplier = 0;
+            if(temp.ScaleWithStacks){
+                multiplier = (value.Count * temp.Mult) + 1;
+            } else
+            {
+                multiplier = temp.Mult + 1;
+            }
+
+
             moveDamage = moveDamage * multiplier;
         }
-        
+
         //defensive calcs
         double finalDamage = moveDamage - target.Armor*0.02;
         finalDamage = finalDamage * (1.0 - target.Defense / (100.0 + Math.Abs(target.Defense)));

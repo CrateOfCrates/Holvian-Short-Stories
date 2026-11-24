@@ -132,7 +132,14 @@ public class BattleManager : MonoBehaviour
         {
             //yes aim is needed and aim is not present
             battleState = BattleState.selectMove;
-        } 
+        } else
+        {
+            if(allPlayerData[selectedPlayer].GetCurrentMove().BaseInfo.MoveTarget == Target.self)
+            {
+                Debug.Log("target is self, so sets targeting to self");
+                allPlayerData[selectedPlayer].GetCurrentTarget().SetTarget(selectedPlayer, WhichTeam.player);
+            }
+        }
 
         UpdateUI();
     }
@@ -293,6 +300,36 @@ public class BattleManager : MonoBehaviour
                 //play animation on target
 
                 token.SingleAttackToken(e, target);
+            }
+
+            //means it is a Buff Token
+            if(token.TokenType == TokenType.applyBuff)
+            {
+
+                if(e.GetCurrentTarget().TargetTeam == WhichTeam.player)
+                {
+                    //target is on the player team
+                    target = allPlayerData[e.GetCurrentTarget().WhichTarget];
+                    BattleText.Instance.AddMessage(token.GetTextDisplay(e.Name));
+                    //play animation
+                    if(target is PlayerData pd){
+                        IEnumerator ct = pd.Portriat.PlayAnimation(token.AnimationPlayedTarget);
+                        yield return ct;
+                    }
+                } else
+                {
+                    target = allEnemyData[e.GetCurrentTarget().WhichTarget];
+                    BattleText.Instance.AddMessage(token.GetTextDisplay(e.Name));
+                    //play animation
+                    if(target is EnemyData ed){
+                        IEnumerator ct = ed.SingleEnemyManager.PlayAnimation(token.AnimationPlayedTarget);
+                        yield return ct;
+                    }
+                }
+
+                //play animation on target
+
+                token.ApplyStatusToken(e, target);
             }
 
             //means is a skip token

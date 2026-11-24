@@ -8,6 +8,22 @@ public static class DamageCalc
     {
         //calc for damage
         double moveDamage = token.Potency * user.Attack * 0.02;
+
+        //offensive calcs
+        foreach(var (key, value) in user.StatusEffects)
+        {
+            if(key.GetStatusEffectType() != StatusEffectType.statChange){continue;}
+
+            StatChangeSEO temp = (StatChangeSEO)key;
+
+            if(temp.AffectedStat != StatChangeType.damageChangeMultAdd){continue;}
+
+            //makes sure it's a damage change ADD
+            double multiplier = (value.Count * temp.MultPerStack) + 1;
+            moveDamage = moveDamage * multiplier;
+        }
+        
+        //defensive calcs
         double finalDamage = moveDamage - target.Armor*0.02;
         finalDamage = finalDamage * (1.0 - target.Defense / (100.0 + Math.Abs(target.Defense)));
         

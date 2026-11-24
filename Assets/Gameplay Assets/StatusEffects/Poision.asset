@@ -15,7 +15,7 @@ MonoBehaviour:
   effectName: Poision
   decayRate: 1
   decayType: 1
-  decayCount: 2
+  decayCount: 1
   displaySprite: {fileID: 309414466850391618, guid: 85fc57167c7b01343923a09f1a5167ac, type: 3}
   damagePerStack: 0.25
   bonusDamage: 0

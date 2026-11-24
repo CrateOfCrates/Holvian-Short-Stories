@@ -16,6 +16,7 @@ public abstract class StatusEffectObject : ScriptableObject
     public StatusEffectPartType DecayType => decayType;
     public int DecayCount => decayCount;
     public Sprite DisplaySprite => displaySprite;
+    public virtual StatusEffectType GetStatusEffectType(){return StatusEffectType.none;}
 
 }
 

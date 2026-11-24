@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c0c286ef19e90824aa147fba35d4a074, type: 3}
+  m_Name: Strength
+  m_EditorClassIdentifier: Assembly-CSharp::StatChangeSEO
+  effectName: Strength
+  decayRate: 1
+  decayType: 1
+  decayCount: 0
+  displaySprite: {fileID: 3033293469636659957, guid: 79e78f3cdb3b14641a94a4614981a958, type: 3}
+  affectedStat: 0
+  multPerStack: 0.05

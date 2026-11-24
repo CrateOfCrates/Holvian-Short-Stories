@@ -47,7 +47,7 @@ public abstract class TokenParts
 
     public TriggerTime TriggerTime => triggerTime;
 
-    public virtual void Execute(EntityData user, EntityData target){}
+    public virtual void Execute(EntityData target){}
 }
 
 [System.Serializable]
@@ -56,7 +56,19 @@ public class ApplyDamageStatus : TokenParts
     [SerializeReference] private DamageSEO type;
     [SerializeField] private int statusPotency;
 
-    public override void Execute(EntityData user, EntityData target)
+    public override void Execute(EntityData target)
+    {
+        target.ApplyStatus(type, statusPotency);
+    }
+}
+
+[System.Serializable]
+public class ApplyStatChange : TokenParts
+{
+    [SerializeReference] private StatChangeSEO type;
+    [SerializeField] private int statusPotency;
+
+    public override void Execute(EntityData target)
     {
         target.ApplyStatus(type, statusPotency);
     }

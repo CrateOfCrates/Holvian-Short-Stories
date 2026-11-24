@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 789ec2be49656a440b679c8bc2ec357c, type: 3}
-  m_Name: Poision Knife
+  m_Name: Poision Knife 1
   m_EditorClassIdentifier: Assembly-CSharp::MoveObject
   moveName: Poision Knife
   baseTokens:

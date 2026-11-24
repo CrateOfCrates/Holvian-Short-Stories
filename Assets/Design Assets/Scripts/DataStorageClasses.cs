@@ -166,6 +166,13 @@ public class EntityData
             statusEffects[type] = temp;
         }
 
+        if(type is StatChangeSEO statChangeSEO)
+        {
+            StatChangeSEI temp = new StatChangeSEI();
+            temp.SetBaseInfo(statChangeSEO);
+            statusEffects[type] = temp;
+        }
+
         statusEffects[type].SetAppliedTo(this);
         statusEffects[type].ChangeCount(potency);
 
@@ -361,13 +368,18 @@ public class TokenData
         AdressAfterModifiers(user, target);
     }
 
+    public void ApplyStatusToken(EntityData user, EntityData target)
+    {
+        AdressAfterModifiers(user, target);
+    }
+
     private void AdressAfterModifiers(EntityData user, EntityData target)
     {
         foreach(TokenParts tp in baseInfo.TokenParts){
 
             if(tp.TriggerTime != TriggerTime.after){ continue;}
 
-            tp.Execute(user, target);
+            tp.Execute(target);
         }
     }
 
@@ -449,7 +461,6 @@ public class StatusEffectInstance
             yield return ct;
         }
     }
-
 }
 
 public class DamageSEI : StatusEffectInstance
@@ -489,8 +500,31 @@ public class DamageSEI : StatusEffectInstance
 
         yield return new WaitForSeconds(0f);
     }
+}
 
+public class StatChangeSEI : StatusEffectInstance
+{
+    protected StatChangeSEO baseInfo;
+    public StatChangeSEO BaseInfo => baseInfo;
 
+    public void SetBaseInfo(StatChangeSEO statChangeSEO)
+    {
+        //Debug.Log("ATTACHED BASE INFO");
+        baseInfo = statChangeSEO;
+        displaySprite = baseInfo.DisplaySprite;
+    }
+
+    public override IEnumerator OnTurnEnd()
+    {
+        //Debug.Log(baseInfo);
+
+        if(baseInfo.DecayType == StatusEffectPartType.endOfTurn)
+        {
+            Decay(baseInfo);
+        }
+
+        yield return new WaitForSeconds(0f);
+    }
 }
 
 

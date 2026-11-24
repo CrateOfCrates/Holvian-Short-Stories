@@ -1,0 +1,45 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 789ec2be49656a440b679c8bc2ec357c, type: 3}
+  m_Name: Amplify
+  m_EditorClassIdentifier: Assembly-CSharp::MoveObject
+  moveName: Amplify
+  baseTokens:
+  - display: {fileID: 658460085, guid: 438e48f8e4c7ece40bbe7b8bdff291e5, type: 3}
+    potency: 0
+    tokenType: 5
+    tokenTarget: 0
+    animationPlayedTarget: {fileID: 11400000, guid: 9294828f9488f9147b91d48635d12c16, type: 2}
+    onUseText: buffs self.
+    tokenDescription: 'Apply buff to self '
+    tokenParts:
+    - rid: 5079230807514808523
+  - display: {fileID: -7548477512082302273, guid: 438e48f8e4c7ece40bbe7b8bdff291e5, type: 3}
+    potency: 0
+    tokenType: 0
+    tokenTarget: 0
+    animationPlayedTarget: {fileID: 0}
+    onUseText: 
+    tokenDescription: 'Skip this turn. '
+    tokenParts: []
+  mpCost: 0
+  moveTarget: 0
+  moveDescription: stab but poision
+  references:
+    version: 2
+    RefIds:
+    - rid: 5079230807514808523
+      type: {class: ApplyStatChange, ns: , asm: Assembly-CSharp}
+      data:
+        triggerTime: 1
+        type: {fileID: 11400000, guid: 01a38cc7ccbcdbc43bf5577b2cdcb02a, type: 2}
+        statusPotency: 10

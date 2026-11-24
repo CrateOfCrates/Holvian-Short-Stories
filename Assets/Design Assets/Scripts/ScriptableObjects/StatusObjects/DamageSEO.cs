@@ -12,4 +12,5 @@ public class DamageSEO : StatusEffectObject
     public int BonusDamage => bonusDamage;
     public StatusEffectPartType TriggerType => triggerType;
     public AnimationObject TickAnimation => tickAnimation;
+    public override StatusEffectType GetStatusEffectType(){return StatusEffectType.damage;}
 }

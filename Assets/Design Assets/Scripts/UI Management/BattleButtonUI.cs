@@ -19,6 +19,11 @@ public class BattleButtonUI : DisplayButtonUI
 
     private void UpdateTokenImages(List<TokenData> tokenList)
     {
+        foreach (Image activeImage in images)
+        {
+            activeImage.sprite = null;
+        }
+
         for(int i = 0; i < tokenList.Count; i++)
         {
             TokenData activeToken = tokenList[i];

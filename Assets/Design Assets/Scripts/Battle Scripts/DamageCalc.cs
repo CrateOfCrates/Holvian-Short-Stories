@@ -4,10 +4,10 @@ using UnityEngine;
 
 public static class DamageCalc
 {
-    public static int CalculateDamage(EntityData user, EntityData target, TokenData token)
+    public static int CalculateDamage(EntityData user, EntityData target, int damageStat)
     {
         //calc for damage
-        double moveDamage = token.Potency * user.Attack * 0.02;
+        double moveDamage = damageStat * user.Attack * 0.02;
 
         //offensive calcs
         foreach(var (key, value) in user.StatusEffects)

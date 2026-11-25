@@ -37,5 +37,16 @@ public static class CombatStuffHelper
         }
     }
 
+    public static double RandomNumber(double low, double high, bool giveDecimals)
+    {
+        if(giveDecimals){
+            return (double)Random.Range((float)low, (float)high);
+        }
+        else
+        {
+            return (double)Random.Range((int)low, (int)high+1);
+        }
+    }
+
 
 }

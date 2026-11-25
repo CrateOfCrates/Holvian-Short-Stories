@@ -15,25 +15,28 @@ MonoBehaviour:
   moveName: Stock Bash
   baseTokens:
   - display: {fileID: -7548477512082302273, guid: 438e48f8e4c7ece40bbe7b8bdff291e5, type: 3}
-    potency: 0
-    tokenType: 0
     tokenTarget: 4
     animationPlayedTarget: {fileID: 0}
     onUseText: 
     tokenDescription: 'Skip this turn. '
     tokenParts: []
   - display: {fileID: 658460085, guid: 438e48f8e4c7ece40bbe7b8bdff291e5, type: 3}
-    potency: 10
-    tokenType: 1
     tokenTarget: 1
     animationPlayedTarget: {fileID: 11400000, guid: 1715896a9a2033d4799ec3185230f3c9, type: 2}
     onUseText: bashes the target!
     tokenDescription: 'Attack a single target for 10 BP. '
-    tokenParts: []
+    tokenParts:
+    - rid: 5079230807514808643
   mpCost: 5
   moveTarget: 1
   moveDescription: 'A common tactic taken by soldiers in desperation. Slow to act,
     but hits hard.  '
   references:
     version: 2
-    RefIds: []
+    RefIds:
+    - rid: 5079230807514808643
+      type: {class: DamageTarget, ns: , asm: Assembly-CSharp}
+      data:
+        delay: 0
+        showAnimation: 1
+        basePower: 10

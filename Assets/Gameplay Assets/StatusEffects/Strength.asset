@@ -15,7 +15,8 @@ MonoBehaviour:
   effectName: Strength
   decayRate: 1
   decayType: 1
-  decayCount: 0
+  decayCount: 1
   displaySprite: {fileID: 3033293469636659957, guid: 79e78f3cdb3b14641a94a4614981a958, type: 3}
   affectedStat: 0
-  multPerStack: 0.05
+  mult: 0.05
+  scaleWithStacks: 1

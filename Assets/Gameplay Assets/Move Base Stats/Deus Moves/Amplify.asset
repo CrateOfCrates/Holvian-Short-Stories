@@ -14,32 +14,35 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::MoveObject
   moveName: Amplify
   baseTokens:
-  - display: {fileID: 658460085, guid: 438e48f8e4c7ece40bbe7b8bdff291e5, type: 3}
-    potency: 0
-    tokenType: 5
-    tokenTarget: 0
-    animationPlayedTarget: {fileID: 11400000, guid: 9294828f9488f9147b91d48635d12c16, type: 2}
-    onUseText: buffs self.
-    tokenDescription: 'Apply buff to self '
-    tokenParts:
-    - rid: 5079230807514808523
   - display: {fileID: -7548477512082302273, guid: 438e48f8e4c7ece40bbe7b8bdff291e5, type: 3}
-    potency: 0
-    tokenType: 0
-    tokenTarget: 0
+    tokenTarget: 4
     animationPlayedTarget: {fileID: 0}
-    onUseText: 
+    onUseText: sharpens their weapon.
     tokenDescription: 'Skip this turn. '
     tokenParts: []
+  - display: {fileID: -7548477512082302273, guid: 438e48f8e4c7ece40bbe7b8bdff291e5, type: 3}
+    tokenTarget: 4
+    animationPlayedTarget: {fileID: 0}
+    onUseText: sharpens their weapon.
+    tokenDescription: 'Skip this turn. '
+    tokenParts: []
+  - display: {fileID: 300048998, guid: 438e48f8e4c7ece40bbe7b8bdff291e5, type: 3}
+    tokenTarget: 0
+    animationPlayedTarget: {fileID: 11400000, guid: 9294828f9488f9147b91d48635d12c16, type: 2}
+    onUseText: '''s weapon is brand new!'
+    tokenDescription: 'Apply 5 STRENGTH to self.  '
+    tokenParts:
+    - rid: 5079230807514808523
   mpCost: 0
   moveTarget: 0
-  moveDescription: stab but poision
+  moveDescription: 'Sharpen weapon for increased damage. '
   references:
     version: 2
     RefIds:
     - rid: 5079230807514808523
       type: {class: ApplyStatChange, ns: , asm: Assembly-CSharp}
       data:
-        triggerTime: 1
+        delay: 0
+        showAnimation: 0
         type: {fileID: 11400000, guid: 01a38cc7ccbcdbc43bf5577b2cdcb02a, type: 2}
-        statusPotency: 10
+        statusPotency: 5

@@ -23,6 +23,7 @@ MonoBehaviour:
   startingMoves:
   - {fileID: 11400000, guid: a6215d114d1f7584abb57e08de04dbbb, type: 2}
   - {fileID: 11400000, guid: 53bb594acb326ee4bbc01e9c8ff3bf34, type: 2}
+  - {fileID: 11400000, guid: 61483af7952c1ed41a7459b95e03a3d2, type: 2}
   expressions:
   - key: neutral
     value: {fileID: 2099402960564703325, guid: 4fc93f22bbf77cc458cdf9ad43583c67, type: 3}

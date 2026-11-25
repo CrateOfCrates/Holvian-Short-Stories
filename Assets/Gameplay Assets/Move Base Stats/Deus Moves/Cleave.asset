@@ -15,16 +15,13 @@ MonoBehaviour:
   moveName: Cleave
   baseTokens:
   - display: {fileID: 658460085, guid: 438e48f8e4c7ece40bbe7b8bdff291e5, type: 3}
-    potency: 40
-    tokenType: 1
     tokenTarget: 1
     animationPlayedTarget: {fileID: 11400000, guid: a130ed20fe8412346bacc4aa80e6dd13, type: 2}
     onUseText: cleaves the target!
     tokenDescription: Slash at the target for 40 BP.
-    tokenParts: []
+    tokenParts:
+    - rid: 5079230807514808644
   - display: {fileID: -7548477512082302273, guid: 438e48f8e4c7ece40bbe7b8bdff291e5, type: 3}
-    potency: 0
-    tokenType: 0
     tokenTarget: 4
     animationPlayedTarget: {fileID: 0}
     onUseText: 
@@ -35,4 +32,8 @@ MonoBehaviour:
   moveDescription: 
   references:
     version: 2
-    RefIds: []
+    RefIds:
+    - rid: 5079230807514808644
+      type: {class: DamageTarget, ns: , asm: Assembly-CSharp}
+      data:
+        basePower: 40

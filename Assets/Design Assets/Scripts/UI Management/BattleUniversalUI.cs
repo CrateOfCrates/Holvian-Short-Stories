@@ -184,18 +184,7 @@ public class BattleUniversalUI : MonoBehaviour
             moveDownButton.sprite = GetSprite("down_off");
         }
     }
-
-    public void UpdatePlayerStats(List<PlayerData> players)
-    {
-        for(int i = 0; i < players.Count; i++)
-        {
-            if(players[i].Exists)
-            {
-                players[i].UpdateDisplay();
-            }
-        }
-    }
-
+    
     private Sprite GetSprite(string name)
     {
         foreach(KeySprite ep in moveControlButtons)

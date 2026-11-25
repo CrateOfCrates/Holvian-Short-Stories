@@ -25,11 +25,15 @@ public class BattleManager : MonoBehaviour
     //Determines how much down moves is scrolled
     [SerializeField] private int scrollMoves;
 
+    private int turn;
+
     private const int numberOfMovesPerRow = 4;
 
     public void InitializeBattle()
     {
         battleState = BattleState.startBattle;
+
+        turn=0;
 
         //Clear Lists
         allEnemyData.Clear();
@@ -152,7 +156,7 @@ public class BattleManager : MonoBehaviour
             return;
         }
 
-        Debug.Log("Target is the enemy!");
+        //Debug.Log("Target is the enemy!");
 
         //mark enemy as target
         allPlayerData[selectedPlayer].GetCurrentTarget().SetTarget(index, WhichTeam.enemy);
@@ -250,7 +254,8 @@ public class BattleManager : MonoBehaviour
         //Fill with random targeting
         foreach(EnemyData ed in allEnemyData)
         {
-            ed.GetCurrentTarget().SetTarget(0, 1, WhichTeam.player);
+            if(ed.GetCurrentTarget().TokenProgress != 0){continue;}
+            ed.SetCurrentTarget(ed.GetTargetingBasedOnAi(turn, allPlayerData, allEnemyData));
         }
         BattleStateTurns(BattleState.execute);
     }
@@ -272,37 +277,23 @@ public class BattleManager : MonoBehaviour
             TokenData token = e.GetSelectedToken();
 
             EntityData target;
+
+            //Main Animation Runner
             if(e.GetCurrentTarget().TargetTeam == WhichTeam.player)
             {
                 //target is on the player team
                 target = allPlayerData[e.GetCurrentTarget().WhichTarget];
-                BattleText.Instance.AddMessage(token.GetTextDisplay(e.Name));
-                //play animation
-                if(target is PlayerData pd && token.AnimationPlayedTarget != null){
-                    IEnumerator ct = pd.Portriat.PlayAnimation(token.AnimationPlayedTarget);
-                    yield return ct;
-                }
             } else
             {
                 target = allEnemyData[e.GetCurrentTarget().WhichTarget];
-                BattleText.Instance.AddMessage(token.GetTextDisplay(e.Name));
-                //play animation
-                if(target is EnemyData ed && token.AnimationPlayedTarget != null){
-                    IEnumerator ct = ed.SingleEnemyManager.PlayAnimation(token.AnimationPlayedTarget);
-                    yield return ct;
-                }
             }
 
-            //Means a Single Attack Token
-            if(token.TokenType == TokenType.singleAttack){token.SingleAttackToken(e, target);}
-            //means it is a Buff Token
-            if(token.TokenType == TokenType.applyBuff){token.ApplyStatusToken(e, target);}
-            //means is a skip token            
-            //if(token.TokenType == TokenType.delay){}
+            BattleText.Instance.AddMessage(token.GetTextDisplay(e.Name));
 
+            yield return token.ExecuteToken(e, target, allPlayerData, allEnemyData);
 
             //update UI
-            battleUniversalUI.UpdatePlayerStats(allPlayerData);
+            foreach(PlayerData pd in allPlayerData){pd.UpdateDisplay();}
             foreach(EnemyData ed in allEnemyData){ed.UpdateDisplay();}
 
             //update the token and check for exits
@@ -325,10 +316,11 @@ public class BattleManager : MonoBehaviour
             yield return ed;
         }
         //UI UPDATES
-        battleUniversalUI.UpdatePlayerStats(allPlayerData);
+        foreach(PlayerData pd in allPlayerData){pd.UpdateDisplay();}
         foreach(EnemyData ed in allEnemyData){ed.UpdateDisplay();}
 
         Debug.Log("TURN FINISHED");
+        turn++;
 
         BattleStateTurns(BattleState.playerSelect);
     }

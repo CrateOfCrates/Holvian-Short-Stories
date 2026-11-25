@@ -8,6 +8,7 @@ using TMPro;
 using Unity.VisualScripting;
 using System.IO;
 using NUnit.Framework;
+using System.Linq;
 
 
 [Serializable]
@@ -34,6 +35,13 @@ public class Targeting
         moveUsed = -1;
         whichTarget = -1;
         targetTeam = WhichTeam.undec;
+        tokenProgress = 0;
+    }
+
+    public Targeting(int moveUsed, int whichTarget, WhichTeam targetTeam){
+        this.moveUsed = moveUsed;
+        this.whichTarget = whichTarget;
+        this.targetTeam = targetTeam;
         tokenProgress = 0;
     }
 
@@ -119,6 +127,7 @@ public class EntityData
     public Dictionary<StatusEffectObject, StatusEffectInstance> StatusEffects => statusEffects;
 
     public Targeting GetCurrentTarget(){return targets[0];}
+    public void SetCurrentTarget(Targeting n){targets[0] = n;}
     public MoveData GetCurrentMove(){return activeMoves[targets[0].MoveUsed];}
     public TokenData GetSelectedToken(){return activeMoves[targets[0].MoveUsed].ActiveTokens[targets[0].TokenProgress];}
     public int GetTokenProgress(){return targets[0].TokenProgress;}
@@ -180,12 +189,25 @@ public class EntityData
 
     public IEnumerator OnTurnEndTick()
     {
+        List<StatusEffectObject> markForDestroy = new List<StatusEffectObject>();
+
         foreach(var (key, value) in statusEffects)
         {
             //Debug.Log("STATUS EFFECT: " + value);
+            if(value.Count == 0)
+            {
+                markForDestroy.Add(key);
+                continue;
+            }
             IEnumerator valueanim = value.OnTurnEnd();
             yield return valueanim;
         }
+
+        foreach(StatusEffectObject seo in markForDestroy)
+        {
+            statusEffects.Remove(seo);
+        }
+        
         yield return new WaitForSeconds(0f);
     }
 
@@ -289,6 +311,12 @@ public class EnemyData : EntityData
     [SerializeField] private EnemyObject baseInfo;
     [SerializeField] private SingleEnemyManager singleEnemyManager;
 
+    private const int numberOfPlayers = 4;
+    private const int veryLowValue = -9999999;
+    private const int randomScoreSpread = 10;
+
+    private Dictionary<int, int> grudgeDict = new Dictionary<int, int>();
+
     public EnemyObject BaseInfo => baseInfo;
     public SingleEnemyManager SingleEnemyManager => singleEnemyManager;
 
@@ -300,6 +328,11 @@ public class EnemyData : EntityData
 
         targets.Clear();
         targets.Add(new Targeting());
+
+        for (int i = 0; i < numberOfPlayers; i++)
+        {
+            grudgeDict[i] = 0;
+        }
         //Debug.Log($"[LOAD_STATS] Player Object ID: {System.Runtime.CompilerServices.RuntimeHelpers.GetHashCode(this)} | Targets Count: {targets.Count}");
     }
     public override WhichTeam GetTeam(){return WhichTeam.enemy;}
@@ -308,6 +341,42 @@ public class EnemyData : EntityData
     public override void UpdateDisplay()
     {
         singleEnemyManager.BattleEnemyUI.SetupDisplay(this);
+    }
+
+    public Targeting GetTargetingBasedOnAi(int turn, List<PlayerData> pds, List<EnemyData> eds)
+    {
+        //generate the list of possible options
+        List<EnemyAiTargeting> possibleTargetsMove = new List<EnemyAiTargeting>();
+        foreach (aiChoice ac in baseInfo.AiChoices)
+        {
+            //possibleTargetsMove.Add(ac.Execute(turn, this));
+            List<EnemyAiTargeting> temp = ac.Execute(turn, this, pds, eds, grudgeDict);
+            if(temp != null)
+            {
+                possibleTargetsMove = possibleTargetsMove.Concat(temp).ToList();
+            }
+        }
+
+        foreach(EnemyAiTargeting eat in possibleTargetsMove)
+        {
+            eat.score += (int)CombatStuffHelper.RandomNumber(randomScoreSpread*-1, randomScoreSpread, false);
+        }
+
+        //get the highest one
+        int maxScore = veryLowValue;
+        EnemyAiTargeting bestChoice = new EnemyAiTargeting();
+
+        foreach (EnemyAiTargeting eat in possibleTargetsMove)
+        {
+            if(eat.score > maxScore && eat.allowed)
+            {
+                maxScore = eat.score;
+                bestChoice = eat;
+            }
+        }
+
+        Debug.Log($"The MAX SCORE IS {maxScore}");
+        return bestChoice.targeting;
     }
 }
 
@@ -346,41 +415,26 @@ public class MoveData
 public class TokenData
 {
     [SerializeField] private TokenObject baseInfo;
-    [SerializeField] private int potency;
 
     public TokenData(TokenObject baseInfo)
     {
         this.baseInfo = baseInfo;
-        this.potency = baseInfo.Potency;
     }
 
     public TokenObject BaseInfo => baseInfo;
-    public int Potency => potency;
     public AnimationObject AnimationPlayedTarget => baseInfo.AnimationPlayedTarget;
     public string TokenDescription => baseInfo.TokenDescription;
-    public TokenType TokenType => baseInfo.TokenType;
 
     public string GetTextDisplay(string name) => baseInfo.GetTextDisplay(name);
 
-    public void SingleAttackToken(EntityData user, EntityData target)
-    {
-        target.TakeDamage(DamageCalc.CalculateDamage(user, target, this));
-        AdressAfterModifiers(user, target);
-    }
-
-    public void ApplyStatusToken(EntityData user, EntityData target)
-    {
-        AdressAfterModifiers(user, target);
-    }
-
-    private void AdressAfterModifiers(EntityData user, EntityData target)
+    public IEnumerator ExecuteToken(EntityData user, EntityData target, List<PlayerData> pd, List<EnemyData> ed)
     {
         foreach(TokenParts tp in baseInfo.TokenParts){
 
-            if(tp.TriggerTime != TriggerTime.after){ continue;}
-
-            tp.Execute(target);
+            yield return tp.Execute(user, target, pd, ed);
         }
+
+        yield return new WaitForSeconds(0.0f);
     }
 
 //     public void ExecuteToken(EntityData user, WhichTeam wt)
@@ -478,13 +532,10 @@ public class DamageSEI : StatusEffectInstance
 
     public override IEnumerator OnTurnEnd()
     {
-        Debug.Log("OVERRIDE VERSIOM");
-
-        //Debug.Log(baseInfo);
 
         if(baseInfo.TriggerType == StatusEffectPartType.endOfTurn)
         {
-            Debug.Log("DEAL DAMAGE FROM EFFECT. TARGET BEING: " + appliedTo.Name + "FOR " + (int)Math.Floor(baseInfo.DamagePerStack * count));
+            //Debug.Log("DEAL DAMAGE FROM EFFECT. TARGET BEING: " + appliedTo.Name + " FOR " + (int)Math.Floor(baseInfo.DamagePerStack * count));
             IEnumerator anim = playAnim(appliedTo, baseInfo.TickAnimation);
             yield return anim;
             int damage = (int)Math.Floor(baseInfo.DamagePerStack * count);

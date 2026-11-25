@@ -876,8 +876,6 @@ MonoBehaviour:
   - {fileID: 4114014739808590159}
   - {fileID: 5733675740187705924}
   - {fileID: 408808272436018769}
-  - {fileID: 0}
-  - {fileID: 0}
   selectionIndicate: {fileID: 7400815010270037909}
   tokenIndicateTransform: {fileID: 8734322909494425763}
   tokenIndicateImage: {fileID: 21226244315477026}

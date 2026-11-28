@@ -261,8 +261,8 @@ MonoBehaviour:
   b: 01010101
   pbs:
   - {fileID: 11400000, guid: dbbc0d2a27ee3b64d8918393a762014e, type: 2}
-  - {fileID: 11400000, guid: e352444f2010c414381e3659fac92829, type: 2}
   - {fileID: 11400000, guid: 2af28eac237c28040af149e37a5c59f8, type: 2}
+  - {fileID: 11400000, guid: e352444f2010c414381e3659fac92829, type: 2}
   - {fileID: 11400000, guid: 534151a16f7acaf4780a22cf9cbaa820, type: 2}
 --- !u!4 &1496300126
 Transform:

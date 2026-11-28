@@ -43,6 +43,6 @@ MonoBehaviour:
       type: {class: ApplyStatChange, ns: , asm: Assembly-CSharp}
       data:
         delay: 0
-        showAnimation: 0
+        showAnimation: 1
         type: {fileID: 11400000, guid: 01a38cc7ccbcdbc43bf5577b2cdcb02a, type: 2}
         statusPotency: 5

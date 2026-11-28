@@ -84,7 +84,14 @@ public class DamageTarget : TokenParts
 
     public override IEnumerator Execute(EntityData user, EntityData target, List<PlayerData> pd, List<EnemyData> ed)
     {
-        target.TakeDamage(DamageCalc.CalculateDamage(user, target, basePower));
+        int damage = DamageCalc.CalculateDamage(user, target, basePower);
+        target.TakeDamage(damage);
+        //modify grudge if it is an enemy
+        if(target is EnemyData edata && user is PlayerData pdata)
+        {
+            edata.ChangeGrudge(pdata.MyIndex, damage);
+        }
+
         yield return Animate(user, target, pd, ed);
     }
 }

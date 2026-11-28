@@ -49,16 +49,13 @@ public class BattlePortGenericUI : MonoBehaviour
             
             if (statusEffectDisplays.ContainsKey(kvp.Key))
             {
-                //Debug.Log("ooohh im so big and round");
                 statusEffectDisplays[kvp.Key].UpdateDisplay(kvp.Value.DisplaySprite, kvp.Value.Count);
                 if(kvp.Value.Count == 0)
                 {
                     toBeRemoved.Add(kvp.Key);
                 }
             } else
-            {
-                //no key present
-                
+            {   
                 //dont add a new one if the count is ZERO
                 if(kvp.Value.Count == 0) {continue;}
 

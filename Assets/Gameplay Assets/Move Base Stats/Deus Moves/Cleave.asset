@@ -29,11 +29,13 @@ MonoBehaviour:
     tokenParts: []
   mpCost: 5
   moveTarget: 1
-  moveDescription: 
+  moveDescription: Hack away!
   references:
     version: 2
     RefIds:
     - rid: 5079230807514808644
       type: {class: DamageTarget, ns: , asm: Assembly-CSharp}
       data:
+        delay: 0
+        showAnimation: 1
         basePower: 40

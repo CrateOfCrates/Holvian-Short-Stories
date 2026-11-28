@@ -60,7 +60,7 @@ public class BattleManager : MonoBehaviour
 
             //load data into EnemyObject
             allEnemyData.Add(new());
-            allEnemyData[i].LoadData(enemyEncounter.GetEnemyObject(i), temp);
+            allEnemyData[i].LoadData(enemyEncounter.GetEnemyObject(i), temp, i);
 
             //Load Enemy General Sprite
             allEnemyData[i].SingleEnemyManager.SetupLoad(allEnemyData[i], this, i);

@@ -24,5 +24,5 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 1766e6776dc5db34aa735c864da60c23, type: 2}
   expressions:
   - key: neutral
-    value: {fileID: -1189447902323030418, guid: 077c6ca6b69ae9543a5ec6b4a77396e5, type: 3}
+    sprite: {fileID: -1189447902323030418, guid: 077c6ca6b69ae9543a5ec6b4a77396e5, type: 3}
   characterBackground: {fileID: 1936359732640381832, guid: 4bf90c653b0d27446b21f4a8b32fa3bc, type: 3}

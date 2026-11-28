@@ -46,6 +46,6 @@ public class DataManager : MonoBehaviour
     public void LoadPlayerFromBase(int index, PlayerObject pb)
     {
         allPlayerData[index] ??= new PlayerData(); 
-        allPlayerData[index].LoadData(pb);
+        allPlayerData[index].LoadData(pb, index);
     }
 }

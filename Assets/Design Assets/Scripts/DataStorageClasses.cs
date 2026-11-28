@@ -9,6 +9,7 @@ using Unity.VisualScripting;
 using System.IO;
 using NUnit.Framework;
 using System.Linq;
+using Unity.VisualScripting.Dependencies.NCalc;
 
 
 [Serializable]
@@ -107,6 +108,7 @@ public class EntityData
     [SerializeField] protected List<Targeting> targets = new List<Targeting>();
 
     protected Dictionary<StatusEffectObject, StatusEffectInstance> statusEffects = new Dictionary<StatusEffectObject, StatusEffectInstance>();
+    protected int myIndex;
     
     public string Name => name;
 
@@ -125,6 +127,7 @@ public class EntityData
     public List<Targeting> Targets => targets;
 
     public Dictionary<StatusEffectObject, StatusEffectInstance> StatusEffects => statusEffects;
+    public int MyIndex => myIndex;
 
     public Targeting GetCurrentTarget(){return targets[0];}
     public void SetCurrentTarget(Targeting n){targets[0] = n;}
@@ -207,7 +210,7 @@ public class EntityData
         {
             statusEffects.Remove(seo);
         }
-        
+
         yield return new WaitForSeconds(0f);
     }
 
@@ -241,9 +244,10 @@ public class EntityData
 
     public virtual WhichTeam GetTeam(){return WhichTeam.undec;}
     public virtual void UpdateDisplay(){return;}
+    public void TakeDamage(int d){RemoveHP(d);}
     //public virtual string GetName(){return name;}
 
-    public void TakeDamage(int damage)
+    public void RemoveHP(int damage)
     {
         hp = hp - damage;
         //Debug.Log("Take Dagage. Hp:" + hp);
@@ -269,10 +273,11 @@ public class PlayerData : EntityData
 
     public void SetExists(bool b){exists = b;}
 
-    public void LoadData(PlayerObject playerObject)
+    public void LoadData(PlayerObject playerObject, int index)
     {
         LoadStats(playerObject);
         baseInfo = playerObject;
+        myIndex = index;
     }
 
     public void SetPortriat(BattlePortriatUI bp)
@@ -320,11 +325,12 @@ public class EnemyData : EntityData
     public EnemyObject BaseInfo => baseInfo;
     public SingleEnemyManager SingleEnemyManager => singleEnemyManager;
 
-    public void LoadData(EnemyObject enemyObject, SingleEnemyManager singleEnemyManager)
+    public void LoadData(EnemyObject enemyObject, SingleEnemyManager singleEnemyManager, int index)
     {
         LoadStats(enemyObject);
         baseInfo = enemyObject;
         this.singleEnemyManager = singleEnemyManager;
+        myIndex = index;
 
         targets.Clear();
         targets.Add(new Targeting());
@@ -377,6 +383,11 @@ public class EnemyData : EntityData
 
         Debug.Log($"The MAX SCORE IS {maxScore}");
         return bestChoice.targeting;
+    }
+
+    public void ChangeGrudge(int index, int change)
+    {
+        grudgeDict[index] += change;
     }
 }
 
@@ -437,20 +448,6 @@ public class TokenData
         yield return new WaitForSeconds(0.0f);
     }
 
-//     public void ExecuteToken(EntityData user, WhichTeam wt)
-//     {
-//         //means there is no target
-//         switch (baseInfo.TokenType)
-//         {
-//             case TokenType.singleAttack:
-//                 //activate damagecalc and apply to target
-//                 target.TakeDamage(DamageCalc.CalculateDamage(user, target, this));
-//                 break;
-            
-//             case TokenType.delay:
-//                 break;
-//         }
-//     }
 }
 
 [System.Serializable]
@@ -540,7 +537,7 @@ public class DamageSEI : StatusEffectInstance
             yield return anim;
             int damage = (int)Math.Floor(baseInfo.DamagePerStack * count);
             
-            appliedTo.TakeDamage(damage);
+            appliedTo.RemoveHP(damage);
 
         }
 

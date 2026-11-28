@@ -23,5 +23,5 @@ MonoBehaviour:
   startingMoves: []
   expressions:
   - key: neutral
-    value: {fileID: 7684940987576087075, guid: a5fc67ba9ba8d094aaca3b7b2448bb2e, type: 3}
+    sprite: {fileID: 7684940987576087075, guid: a5fc67ba9ba8d094aaca3b7b2448bb2e, type: 3}
   characterBackground: {fileID: -1791885932, guid: 4bf90c653b0d27446b21f4a8b32fa3bc, type: 3}

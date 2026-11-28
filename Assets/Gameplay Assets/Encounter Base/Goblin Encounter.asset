@@ -18,9 +18,4 @@ MonoBehaviour:
     xLocationUI: -3
     yLocationUI: 1.5
     enemyObject: {fileID: 11400000, guid: ad4867c55691adb449c3a2123256b699, type: 2}
-  - xLocation: 3
-    yLocation: 0
-    xLocationUI: 3
-    yLocationUI: 1.5
-    enemyObject: {fileID: 11400000, guid: ad4867c55691adb449c3a2123256b699, type: 2}
   backgroundForEncounter: {fileID: 5049425737844187928, guid: 67ade7431331a3d4782bb6eee2d54bf9, type: 3}

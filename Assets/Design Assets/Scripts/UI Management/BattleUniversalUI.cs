@@ -35,10 +35,6 @@ public class BattleUniversalUI : MonoBehaviour
         }
 
         battleBackground.sprite = bg;
-
-        // loadMoves(0, players[0]);
-        // portriatUI[0].ChangeStatus("selected");
-        // StatusButton(0, players[0].ActiveMoves.Count);
     }
 
     //moveScroll dictates how much down the moves are scrolled
@@ -68,7 +64,6 @@ public class BattleUniversalUI : MonoBehaviour
         loadMoves(moveScroll, pd);
 
         Targeting targeting = pd.GetCurrentTarget();
-        //Set all borders to neutral
         foreach(BattleButtonUI battleButtonUI in moveUI){battleButtonUI.ChangeStatusToBase();}
 
         //Conditions where the Specialized Border won't be shown

@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Goblin
   m_EditorClassIdentifier: Assembly-CSharp::EnemyObject
   entityName: goblin
-  baseMaxhp: 100
+  baseMaxhp: 200
   baseMaxmp: 100
   baseSpeed: 7
   baseAttack: 10
@@ -22,7 +22,33 @@ MonoBehaviour:
   startingLevel: 0
   startingMoves:
   - {fileID: 11400000, guid: b7b1ed72b27d6eb4b98567afc2b1b286, type: 2}
+  - {fileID: 11400000, guid: e39f7edd42147054baed9a89acade2b6, type: 2}
+  - {fileID: 11400000, guid: a6215d114d1f7584abb57e08de04dbbb, type: 2}
   expressions:
   - key: neutral
-    value: {fileID: 7881166437498641139, guid: a3b2093b7a2ee3e45bbbc7e159520a38, type: 3}
+    sprite: {fileID: 7881166437498641139, guid: a3b2093b7a2ee3e45bbbc7e159520a38, type: 3}
   actionCount: 1
+  aiChoices:
+  - rid: 5079230807514808918
+  - rid: 5079230807514808919
+  - rid: 5079230807514808920
+  references:
+    version: 2
+    RefIds:
+    - rid: 5079230807514808918
+      type: {class: HpBasedActivation, ns: , asm: Assembly-CSharp}
+      data:
+        bonusScore: 100
+        moveIndex: 0
+        hpPrecent: 0.5
+    - rid: 5079230807514808919
+      type: {class: TurnBasedActivation, ns: , asm: Assembly-CSharp}
+      data:
+        bonusScore: 30
+        moveIndex: 1
+        turnInterval: 3
+    - rid: 5079230807514808920
+      type: {class: aiChoice, ns: , asm: Assembly-CSharp}
+      data:
+        bonusScore: 0
+        moveIndex: 2
